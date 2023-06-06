@@ -61,7 +61,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 		newuser.setPassword(bcryptEncoder.encode(requestUser.getPassword()));
 
 		Role roles1 = roleRepository.findByName("ROLE_USER").get();
-		newuser.setRoles(List.of(roles1));
+		newuser.setRoles(Arrays.asList(roles1));
 
 		userRepository.save(newuser);
 		logger.info("User registered successfully");
