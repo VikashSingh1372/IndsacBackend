@@ -7,6 +7,7 @@ import com.unicorn.indsaccrm.oauth.jwt.JwtRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -59,46 +60,48 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public AuthenticationManager authenticationManagerBean() throws Exception {
 		return super.authenticationManagerBean();
 	}
-	
-    @Override
-    protected void configure(HttpSecurity httpSecurity) throws Exception {
+
+	@Override
+	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity
 				.csrf().disable()
 				// dont authenticate this particular request
 				.authorizeRequests()
 				.antMatchers("/authenticate", "/register","/enquiry","/subscribe").permitAll().
+				antMatchers(HttpMethod.POST,"/role/all").permitAll().
 				/*  .authorizeRequests()
             	.antMatchers("/resources/**", "/webjars/**","/assets/**").permitAll()
                 .antMatchers("/").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN") */
-                anyRequest().authenticated()
-                .and()
-           /* .formLogin()
-                .loginPage("/login")
-                .defaultSuccessUrl("/home")
-                .failureUrl("/login?error")
-                .permitAll()
-                .and()*/
-            .logout()
-            	.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-            	.logoutSuccessUrl("/login?logout")
-            	.deleteCookies("my-remember-me-cookie")
-                .permitAll()
-                .and()
-             .rememberMe()
-             	//.key("my-secure-key")
-             	.rememberMeCookieName("my-remember-me-cookie")
-             	.tokenRepository(persistentTokenRepository())
-             	.tokenValiditySeconds(24 * 60 * 60)
-             	.and().
-		// make sure we use stateless session; session won't be used to
-		// store user's state.
-		exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
+						anyRequest().authenticated()
+				.and()
+				/* .formLogin()
+                     .loginPage("/login")
+                     .defaultSuccessUrl("/home")
+                     .failureUrl("/login?error")
+                     .permitAll()
+                     .and()*/
+				.logout()
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+				.logoutSuccessUrl("/login?logout")
+				.deleteCookies("my-remember-me-cookie")
+				.permitAll()
+				.and()
+				.rememberMe()
+				//.key("my-secure-key")
+				.rememberMeCookieName("my-remember-me-cookie")
+				.tokenRepository(persistentTokenRepository())
+				.tokenValiditySeconds(24 * 60 * 60)
+				.and().
+				// make sure we use stateless session; session won't be used to
+				// store user's state.
+						exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
 		// Add a filter to validate the tokens with every request
 		httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-    }
+		httpSecurity.cors();
+	}
     
     PersistentTokenRepository persistentTokenRepository(){
     	JdbcTokenRepositoryImpl tokenRepositoryImpl = new JdbcTokenRepositoryImpl();
