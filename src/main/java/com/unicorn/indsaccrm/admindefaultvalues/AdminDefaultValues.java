@@ -1,10 +1,7 @@
 package com.unicorn.indsaccrm.admindefaultvalues;
 
 import com.unicorn.indsaccrm.config.Auditable;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -16,6 +13,8 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Getter
+@Setter
 @Entity
 @Table(name="admindefaultvalues")
 public class AdminDefaultValues extends Auditable<String> {
@@ -31,57 +30,48 @@ public class AdminDefaultValues extends Auditable<String> {
     @Column(nullable=false, unique = true)
     private String useradminid;
 
-    @Column(nullable=false)
-    @NotEmpty(message="{errors.usercid_required}")
+    @Column
     private String usercid;
 
-    @Column(nullable=false)
-    @NotEmpty(message="{errors.invoiceformat_required}")
+    @Column
     private String invoiceformat;
 
-    @Column(nullable=false)
-    @NotEmpty(message="{errors.invoicelogofile_required}")
+    @Column
     private String invoicelogofile;
 
-    @Column(nullable=false)
-    @NotEmpty(message="{errors.businesslogofile_required}")
+    @Column
     private String businesslogofile;
 
-    @Column(nullable=false)
-    @NotEmpty(message="{errors.currency_required}")
+    @Column
     private String currency;
 
-    @Column(nullable=false)
-    @NotEmpty(message="{errors.servicecharge_required}")
+    @Column
     private String servicecharge;
 
     @Column
     private String discount;
-    @Column(nullable=false)
-    @NotEmpty(message="{errors.frieghtcharge_required}")
+    @Column
     private String frieghtcharge;
 
-    @Column(nullable=false)
+    @Column
     private String esi_sellername;
 
-    @Column(nullable=false)
+    @Column
     private String esi_contactfirstname;
 
-    @Column(nullable=false)
-    @NotEmpty(message="{errors.esi_contactlastname_required}")
+    @Column
     private String esi_contactlastname;
 
-    @Column(nullable=false)
-    @NotEmpty(message="{errors.subcategory_required}")
+    @Column
     private String subcategory;
 
     @Column
     private String esi_gst;
 
-    @Column(nullable=false)
+    @Column
     private String esi_website;
 
-    @Column(nullable=false, unique = true)
+    @Column
     private String esi_mobile;
 
 
@@ -136,28 +126,28 @@ public class AdminDefaultValues extends Auditable<String> {
     @Column(nullable=false)
     private String n_line3;
 
-    @Column(nullable=false)
+    @Column
     private String n_line4;
 
-    @Column(nullable=false)
+    @Column
     private String gst;
 
-    @Column(nullable=false)
+    @Column
     private String notes;
 
-    @Column(nullable=false)
+    @Column
     private String default123;
 
-    @Column(nullable=false)
+    @Column
     private String bankname;
 
-    @Column(nullable=false)
+    @Column
     private String bankacno;
 
-    @Column(nullable=false)
+    @Column
     private String bankadd;
 
-    @Column(nullable=false)
+    @Column
     private String bankifsc;
 
 
