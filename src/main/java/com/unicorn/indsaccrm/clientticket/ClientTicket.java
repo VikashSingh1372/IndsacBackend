@@ -27,6 +27,11 @@ public class ClientTicket extends Auditable<String> {
     )
     private UUID id;
 
+
+    @Column
+    @Type(type="org.hibernate.type.UUIDCharType")
+    private UUID useradminid;
+
     @Column
     private String readstatus;
 
@@ -44,9 +49,6 @@ public class ClientTicket extends Auditable<String> {
 
     @Column
     private String asignedto;
-
-    @Column
-    private String useradminid;
 
     @Column
     private String usercid;
