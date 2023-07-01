@@ -27,8 +27,9 @@ public class AdminDefaultValues extends Auditable<String> {
     )
     private UUID id;
 
-    @Column(nullable=false, unique = true)
-    private String useradminid;
+    @Column
+    @Type(type="org.hibernate.type.UUIDCharType")
+    private UUID useradminid;
 
     @Column
     private String usercid;
@@ -78,10 +79,10 @@ public class AdminDefaultValues extends Auditable<String> {
     @Column
     private String esi_alternatephone;
 
-    @Column(nullable=false)
+    @Column
     private String esi_email;
 
-    @Column(nullable=false)
+    @Column
     private String esi_address1;
 
     @Column
@@ -90,40 +91,40 @@ public class AdminDefaultValues extends Auditable<String> {
     @Column
     private String esi_address3;
 
-    @Column(nullable=false)
+    @Column
     private String esi_city;
 
-    @Column(nullable=false)
+    @Column
     private String esi_pincode;
 
-    @Column(nullable=false)
+    @Column
     private String esi_state;
 
-    @Column(nullable=false)
+    @Column
     private String esi_country;
 
-    @Column(nullable=false)
+    @Column
     private String etc_line1;
 
-    @Column(nullable=false)
+    @Column
     private String etc_line2;
 
-    @Column(nullable=false)
+    @Column
     private String etc_line3;
 
-    @Column(nullable=false)
+    @Column
     private String etc_line4;
 
-    @Column(nullable=false)
+    @Column
     private String n_heading;
 
-    @Column(nullable=false)
+    @Column
     private String n_line1;
 
-    @Column(nullable=false)
+    @Column
     private String n_line2;
 
-    @Column(nullable=false)
+    @Column
     private String n_line3;
 
     @Column
