@@ -1,4 +1,4 @@
-package com.unicorn.indsaccrm.clientticket;
+package com.unicorn.indsaccrm.clientticketresponse;
 
 import com.unicorn.indsaccrm.config.Auditable;
 import lombok.*;
@@ -15,8 +15,8 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Table(name="clientticket")
-public class ClientTicket extends Auditable<String> {
+@Table(name="clientticketresponse")
+public class ClientTicketResponse extends Auditable<String> {
 
     @Id
     @GeneratedValue
@@ -32,7 +32,7 @@ public class ClientTicket extends Auditable<String> {
     private UUID useradminid;
 
     @Column
-    private String readstatus;
+    private String clientticketno;
 
     @Column
     private String subject;
@@ -51,6 +51,7 @@ public class ClientTicket extends Auditable<String> {
 
     @Column
     private String usercid;
+
     @Column
     private String customerid;
 
@@ -65,19 +66,18 @@ public class ClientTicket extends Auditable<String> {
 
     @Column
     private String remark;
-
     @Column
     private String assign;
-    @Column
-    private String clientreadstatus;
 
     @Column
-    private String adminreadstatus;
+    private String city;
+
+    @Column
+    private String pincode;
 
     @Column
     private String state;
 
     @Column
     private String country;
-
 }

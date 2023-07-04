@@ -26,6 +26,6 @@ public class ClientTicketController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getByClentTcketId(@PathVariable UUID id) throws Exception {
-        return ResponseEntity.ok(clientTicketService.getByAdminDefaultValuesId(id));
+        return ResponseEntity.ok(clientTicketService.getByClientTicketId(id));
     }
 }

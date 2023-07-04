@@ -30,7 +30,7 @@ public class ClientTicketServiceImpl implements ClientTicketService{
     }
 
     @Override
-    public ResponseEntity<Optional<ClientTicket>> getByAdminDefaultValuesId(UUID id) {
+    public ResponseEntity<Optional<ClientTicket>> getByClientTicketId(UUID id) {
         logger.info("Get ClientTicket Successfully");
         return   ResponseEntity.ok(clientTicketRepository.findById(id));
     }

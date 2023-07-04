@@ -11,5 +11,5 @@ public interface ClientTicketService {
 
     ResponseEntity<List<ClientTicket>> getAllClientTickets();
 
-    ResponseEntity<Optional<ClientTicket>> getByAdminDefaultValuesId(UUID id);
+    ResponseEntity<Optional<ClientTicket>> getByClientTicketId(UUID id);
 }
