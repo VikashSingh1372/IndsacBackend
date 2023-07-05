@@ -27,4 +27,14 @@ public class ClientTicketResponseController {
     public ResponseEntity<?> getByClientTicketResponseId(@PathVariable UUID id) throws Exception {
         return ResponseEntity.ok(clientTicketResponseService.getByClientTicketResponseId(id));
     }
+
+    @GetMapping("/entercustomerid/{id}")
+    public ResponseEntity<?> getClientTicketResponseByCustomerId(@PathVariable String id) throws Exception {
+        return ResponseEntity.ok(clientTicketResponseService.getClientTicketResponsesByCustomerId(id));
+    }
+
+    @GetMapping("/enterusercid/{id}")
+    public ResponseEntity<?> getClientTicketResponseByUsercId(@PathVariable String id) throws Exception {
+        return ResponseEntity.ok(clientTicketResponseService.getClientTicketResponsesByUsercid(id));
+    }
 }

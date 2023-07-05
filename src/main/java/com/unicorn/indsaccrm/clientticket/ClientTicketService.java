@@ -1,5 +1,4 @@
 package com.unicorn.indsaccrm.clientticket;
-import com.unicorn.indsaccrm.admindefaultvalues.AdminDefaultValues;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -12,4 +11,8 @@ public interface ClientTicketService {
     ResponseEntity<List<ClientTicket>> getAllClientTickets();
 
     ResponseEntity<Optional<ClientTicket>> getByClientTicketId(UUID id);
+
+    ResponseEntity<List<ClientTicket>> getClientTicketsByCustomerid(String customerid);
+
+    ResponseEntity<List<ClientTicket>> getClientTicketByUsercid(String usercid);
 }

@@ -20,18 +20,31 @@ public class ClientTicketServiceImpl implements ClientTicketService{
     @Override
     public ResponseEntity<?> saveClientTicket(ClientTicket request) {
         logger.info("ClientTicket Saved Successfully");
-        return  new ResponseEntity<>(clientTicketRepository.save(request), HttpStatus.OK);
+        return new ResponseEntity<>(clientTicketRepository.save(request), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<ClientTicket>> getAllClientTickets() {
         logger.info("Get ALL ClientTickets Successfully");
-        return  ResponseEntity.ok(clientTicketRepository.findAll());
+        return ResponseEntity.ok(clientTicketRepository.findAll());
     }
 
     @Override
     public ResponseEntity<Optional<ClientTicket>> getByClientTicketId(UUID id) {
         logger.info("Get ClientTicket Successfully");
-        return   ResponseEntity.ok(clientTicketRepository.findById(id));
+        return ResponseEntity.ok(clientTicketRepository.findById(id));
     }
+
+    @Override
+    public ResponseEntity<List<ClientTicket>> getClientTicketsByCustomerid(String customerid) {
+        logger.info("Get ClientTickets from getClientTicketsByCustomerid function Successfully");
+        return ResponseEntity.ok(clientTicketRepository.findByCustomerid(customerid));
+    }
+
+    @Override
+    public ResponseEntity<List<ClientTicket>> getClientTicketByUsercid(String usercid) {
+        logger.info("Get ClientTickets from getClientTicketByUsercid function Successfully");
+        return ResponseEntity.ok(clientTicketRepository.findByUsercid(usercid));
+    }
+
 }

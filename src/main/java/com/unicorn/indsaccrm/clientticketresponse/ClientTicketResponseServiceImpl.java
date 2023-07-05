@@ -35,4 +35,16 @@ public class ClientTicketResponseServiceImpl implements ClientTicketResponseServ
         logger.info("Get ClientTicketResponse Successfully");
         return  ResponseEntity.ok(clientTicketResponseRepository.findById(id));
     }
+
+    @Override
+    public ResponseEntity<List<ClientTicketResponse>> getClientTicketResponsesByCustomerId(String customerId) {
+        logger.info("Get ClientTicketResponses By CustomerId Successfully");
+        return ResponseEntity.ok(clientTicketResponseRepository.findByCustomerid(customerId));
+    }
+
+    @Override
+    public ResponseEntity<List<ClientTicketResponse>> getClientTicketResponsesByUsercid(String usercid) {
+        logger.info("Get ClientTicketResponses By usercid Successfully");
+        return ResponseEntity.ok(clientTicketResponseRepository.findByUsercid(usercid));
+    }
 }

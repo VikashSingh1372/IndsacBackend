@@ -11,4 +11,8 @@ public interface ClientTicketResponseService {
     ResponseEntity<List<ClientTicketResponse>> getAllClientTicketResponses();
 
     ResponseEntity<Optional<ClientTicketResponse>> getByClientTicketResponseId(UUID id);
+
+    ResponseEntity<List<ClientTicketResponse>> getClientTicketResponsesByCustomerId(String customerId);
+
+    ResponseEntity<List<ClientTicketResponse>> getClientTicketResponsesByUsercid(String usercid);
 }

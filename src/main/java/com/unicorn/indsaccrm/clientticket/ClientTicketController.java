@@ -12,8 +12,6 @@ public class ClientTicketController {
     @Autowired
     ClientTicketService clientTicketService;
 
-
-
     @PostMapping
     public ResponseEntity<?> ClientTicket(@RequestBody ClientTicket values) throws Exception {
         return ResponseEntity.ok(clientTicketService.saveClientTicket(values));
@@ -25,7 +23,17 @@ public class ClientTicketController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getByClentTcketId(@PathVariable UUID id) throws Exception {
+    public ResponseEntity<?> getClientTicketByClentTcketId(@PathVariable UUID id) throws Exception {
         return ResponseEntity.ok(clientTicketService.getByClientTicketId(id));
+    }
+
+    @GetMapping("/entercustomerid/{id}")
+    public ResponseEntity<?> getClientTicketByCustomerId(@PathVariable String id) throws Exception {
+        return ResponseEntity.ok(clientTicketService.getClientTicketsByCustomerid(id));
+    }
+
+    @GetMapping("/enterusercid/{id}")
+    public ResponseEntity<?> getClientTicketByUsercid(@PathVariable String id) throws Exception {
+        return ResponseEntity.ok(clientTicketService.getClientTicketByUsercid(id));
     }
 }
