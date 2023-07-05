@@ -23,7 +23,7 @@ public class ClientTicketController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getClientTicketByClentTcketId(@PathVariable UUID id) throws Exception {
+    public ResponseEntity<?> getClientTicketById(@PathVariable UUID id) throws Exception {
         return ResponseEntity.ok(clientTicketService.getByClientTicketId(id));
     }
 
