@@ -7,8 +7,11 @@ import java.util.List;
 import java.util.UUID;
 
 public interface ClientTicketRepository extends JpaRepository<ClientTicket,UUID> {
-    List<ClientTicket> findByCustomerid(String customerid);
-    List<ClientTicket> findByUsercid(String usercid);
+    List<ClientTicket> findByCustomerid(UUID customerid);
+    List<ClientTicket> findByUsercid(UUID usercid);
+
+    List<ClientTicket> findByUseradminid(UUID useradminid);
+
 
 
 }

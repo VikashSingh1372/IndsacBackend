@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.UUID;
 
 public interface AdminDefaultValuesRepository extends JpaRepository<AdminDefaultValues,UUID> {
-    List<AdminDefaultValues> findByUsercid(String usercid);
+    List<AdminDefaultValues> findByUsercid(UUID usercid);
+
+    List<AdminDefaultValues> findByUseradminid(UUID useradminid);
 
 }

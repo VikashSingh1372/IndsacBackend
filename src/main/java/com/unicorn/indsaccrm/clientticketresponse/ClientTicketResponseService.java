@@ -12,7 +12,9 @@ public interface ClientTicketResponseService {
 
     ResponseEntity<Optional<ClientTicketResponse>> getByClientTicketResponseId(UUID id);
 
-    ResponseEntity<List<ClientTicketResponse>> getClientTicketResponsesByCustomerId(String customerId);
+    ResponseEntity<List<ClientTicketResponse>> getClientTicketResponsesByCustomerId(UUID customerId);
 
-    ResponseEntity<List<ClientTicketResponse>> getClientTicketResponsesByUsercid(String usercid);
+    ResponseEntity<List<ClientTicketResponse>> getClientTicketResponsesByUsercid(UUID usercid);
+
+    ResponseEntity<List<ClientTicketResponse>> getClientTicketResponseByUseradminid(UUID useradminid);
 }

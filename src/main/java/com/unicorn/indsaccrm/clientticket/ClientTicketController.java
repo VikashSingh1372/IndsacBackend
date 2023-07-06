@@ -28,12 +28,17 @@ public class ClientTicketController {
     }
 
     @GetMapping("/entercustomerid/{id}")
-    public ResponseEntity<?> getClientTicketByCustomerId(@PathVariable String id) throws Exception {
+    public ResponseEntity<?> getClientTicketByCustomerId(@PathVariable UUID id) throws Exception {
         return ResponseEntity.ok(clientTicketService.getClientTicketsByCustomerid(id));
     }
 
     @GetMapping("/enterusercid/{id}")
-    public ResponseEntity<?> getClientTicketByUsercid(@PathVariable String id) throws Exception {
+    public ResponseEntity<?> getClientTicketByUsercid(@PathVariable UUID id) throws Exception {
         return ResponseEntity.ok(clientTicketService.getClientTicketByUsercid(id));
+    }
+
+    @GetMapping("/enteruseradminid/{id}")
+    public ResponseEntity<?> getClientTicketByUseradminid(@PathVariable UUID id) throws Exception {
+        return ResponseEntity.ok(clientTicketService.getClientTicketByUseradminid(id));
     }
 }

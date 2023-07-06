@@ -17,5 +17,7 @@ public interface AdminDefaultValuesService {
 
     ResponseEntity<Optional<AdminDefaultValues>> getByAdminDefaultValuesId(UUID id);
 
-    ResponseEntity<List<AdminDefaultValues>> getAdminDefaultValuesByUsercid(String usercid);
+    ResponseEntity<List<AdminDefaultValues>> getAdminDefaultValuesByUsercid(UUID usercid);
+
+    ResponseEntity<List<AdminDefaultValues>> getAdminDefaultValuesByUseradminid(UUID useradminid);
 }

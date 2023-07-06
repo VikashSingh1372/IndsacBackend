@@ -50,10 +50,12 @@ public class ClientTicketResponse extends Auditable<String> {
     private String asignedto;
 
     @Column
-    private String usercid;
+    @Type(type="org.hibernate.type.UUIDCharType")
+    private UUID usercid;
 
     @Column
-    private String customerid;
+    @Type(type="org.hibernate.type.UUIDCharType")
+    private UUID customerid;
 
     @Column
     private String notes;

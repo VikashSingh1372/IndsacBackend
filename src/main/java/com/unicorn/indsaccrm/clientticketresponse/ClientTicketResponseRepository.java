@@ -6,9 +6,13 @@ import java.util.List;
 import java.util.UUID;
 
 public interface ClientTicketResponseRepository extends JpaRepository<ClientTicketResponse, UUID> {
-    List<ClientTicketResponse> findByCustomerid(String customerid);
+    List<ClientTicketResponse> findByCustomerid(UUID customerid);
 
-    List<ClientTicketResponse> findByUsercid(String usercid);
+    List<ClientTicketResponse> findByUsercid(UUID usercid);
+
+    List<ClientTicketResponse> findByUseradminid(UUID useradminid);
+
+
 
 
 }

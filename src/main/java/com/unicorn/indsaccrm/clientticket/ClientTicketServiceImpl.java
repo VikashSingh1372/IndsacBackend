@@ -36,15 +36,21 @@ public class ClientTicketServiceImpl implements ClientTicketService{
     }
 
     @Override
-    public ResponseEntity<List<ClientTicket>> getClientTicketsByCustomerid(String customerid) {
+    public ResponseEntity<List<ClientTicket>> getClientTicketsByCustomerid(UUID customerid) {
         logger.info("Get ClientTickets from getClientTicketsByCustomerid function Successfully");
         return ResponseEntity.ok(clientTicketRepository.findByCustomerid(customerid));
     }
 
     @Override
-    public ResponseEntity<List<ClientTicket>> getClientTicketByUsercid(String usercid) {
+    public ResponseEntity<List<ClientTicket>> getClientTicketByUsercid(UUID usercid) {
         logger.info("Get ClientTickets from getClientTicketByUsercid function Successfully");
         return ResponseEntity.ok(clientTicketRepository.findByUsercid(usercid));
+    }
+
+    @Override
+    public ResponseEntity<List<ClientTicket>> getClientTicketByUseradminid(UUID useradminid) {
+        logger.info("Get ClientTickets from getClientTicketByUseradminid function Successfully");
+        return ResponseEntity.ok(clientTicketRepository.findByUseradminid(useradminid));
     }
 
 }

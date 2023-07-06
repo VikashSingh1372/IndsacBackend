@@ -37,8 +37,14 @@ public class AdminDefaultValuesServiceImpl implements AdminDefaultValuesService 
     }
 
     @Override
-    public ResponseEntity<List<AdminDefaultValues>> getAdminDefaultValuesByUsercid(String usercid) {
+    public ResponseEntity<List<AdminDefaultValues>> getAdminDefaultValuesByUsercid(UUID usercid) {
         logger.info("Get AdminDefaultValues from getAdminDefaultValuesByUsercid function Successfully");
         return ResponseEntity.ok(adminDefaultValuesRepository.findByUsercid(usercid));
+    }
+
+    @Override
+    public ResponseEntity<List<AdminDefaultValues>> getAdminDefaultValuesByUseradminid(UUID useradminid) {
+        logger.info("Get AdminDefaultValues from getAdminDefaultValuesByUseradminid function Successfully");
+        return ResponseEntity.ok(adminDefaultValuesRepository.findByUseradminid(useradminid));
     }
 }

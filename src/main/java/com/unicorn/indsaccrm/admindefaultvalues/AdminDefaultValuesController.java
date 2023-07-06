@@ -28,7 +28,12 @@ public class AdminDefaultValuesController {
     }
 
     @GetMapping("/enterusercid/{id}")
-    public ResponseEntity<?> getAdminDefaultValuesByUsercid(@PathVariable String id) throws Exception {
+    public ResponseEntity<?> getAdminDefaultValuesByUsercid(@PathVariable UUID id) throws Exception {
         return ResponseEntity.ok(adminDefaultValuesService.getAdminDefaultValuesByUsercid(id));
+    }
+
+    @GetMapping("/enteruseradminid/{id}")
+    public ResponseEntity<?> getAdminDefaultValuesByUseradminid(@PathVariable UUID id) throws Exception {
+        return ResponseEntity.ok(adminDefaultValuesService.getAdminDefaultValuesByUseradminid(id));
     }
 }
