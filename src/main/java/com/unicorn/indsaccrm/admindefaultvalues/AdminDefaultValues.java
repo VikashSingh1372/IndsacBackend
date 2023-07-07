@@ -32,7 +32,8 @@ public class AdminDefaultValues extends Auditable<String> {
     private UUID useradminid;
 
     @Column
-    private String usercid;
+    @Type(type="org.hibernate.type.UUIDCharType")
+    private UUID usercid;
 
     @Column
     private String invoiceformat;
