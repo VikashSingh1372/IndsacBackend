@@ -1,6 +1,6 @@
 package com.unicorn.indsaccrm.interactionrecord;
 
-import com.unicorn.indsaccrm.config.Auditable;
+import com.unicorn.indsaccrm.common.config.Auditable;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;

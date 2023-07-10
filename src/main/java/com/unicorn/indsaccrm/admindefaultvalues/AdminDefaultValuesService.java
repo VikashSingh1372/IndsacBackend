@@ -1,6 +1,5 @@
 package com.unicorn.indsaccrm.admindefaultvalues;
 
-import com.unicorn.indsaccrm.course.CourseCard;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 

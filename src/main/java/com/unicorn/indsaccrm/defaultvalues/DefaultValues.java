@@ -1,12 +1,11 @@
 package com.unicorn.indsaccrm.defaultvalues;
 
-import com.unicorn.indsaccrm.config.Auditable;
+import com.unicorn.indsaccrm.common.config.Auditable;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.UUID;
 @Setter
 @Getter
