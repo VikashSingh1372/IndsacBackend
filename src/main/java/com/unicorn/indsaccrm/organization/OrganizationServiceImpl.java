@@ -17,9 +17,11 @@ public class OrganizationServiceImpl implements OrganizationSerive{
     OrganizationRepository organizationRepository;
 
     Logger logger = LoggerFactory.getLogger(OrganizationServiceImpl.class);
+
+
     @Override
     public ResponseEntity<?> saveOrganization(Organization organization) {
-        logger.info("Save Organization inside saveOrganization successfully ");
+        logger.info("save Organization inside saveOrganization successfully ");
         return ResponseEntity.ok(organizationRepository.save(organization));
     }
 

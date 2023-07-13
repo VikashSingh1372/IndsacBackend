@@ -86,5 +86,5 @@ public class Company extends Auditable<String> {
     private String company_logo;
 
     @Column
-    private String Business_Hours;
+    private String businesshours;
 }

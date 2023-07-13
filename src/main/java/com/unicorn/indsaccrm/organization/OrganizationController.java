@@ -12,9 +12,8 @@ public class OrganizationController {
 
     @Autowired
     OrganizationSerive organizationSerive;
-
     @PostMapping
-    ResponseEntity<?> createOrganization(@RequestBody Organization organization)throws Exception{
+    ResponseEntity<?> saveOrganization(@RequestBody Organization organization)throws Exception{
         return ResponseEntity.ok(organizationSerive.saveOrganization(organization));
     }
 

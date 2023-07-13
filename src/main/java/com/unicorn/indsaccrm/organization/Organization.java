@@ -1,5 +1,6 @@
 package com.unicorn.indsaccrm.organization;
 
+import com.unicorn.indsaccrm.common.config.Auditable;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -16,7 +17,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Entity
 @Table(name = "organization")
-public class Organization {
+public class Organization extends Auditable<String> {
 
     @Id
     @GeneratedValue
@@ -69,7 +70,6 @@ public class Organization {
     private enum Currencies{
         INR
     }
-
     @Enumerated
     @Column
     private TimeZone timezone;
@@ -77,7 +77,6 @@ public class Organization {
     private enum TimeZone{
         INDIA
     }
-
     @Column(name="active")
     private boolean active = true;
 
@@ -85,5 +84,5 @@ public class Organization {
     private String company_logo;
 
     @Column
-    private String Business_Hours;
+    private String businesshours;
 }
