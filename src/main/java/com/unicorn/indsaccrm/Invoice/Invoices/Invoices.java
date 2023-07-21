@@ -1,6 +1,5 @@
 package com.unicorn.indsaccrm.Invoice.Invoices;
 
-import com.unicorn.indsaccrm.Invoice.Customer.Customer;
 import com.unicorn.indsaccrm.common.config.Auditable;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;

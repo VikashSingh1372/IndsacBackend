@@ -1,13 +1,12 @@
 package com.unicorn.indsaccrm.Invoice.InvoiceItems;
 
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
-
+@CrossOrigin
 @RestController
 @RequestMapping("/invoiceitems")
 public class InvoiceItemsController {

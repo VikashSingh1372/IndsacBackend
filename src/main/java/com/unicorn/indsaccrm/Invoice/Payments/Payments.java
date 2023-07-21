@@ -6,7 +6,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
@@ -32,7 +32,7 @@ public class Payments extends Auditable<String> {
     private UUID invoiceid;
 
     @Column
-    private String paymentdate;
+    private LocalDate paymentdate;
 
     @Column
     private Double amount;

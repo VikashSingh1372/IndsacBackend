@@ -11,5 +11,4 @@ public interface InvoicesRepository extends JpaRepository<Invoices, UUID> {
     List<Invoices> findByCustomerid(UUID customerid);
     List<Invoices> findByUserid(UUID userid);
 
-
 }

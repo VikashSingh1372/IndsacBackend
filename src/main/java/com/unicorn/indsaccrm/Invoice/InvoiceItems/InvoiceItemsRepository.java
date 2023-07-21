@@ -12,7 +12,4 @@ public interface InvoiceItemsRepository extends JpaRepository<InvoiceItems,UUID>
 
     List<InvoiceItems> findByProductid(UUID productid);
 
-
-
-
 }

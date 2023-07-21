@@ -1,15 +1,13 @@
 package com.unicorn.indsaccrm.Invoice.Customer;
 
-import com.unicorn.indsaccrm.lead.Lead;
-import com.unicorn.indsaccrm.lead.LeadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
+@CrossOrigin
 @Controller
 @RequestMapping("/Customer")
 public class CustomerController {
@@ -24,7 +22,7 @@ public class CustomerController {
         return ResponseEntity.ok(customerService.getAllCustomers());
     }
     @GetMapping("/{customerid}")
-    ResponseEntity<?> getByIDCustomer(@PathVariable UUID customerid)throws Exception{
+    ResponseEntity<?> getCustomerByID(@PathVariable UUID customerid)throws Exception{
         return ResponseEntity.ok(customerService.getCustomerByCustomerId(customerid));
     }
 }
