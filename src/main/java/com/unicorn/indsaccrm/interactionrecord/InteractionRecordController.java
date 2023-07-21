@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 import java.util.concurrent.RecursiveTask;
 
+@CrossOrigin
 @Controller
 @RequestMapping("/interactionrecord")
 public class InteractionRecordController {

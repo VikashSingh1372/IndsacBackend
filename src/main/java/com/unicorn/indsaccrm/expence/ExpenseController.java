@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
-
+@CrossOrigin
 @Controller
 @RequestMapping("expense")
 public class ExpenseController {
