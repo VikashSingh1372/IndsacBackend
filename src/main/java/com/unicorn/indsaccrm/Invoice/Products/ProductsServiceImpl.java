@@ -31,8 +31,8 @@ public class ProductsServiceImpl implements ProductsService{
     }
 
     @Override
-    public ResponseEntity<Optional<Products>> getProductsById(UUID id) {
-        logger.info("Get Products By Id inside getAllProducts successfully");
-        return ResponseEntity.ok(productsRepository.findById(id));
+    public ResponseEntity<Optional<Products>> getProductsByProductId(UUID id) {
+        logger.info("Get Products By Id inside getProductsByProductId successfully");
+        return ResponseEntity.ok(productsRepository.findByProductid(id));
     }
 }

@@ -13,7 +13,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class InvoiceItemsServiceImpl implements InvoiceItemsService{
+public class InvoiceItemsServiceImpl implements InvoiceItemsService {
 
 
     @Autowired
@@ -34,21 +34,21 @@ public class InvoiceItemsServiceImpl implements InvoiceItemsService{
     }
 
     @Override
-    public ResponseEntity<Optional<InvoiceItems>> getInvoiceItemById(UUID id) {
-        logger.info("Get InvoiceItem By Id inside getInvoiceItemById successfully");
-        return ResponseEntity.ok(invoiceItemsRepository.findById(id));
+    public ResponseEntity<Optional<InvoiceItems>> getInvoiceItemByItemId(UUID itemid) {
+        logger.info("Get InvoiceItem By Id inside getInvoiceItemByItemId successfully");
+        return ResponseEntity.ok(invoiceItemsRepository.findByItemid(itemid));
     }
 
     @Override
-    public ResponseEntity<List<InvoiceItems>> getInvoiceItemByInvoice_id(UUID id) {
-        logger.info("Get InvoiceItem By Invoice_id inside getInvoiceItemByInvoice_id successfully");
-        return ResponseEntity.ok(invoiceItemsRepository.findByInvoice_id(id));
+    public ResponseEntity<List<InvoiceItems>> getInvoiceItemByInvoiceid(UUID id) {
+        logger.info("Get InvoiceItem By Invoice_id inside getInvoiceItemByInvoiceid successfully");
+        return ResponseEntity.ok(invoiceItemsRepository.findByInvoiceid(id));
     }
 
     @Override
-    public ResponseEntity<List<InvoiceItems>> getInvoiceItemByProduct_id(UUID id) {
-        logger.info("Get InvoiceItem By Product_id inside getInvoiceItemByProduct_id successfully");
-        return ResponseEntity.ok(invoiceItemsRepository.findByProduct_id(id));
+    public ResponseEntity<List<InvoiceItems>> getInvoiceItemByProductid(UUID id) {
+        logger.info("Get InvoiceItem By Product_id inside getInvoiceItemByProductid successfully");
+        return ResponseEntity.ok(invoiceItemsRepository.findByProductid(id));
     }
 
 }

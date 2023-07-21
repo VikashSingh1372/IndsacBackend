@@ -12,5 +12,5 @@ public interface CustomerService {
 
     ResponseEntity<List<Customer>> getAllCustomers();
 
-    ResponseEntity<Optional<Customer>> getCustomerById(UUID id);
+    ResponseEntity<Optional<Customer>> getCustomerByCustomerId(UUID customerid);
 }

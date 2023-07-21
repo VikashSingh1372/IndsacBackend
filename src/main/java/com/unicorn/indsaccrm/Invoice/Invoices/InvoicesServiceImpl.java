@@ -31,20 +31,20 @@ public class InvoicesServiceImpl implements InvoicesService {
     }
 
     @Override
-    public ResponseEntity<Optional<Invoices>> getInvoicesById(UUID id) {
-        logger.info("Get Invoices By Id inside getInvoicesById successfully");
-        return ResponseEntity.ok(invoicesRepository.findById(id));
+    public ResponseEntity<Optional<Invoices>> getInvoicesByInvoiceId(UUID invoiceid) {
+        logger.info("Get Invoices By InvoiceId inside getInvoicesByInvoiceId successfully");
+        return ResponseEntity.ok(invoicesRepository.findByInvoiceid(invoiceid));
     }
 
     @Override
-    public ResponseEntity<List<Invoices>> getInvoicesByCustomer_id(UUID id) {
-        logger.info("Get Invoices By Customer_id inside getInvoicesByCustomer_id successfully");
-        return ResponseEntity.ok(invoicesRepository.findByCustomer_id(id));
+    public ResponseEntity<List<Invoices>> getInvoicesByCustomerId(UUID id) {
+        logger.info("Get Invoices By Customer_id inside getInvoicesByCustomerId successfully");
+        return ResponseEntity.ok(invoicesRepository.findByCustomerid(id));
     }
 
     @Override
-    public ResponseEntity<List<Invoices>> getInvoicesByUser_id(UUID id) {
-        logger.info("Get Invoices By User_id inside getInvoicesByUser_id successfully");
-        return ResponseEntity.ok(invoicesRepository.findByUser_id(id));
+    public ResponseEntity<List<Invoices>> getInvoicesByUserId(UUID id) {
+        logger.info("Get Invoices By User_id inside getInvoicesByUserId successfully");
+        return ResponseEntity.ok(invoicesRepository.findByUserid(id));
     }
 }

@@ -12,5 +12,5 @@ public interface ProductsService {
 
     ResponseEntity<List<Products>> getAllProducts();
 
-    ResponseEntity<Optional<Products>> getProductsById(UUID id);
+    ResponseEntity<Optional<Products>> getProductsByProductId(UUID productid);
 }

@@ -25,14 +25,14 @@ public class Payments extends Auditable<String> {
             name = "UUID",
             strategy = "org.hibernate.id.UUIDGenerator"
     )
-    private UUID payment_id;
+    private UUID paymentid;
 
     @Column
     @Type(type = "org.hibernate.type.UUIDCharType")
-    private UUID invoice_id;
+    private UUID invoiceid;
 
     @Column
-    private String payment_date;
+    private String paymentdate;
 
     @Column
     private Double amount;

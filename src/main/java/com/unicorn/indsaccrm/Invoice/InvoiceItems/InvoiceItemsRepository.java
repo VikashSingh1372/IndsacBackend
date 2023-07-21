@@ -2,13 +2,17 @@ package com.unicorn.indsaccrm.Invoice.InvoiceItems;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
-public interface InvoiceItemsRepository extends JpaRepository<InvoiceItems, UUID> {
+public interface InvoiceItemsRepository extends JpaRepository<InvoiceItems,UUID> {
+    Optional<InvoiceItems> findByItemid(UUID itemid);
 
-    List<InvoiceItems> findByInvoice_id(UUID invoice_id);
+    List<InvoiceItems> findByInvoiceid(UUID invoiceid);
 
-    List<InvoiceItems> findByProduct_id(UUID product_id);
+    List<InvoiceItems> findByProductid(UUID productid);
+
+
 
 
 }

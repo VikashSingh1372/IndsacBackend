@@ -12,9 +12,9 @@ public interface InvoiceItemsService {
 
     ResponseEntity<List<InvoiceItems>> getallInvoiceItems();
 
-    ResponseEntity<Optional<InvoiceItems>> getInvoiceItemById(UUID id);
+    ResponseEntity<Optional<InvoiceItems>> getInvoiceItemByItemId(UUID itemid);
 
-    ResponseEntity<List<InvoiceItems>> getInvoiceItemByInvoice_id(UUID id);
+    ResponseEntity<List<InvoiceItems>> getInvoiceItemByInvoiceid(UUID id);
 
-    ResponseEntity<List<InvoiceItems>> getInvoiceItemByProduct_id(UUID id);
+    ResponseEntity<List<InvoiceItems>> getInvoiceItemByProductid(UUID id);
 }

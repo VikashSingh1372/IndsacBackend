@@ -24,13 +24,14 @@ public class Invoices extends Auditable<String> {
             name = "UUID",
             strategy = "org.hibernate.id.UUIDGenerator"
     )
-    private UUID invoice_id;
+    private UUID invoiceid;
 
     @Column
     @Type(type = "org.hibernate.type.UUIDCharType")
-    private UUID customer_id;
+    private UUID customerid;
 
     @Column
     @Type(type = "org.hibernate.type.UUIDCharType")
-    private UUID user_id;
+    private UUID userid;
 }
+

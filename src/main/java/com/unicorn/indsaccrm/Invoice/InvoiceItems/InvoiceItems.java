@@ -24,21 +24,21 @@ public class InvoiceItems extends Auditable<String> {
             name = "UUID",
             strategy = "org.hibernate.id.UUIDGenerator"
     )
-    private UUID item_id;
+    private UUID itemid;
 
     @Column
     @Type(type = "org.hibernate.type.UUIDCharType")
-    private UUID invoice_id;
+    private UUID invoiceid;
 
     @Column
     @Type(type = "org.hibernate.type.UUIDCharType")
-    private UUID product_id;
+    private UUID productid;
 
     @Column
     private int quantity;
 
     @Column
-    private Double unit_price;
+    private Double unitprice;
 
     @Column
     private Currencies currency;

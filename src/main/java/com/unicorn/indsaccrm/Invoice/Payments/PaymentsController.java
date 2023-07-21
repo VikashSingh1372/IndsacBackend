@@ -18,18 +18,18 @@ public class PaymentsController {
         return ResponseEntity.ok(paymentsService.savePayments(payments));
     }
 
-    @GetMapping("/{id}")
-    ResponseEntity<?> getPaymentById(@PathVariable UUID id) throws Exception{
-        return ResponseEntity.ok(paymentsService.getPaymentsById(id));
+    @GetMapping("/{paymentid}")
+    ResponseEntity<?> getPaymentById(@PathVariable UUID paymentid) throws Exception{
+        return ResponseEntity.ok(paymentsService.getPaymentsByPaymentId(paymentid));
     }
 
     @GetMapping("/all")
-    ResponseEntity<?> getPaymentById() throws Exception{
+    ResponseEntity<?> gealltPayments() throws Exception{
         return ResponseEntity.ok(paymentsService.getAllPayments());
     }
 
-    @GetMapping("/invoice_id/{id}")
-    ResponseEntity<?> getPaymentByInvoice_id(@PathVariable UUID id) throws Exception{
-        return ResponseEntity.ok(paymentsService.getPaymentsByInvoice_id(id));
+    @GetMapping("/invoiceid/{invoiceid}")
+    ResponseEntity<?> getPaymentByInvoice_id(@PathVariable UUID invoiceid) throws Exception{
+        return ResponseEntity.ok(paymentsService.getPaymentsByInvoiceId(invoiceid));
     }
 }

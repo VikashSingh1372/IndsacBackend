@@ -12,9 +12,9 @@ public interface InvoicesService {
 
     ResponseEntity<List<Invoices>> getAllInvoices();
 
-    ResponseEntity<Optional<Invoices>> getInvoicesById(UUID id);
+    ResponseEntity<Optional<Invoices>> getInvoicesByInvoiceId(UUID invoiceid);
 
-    ResponseEntity<List<Invoices>> getInvoicesByCustomer_id(UUID id);
+    ResponseEntity<List<Invoices>> getInvoicesByCustomerId(UUID id);
 
-    ResponseEntity<List<Invoices>> getInvoicesByUser_id(UUID id);
+    ResponseEntity<List<Invoices>> getInvoicesByUserId(UUID id);
 }

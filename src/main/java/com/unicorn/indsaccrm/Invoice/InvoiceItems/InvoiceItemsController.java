@@ -8,34 +8,34 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 
-@AllArgsConstructor
+@RestController
+@RequestMapping("/invoiceitems")
 public class InvoiceItemsController {
+    @Autowired
+    InvoiceItemsService invoiceItemsService;
 
-
-   InvoiceItemsService invoiceItemsService;
-
-   @PostMapping
-   ResponseEntity<?> saveInvoiceItems(@RequestBody InvoiceItems invoiceItems) throws Exception{
-       return ResponseEntity.ok(invoiceItemsService.saveInvoiceItem(invoiceItems));
-   }
+    @PostMapping
+    ResponseEntity<?> saveInvoiceItems(@RequestBody InvoiceItems invoiceItems) throws Exception{
+      return ResponseEntity.ok(invoiceItemsService.saveInvoiceItem(invoiceItems));
+    }
 
    @GetMapping("/all")
    ResponseEntity<?> getAllInvoiceItems() throws Exception {
        return ResponseEntity.ok(invoiceItemsService.getallInvoiceItems());
    }
 
-   @GetMapping("/{id}")
-    ResponseEntity<?> getInvoiceItemsById(@PathVariable UUID id) throws Exception {
-       return ResponseEntity.ok(invoiceItemsService.getInvoiceItemById(id));
+   @GetMapping("/{itemid}")
+    ResponseEntity<?> getInvoiceItemsById(@PathVariable UUID itemid) throws Exception {
+       return ResponseEntity.ok(invoiceItemsService.getInvoiceItemByItemId(itemid));
    }
 
-    @GetMapping("/Invoice_id/{id}")
-    ResponseEntity<?> getInvoiceItemsByInvoice_id(@PathVariable UUID id) throws  Exception {
-        return ResponseEntity.ok(invoiceItemsService.getInvoiceItemByInvoice_id(id));
+    @GetMapping("/Invoiceid/{id}")
+    ResponseEntity<?> getInvoiceItemsByInvoiceid(@PathVariable UUID id) throws  Exception {
+        return ResponseEntity.ok(invoiceItemsService.getInvoiceItemByInvoiceid(id));
     }
 
-    @GetMapping("/Product_id/{id}")
-    ResponseEntity<?> getInvoiceItemsByProduct_id(@PathVariable UUID id) throws  Exception {
-        return ResponseEntity.ok(invoiceItemsService.getInvoiceItemByProduct_id(id));
+    @GetMapping("/Productid/{id}")
+    ResponseEntity<?> getInvoiceItemsByProductid(@PathVariable UUID id) throws  Exception {
+        return ResponseEntity.ok(invoiceItemsService.getInvoiceItemByProductid(id));
     }
 }

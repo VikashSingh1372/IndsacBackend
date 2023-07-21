@@ -23,8 +23,8 @@ public class ProductsController {
         return ResponseEntity.ok(productsService.getAllProducts());
     }
 
-    @GetMapping("/{id}")
-    ResponseEntity<?> getProductsById(@PathVariable UUID id) throws Exception{
-        return ResponseEntity.ok(productsService.getProductsById(id));
+    @GetMapping("/{productid}")
+    ResponseEntity<?> getProductsByProductId(@PathVariable UUID productid) throws Exception{
+        return ResponseEntity.ok(productsService.getProductsByProductId(productid));
     }
 }

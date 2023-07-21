@@ -25,19 +25,19 @@ public class InvoicesController {
     }
 
     //primary key
-    @GetMapping("/{id}")
-    ResponseEntity<?> getInvoicesById(@PathVariable UUID id)throws Exception {
-        return ResponseEntity.ok(invoicesService.getInvoicesById(id));
+    @GetMapping("/{invoiceid}")
+    ResponseEntity<?> getInvoicesById(@PathVariable UUID invoiceid)throws Exception {
+        return ResponseEntity.ok(invoicesService.getInvoicesByInvoiceId(invoiceid));
     }
 
-    @GetMapping("/Customer_id/{id}")
-    ResponseEntity<?> getInvoicesByCustomer_id(@PathVariable UUID id)throws Exception {
-        return ResponseEntity.ok(invoicesService.getInvoicesByCustomer_id(id));
+    @GetMapping("/Customerid/{id}")
+    ResponseEntity<?> getInvoicesByCustomerId(@PathVariable UUID id)throws Exception {
+        return ResponseEntity.ok(invoicesService.getInvoicesByCustomerId(id));
     }
 
-    @GetMapping("/User_id/{id}")
+    @GetMapping("/Userid/{id}")
     ResponseEntity<?> getInvoicesByUser_id(@PathVariable UUID id)throws Exception {
-        return ResponseEntity.ok(invoicesService.getInvoicesByUser_id(id));
+        return ResponseEntity.ok(invoicesService.getInvoicesByUserId(id));
     }
 
 }

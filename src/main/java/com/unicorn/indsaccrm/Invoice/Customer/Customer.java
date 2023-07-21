@@ -23,7 +23,7 @@ public class Customer extends Auditable<String> {
             name = "UUID",
             strategy = "org.hibernate.id.UUIDGenerator"
     )
-    private UUID id;
+    private UUID customerid;
 
     @Column
     private String readstatus;

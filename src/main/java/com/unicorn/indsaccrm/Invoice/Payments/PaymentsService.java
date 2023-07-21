@@ -10,9 +10,9 @@ public interface PaymentsService {
 
     ResponseEntity<?> savePayments(Payments payments);
 
-    ResponseEntity<Optional<Payments>> getPaymentsById(UUID id);
+    ResponseEntity<Optional<Payments>> getPaymentsByPaymentId(UUID id);
 
     ResponseEntity<List<Payments>> getAllPayments();
 
-    ResponseEntity<List<Payments>> getPaymentsByInvoice_id(UUID id);
+    ResponseEntity<List<Payments>> getPaymentsByInvoiceId(UUID invoiceid);
 }
