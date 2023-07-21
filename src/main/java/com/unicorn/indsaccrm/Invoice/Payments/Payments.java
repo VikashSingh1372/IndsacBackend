@@ -32,7 +32,7 @@ public class Payments extends Auditable<String> {
     private UUID invoiceid;
 
     @Column
-    private LocalDate paymentdate;
+    private LocalDate paymentdate; // "Year-Month-Date"
 
     @Column
     private Double amount;
