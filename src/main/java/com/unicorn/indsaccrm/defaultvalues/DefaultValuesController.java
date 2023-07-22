@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
+@CrossOrigin
 @Controller
 @RequestMapping("/defaultvalues")
 public class DefaultValuesController {
