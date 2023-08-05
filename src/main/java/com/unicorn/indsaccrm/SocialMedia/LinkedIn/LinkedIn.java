@@ -34,39 +34,39 @@ public class LinkedIn extends Auditable<String> {
     private UUID orgid;
 
     @Column
-    private String LinkedInApiKey;
+    private String twitterApiKey;
 
     @Column
-    private String LinkedInApiKeyValue;
+    private String twitterApiKeyValue;
 
     @Column
-    private String linkedInConsumerAppKeyVariable;
+    private String twitterConsumerAppKeyVariable;
 
     @Column
-    private String linkedInConsumerAppKeyValue;
+    private String twitterConsumerAppKeyValue;
 
     @Column
-    private String linkedInConsumerAppSecretVariable;
+    private String twitterConsumerAppSecretVariable;
 
     @Column
-    private String linkedInConsumerAppSecretValue;
+    private String twitterConsumerAppSecretValue;
 
     @Column
-    private String linkedInBearerTokenVariable;
+    private String twitterBearerTokenVariable;
 
     @Column
-    private String linkedInBearerTokenValue;
+    private String twitterBearerTokenValue;
 
     @Column
-    private String linkedInAccessTokenVariable;
+    private String twitterAccessTokenVariable;
 
     @Column
-    private String linkedInAccessTokenValue;
+    private String twitterAccessTokenValue;
 
     @Column
-    private String linkedInTokenSecretVariable;
+    private String twitterTokenSecretVariable;
 
     @Column
-    private String linkedInTokenSecretValue;
+    private String twitterTokenSecretValue;
 
 }
