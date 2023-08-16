@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @CrossOrigin
@@ -25,4 +26,10 @@ public class LeadController {
     ResponseEntity<?>getByIDLeads(@PathVariable UUID id)throws Exception{
         return ResponseEntity.ok(leadService.getByIdLead(id));
     }
+
+    @GetMapping("/leaddashboard")
+    ResponseEntity<?> getLeadDashBoard()throws Exception{
+        return ResponseEntity.ok(leadService.getLeadDahBoard());
+    }
+
 }

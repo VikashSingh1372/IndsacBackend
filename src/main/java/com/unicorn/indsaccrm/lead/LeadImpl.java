@@ -15,6 +15,7 @@ public class LeadImpl implements LeadService{
     @Autowired
     LeadRepository leadRepository;
 
+
     Logger logger= LoggerFactory.logger(LeadImpl.class);
     @Override
     public ResponseEntity<?> SaveAllLead(Lead lead) {
@@ -33,4 +34,22 @@ public class LeadImpl implements LeadService{
         logger.info("get lead by id successfully");
         return ResponseEntity.ok(leadRepository.findById(id));
     }
+
+
+    @Override
+    public ResponseEntity<LeadResource.LeadDashboard> getLeadDahBoard() {
+        LeadResource.LeadDashboard leadDashboard =new LeadResource.LeadDashboard();
+//        leadDashboard.setTotalLead(5);
+//        leadDashboard.setConvertedLeads(8);
+//        leadDashboard.setActiveLead(5);
+//        leadDashboard.setInActiveLead(5);
+//        leadDashboard.setLeadCountByStatus("ACTIVE","01");
+//        leadDashboard.setLeadList();
+//        leadDashboard.setTotalLeadInCurrentMonth();
+//        leadDashboard.setTotalLeadAddedByMonthinCurrentYear();
+        logger.info("get all leaddashboard inside getLeadDahBoard successfully");
+        return ResponseEntity.ok(leadDashboard);
+    }
+
+
 }

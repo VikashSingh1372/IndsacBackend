@@ -83,5 +83,12 @@ public class Lead extends Auditable<String> {
     private String product;
 
     @Column
-    private String owner;
+    @Type(type="org.hibernate.type.UUIDCharType")
+    private UUID usercid;
+    @Column
+    @Type(type="org.hibernate.type.UUIDCharType")
+    private UUID useradminid;
+    @Column
+    @Type(type="org.hibernate.type.UUIDCharType")
+    private UUID owner;
 }
