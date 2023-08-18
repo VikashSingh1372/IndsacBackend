@@ -41,7 +41,8 @@ public class Lead extends Auditable<String> {
     private String leadsource;
 
     @Column
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private LeadStatus status;
 
     @Column
     private String website;
@@ -91,4 +92,9 @@ public class Lead extends Auditable<String> {
     @Column
     @Type(type="org.hibernate.type.UUIDCharType")
     private UUID owner;
+
+    enum LeadStatus{
+        OPEN,ATTEMPTEDCONTACT,NOTENGAGED,NEEDSFOLLOWUP,WORKING,NEWOPPORTUNITY,QUALIFIED,DISQUALIFIED,CONVERTTOCUSTOMER
+    }
+
 }

@@ -1,4 +1,4 @@
-package com.unicorn.indsaccrm.Invoice.Customer;
+package com.unicorn.indsaccrm.Customer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

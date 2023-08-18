@@ -9,9 +9,6 @@ import java.util.Map;
 
 public class LeadResource {
 
-    enum LeadStatus{
-        ACTIVE,INACTIVE
-    }
 
     enum IntegerEnum {
         ONE(1),
@@ -43,19 +40,19 @@ public class LeadResource {
     public static class LeadDashboard{
 
         @Column
-        private int totalLead;
+        private long totalLead;
 
         @Column
-        private int convertedLeads;
+        private long convertedLeads;
 
         @Column
-        private int activeLead;
+        private long activeLead;
 
         @Column
-        private int inActiveLead;
+        private long inActiveLead;
 
         @Column
-        private EnumMap<LeadStatus, IntegerEnum> LeadCountByStatus;
+        private EnumMap<Lead.LeadStatus, IntegerEnum> LeadCountByStatus;
 
         @Column
         private List<Lead> LeadList;

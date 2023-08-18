@@ -1,4 +1,4 @@
-package com.unicorn.indsaccrm.Invoice.Customer;
+package com.unicorn.indsaccrm.Customer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
