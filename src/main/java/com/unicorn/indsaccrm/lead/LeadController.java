@@ -27,9 +27,9 @@ public class LeadController {
         return ResponseEntity.ok(leadService.getByIdLead(id));
     }
 
-    @GetMapping("/leaddashboard")
-    ResponseEntity<?> getLeadDashBoard()throws Exception{
-        return ResponseEntity.ok(leadService.getLeadDahBoard());
+    @GetMapping("/leaddashboard/{useradminid}")
+    ResponseEntity<?> getLeadDashBoard(@PathVariable UUID useradminid)throws Exception{
+        return ResponseEntity.ok(leadService.getLeadDahBoard(useradminid));
     }
 
 }

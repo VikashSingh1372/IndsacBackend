@@ -7,9 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+
 @Service
 public class LeadImpl implements LeadService{
     @Autowired
@@ -19,8 +18,7 @@ public class LeadImpl implements LeadService{
     Logger logger= LoggerFactory.logger(LeadImpl.class);
     @Override
     public ResponseEntity<?> SaveAllLead(Lead lead) {
-        leadRepository.save(lead);
-        return new ResponseEntity<>("save all lead successfully", HttpStatus.OK);
+        return new ResponseEntity<>(leadRepository.save(lead), HttpStatus.OK);
     }
 
     @Override
@@ -37,17 +35,17 @@ public class LeadImpl implements LeadService{
 
 
     @Override
-    public ResponseEntity<LeadResource.LeadDashboard> getLeadDahBoard() {
+    public ResponseEntity<LeadResource.LeadDashboard> getLeadDahBoard(UUID useradminid) {
         LeadResource.LeadDashboard leadDashboard =new LeadResource.LeadDashboard();
-//        leadDashboard.setTotalLead(5);
-//        leadDashboard.setConvertedLeads(8);
-//        leadDashboard.setActiveLead(5);
-//        leadDashboard.setInActiveLead(5);
-//        leadDashboard.setLeadCountByStatus("ACTIVE","01");
-//        leadDashboard.setLeadList();
-//        leadDashboard.setTotalLeadInCurrentMonth();
-//        leadDashboard.setTotalLeadAddedByMonthinCurrentYear();
-        logger.info("get all leaddashboard inside getLeadDahBoard successfully");
+       leadDashboard.setTotalLead(leadRepository.countByUseradminid(useradminid));
+       leadDashboard.setConvertedLeads(leadRepository.countByStatusAndUseradminid(Lead.LeadStatus.CONVERTTOCUSTOMER,useradminid));
+       leadDashboard.setActiveLead(leadRepository.countByUseradminidAndStatusIn(useradminid,Arrays.asList(Lead.LeadStatus.NEEDSFOLLOWUP,
+              Lead.LeadStatus.ATTEMPTEDCONTACT,Lead.LeadStatus.NEWOPPORTUNITY,Lead.LeadStatus.QUALIFIED,Lead.LeadStatus.OPEN,
+              Lead.LeadStatus.WORKING,Lead.LeadStatus.NOTENGAGED)));
+     leadDashboard.setInActiveLead(leadRepository.countByUseradminidAndStatusIn(useradminid,Arrays.asList(Lead.LeadStatus.DISQUALIFIED,
+             Lead.LeadStatus.CONVERTTOCUSTOMER)));
+     leadDashboard.setLeadList(leadRepository.findByUseradminid(useradminid));
+        logger.info("Get all leaddashboard");
         return ResponseEntity.ok(leadDashboard);
     }
 
