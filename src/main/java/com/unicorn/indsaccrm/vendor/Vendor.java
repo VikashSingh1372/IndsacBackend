@@ -84,4 +84,11 @@ public class Vendor extends Auditable<String> {
 
     @Column
     private String owner;
+
+    @Column
+    @Type(type="org.hibernate.type.UUIDCharType")
+    private UUID usercid;
+    @Column
+    @Type(type="org.hibernate.type.UUIDCharType")
+    private UUID useradminid;
 }

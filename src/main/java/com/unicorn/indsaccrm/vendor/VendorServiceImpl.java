@@ -34,4 +34,11 @@ public class VendorServiceImpl implements VendorService{
         logger.info("get vendor by id from getVendorById successfully");
         return ResponseEntity.ok(vendorRepository.findById(id));
     }
+
+    //Vendor Dashboard
+    @Override
+    public ResponseEntity<VendorResource.VendorDashboard> getLeadDahBoard(UUID useradminid) {
+        VendorResource.VendorDashboard vendorDashboard =new VendorResource.VendorDashboard();
+        return ResponseEntity.ok(vendorDashboard);
+    }
 }
