@@ -19,12 +19,12 @@ public class Projects extends Auditable<String> {
 
     @Id
     @GeneratedValue
-    @Type(type = "org.hibernate.type.UUIDCharType")
+    @Type(type="org.hibernate.type.UUIDCharType")
     @GenericGenerator(
-            name = "UUDi",
+            name = "UUID",
             strategy = "org.hibernate.id.UUIDGenerator"
     )
-    private UUID projectsId;
+    private UUID id;
 
     @Column
     @Type(type = "org.hibernate.type.UUIDCharType")
@@ -33,17 +33,17 @@ public class Projects extends Auditable<String> {
     @Column(nullable = false)
     private String projectName;
 
-    @Column()
+    @Column
     private String description;
 
-    @Column()
+    @Column
     private String startDate;
 
-    @Column()
+    @Column
     private String endDate;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false)
+    @Column
     private ProjectStatus status;
 
     public enum ProjectStatus {

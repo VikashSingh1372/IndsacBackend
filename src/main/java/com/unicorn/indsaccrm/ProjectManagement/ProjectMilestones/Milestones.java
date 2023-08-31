@@ -20,12 +20,12 @@ import java.util.UUID;
 public class Milestones extends Auditable<String> {
     @Id
     @GeneratedValue
-    @Type(type = "org.hibernate.type.UUIDCharType")
+    @Type(type="org.hibernate.type.UUIDCharType")
     @GenericGenerator(
-            name = "UUDi",
+            name = "UUID",
             strategy = "org.hibernate.id.UUIDGenerator"
     )
-    private UUID milestonesId;
+    private UUID id;
 
     @Column(nullable = false)
     @Max(value = 100)
@@ -35,11 +35,11 @@ public class Milestones extends Auditable<String> {
     @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID projectId;
 
-    @Column()
+    @Column
     private String dueDate;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column
     private MilestonesTableStatus status;
 
     public enum MilestonesTableStatus{

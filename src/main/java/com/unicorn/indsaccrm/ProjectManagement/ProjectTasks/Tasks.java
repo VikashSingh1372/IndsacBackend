@@ -21,12 +21,12 @@ public class Tasks extends Auditable<String> {
 
     @Id
     @GeneratedValue
-    @Type(type = "org.hibernate.type.UUIDCharType")
+    @Type(type="org.hibernate.type.UUIDCharType")
     @GenericGenerator(
-            name = "UUDi",
+            name = "UUID",
             strategy = "org.hibernate.id.UUIDGenerator"
     )
-    private UUID taskId;
+    private UUID id;
 
     @Column(nullable = false)
     @Max(value = 100)
@@ -47,7 +47,7 @@ public class Tasks extends Auditable<String> {
     private String date;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false)
+    @Column
     private TasksStatus status;
 
     public enum TasksStatus {

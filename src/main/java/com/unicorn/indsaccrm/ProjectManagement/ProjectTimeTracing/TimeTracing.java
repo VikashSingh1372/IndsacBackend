@@ -18,12 +18,12 @@ import java.util.UUID;
 public class TimeTracing extends Auditable<String> {
     @Id
     @GeneratedValue
-    @Type(type = "org.hibernate.type.UUIDCharType")
+    @Type(type="org.hibernate.type.UUIDCharType")
     @GenericGenerator(
-            name = "UUDi",
+            name = "UUID",
             strategy = "org.hibernate.id.UUIDGenerator"
     )
-    private UUID timeTracingId;
+    private UUID id;
 
     @Column
     @Type(type = "org.hibernate.type.UUIDCharType")
@@ -36,8 +36,8 @@ public class TimeTracing extends Auditable<String> {
     @Column
     private String date;
 
-    @Column(nullable = false)
-    private Double hoursWorked;
+    @Column
+    private String hoursWorked;
 
     @Column
     private String description;
