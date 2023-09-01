@@ -29,7 +29,6 @@ public class Tasks extends Auditable<String> {
     private UUID id;
 
     @Column(nullable = false)
-    @Max(value = 100)
     private String taskName;
 
     @Column
