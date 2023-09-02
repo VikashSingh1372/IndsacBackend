@@ -1,4 +1,4 @@
-package com.unicorn.indsaccrm.interactionrecord;
+package com.unicorn.indsaccrm.ProjectManagement.ProjectTimeTracing;
 
 import com.unicorn.indsaccrm.common.config.Auditable;
 import lombok.*;
@@ -7,14 +7,15 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.UUID;
-@Setter
+
 @Getter
+@Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Entity
-@Table(name = "interactionrecord")
-public class InteractionRecord extends Auditable<String> {
+@Table(name = "projecttimetracing")
+public class TimeTracing extends Auditable<String> {
     @Id
     @GeneratedValue
     @Type(type="org.hibernate.type.UUIDCharType")
@@ -26,38 +27,19 @@ public class InteractionRecord extends Auditable<String> {
 
     @Column
     @Type(type = "org.hibernate.type.UUIDCharType")
-    private UUID useradminid;
+    private UUID tasksId;
 
     @Column
     @Type(type = "org.hibernate.type.UUIDCharType")
-    private UUID usercid;
+    private UUID userId;
 
     @Column
-    private String readstatus;
+    private String date;
 
     @Column
-    private String direction;
+    private String hoursWorked;
 
     @Column
-    private String status;
-
-    @Column
-    private String priority;
-
-    @Column
-    private String enquiry;
-
-    @Column
-    private String lead;
-
-    @Column
-    private String product;
-
-    @Column
-    private String owner;
-
-    @Column
-    @Type(type = "org.hibernate.type.UUIDCharType")
-    private UUID customerid;
-
+    private String description;
 }
+

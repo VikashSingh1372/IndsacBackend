@@ -17,9 +17,9 @@ import java.util.UUID;
 public class Events extends Auditable<String> {
     @Id
     @GeneratedValue
-    @Type(type = "org.hibernate.type.UUIDCharType")
+    @Type(type="org.hibernate.type.UUIDCharType")
     @GenericGenerator(
-            name = "UUDi",
+            name = "UUID",
             strategy = "org.hibernate.id.UUIDGenerator"
     )
     private UUID id;

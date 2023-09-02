@@ -1,4 +1,4 @@
-package com.unicorn.indsaccrm.emailsetting;
+package com.unicorn.indsaccrm.ProjectManagement.Projects;
 
 import com.unicorn.indsaccrm.common.config.Auditable;
 import lombok.*;
@@ -7,14 +7,16 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.UUID;
-@Setter
+
 @Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "emailsetting")
-public class EmailSetting extends Auditable<String> {
+@Table(name = "projects")
+public class Projects extends Auditable<String> {
+
     @Id
     @GeneratedValue
     @Type(type="org.hibernate.type.UUIDCharType")
@@ -26,30 +28,30 @@ public class EmailSetting extends Auditable<String> {
 
     @Column
     @Type(type = "org.hibernate.type.UUIDCharType")
-    private UUID useradminid;
+    private UUID userId;
+
+    @Column(nullable = false)
+    private String projectName;
 
     @Column
-    @Type(type = "org.hibernate.type.UUIDCharType")
-    private UUID usercid;
+    private String description;
 
     @Column
-    private String email;
+    private String startDate;
 
     @Column
-    private String password;
+    private String endDate;
 
+    @Enumerated(EnumType.STRING)
     @Column
-    private String outgoingserver;
+    private ProjectStatus status;
 
-    @Column
-    private String port;
-
-    @Column
-    private String agreetermconditions;
-
-    @Column
-    private String status;
-
-
-
+    public enum ProjectStatus {
+        NOT_STARTED,
+        IN_PROGRESS,
+        COMPLETED,
+        ON_HOLD,
+        CANCELLED
+    }
 }
+

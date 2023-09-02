@@ -1,20 +1,23 @@
-package com.unicorn.indsaccrm.emailsetting;
+package com.unicorn.indsaccrm.ProjectManagement.ProjectMilestones;
 
 import com.unicorn.indsaccrm.common.config.Auditable;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
+
 import javax.persistence.*;
+import javax.validation.constraints.Max;
 import java.util.UUID;
-@Setter
+
 @Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "emailsetting")
-public class EmailSetting extends Auditable<String> {
+@Table(name = "projectmilestones")
+public class Milestones extends Auditable<String> {
     @Id
     @GeneratedValue
     @Type(type="org.hibernate.type.UUIDCharType")
@@ -24,32 +27,26 @@ public class EmailSetting extends Auditable<String> {
     )
     private UUID id;
 
-    @Column
-    @Type(type = "org.hibernate.type.UUIDCharType")
-    private UUID useradminid;
+    @Column(nullable = false)
+    private String milestonesName;
 
     @Column
     @Type(type = "org.hibernate.type.UUIDCharType")
-    private UUID usercid;
+    private UUID projectId;
 
     @Column
-    private String email;
+    private String dueDate;
 
+    @Enumerated(EnumType.STRING)
     @Column
-    private String password;
+    private MilestonesTableStatus status;
 
-    @Column
-    private String outgoingserver;
-
-    @Column
-    private String port;
-
-    @Column
-    private String agreetermconditions;
-
-    @Column
-    private String status;
-
-
+    public enum MilestonesTableStatus{
+        NOTSTARTED,
+        INPROGRESS,
+        COMPLETED,
+        ONHOLD,
+        CANCELLED
+    }
 
 }
