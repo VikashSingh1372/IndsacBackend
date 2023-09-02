@@ -25,15 +25,17 @@ public interface LeadRepository extends JpaRepository<Lead, UUID> {
     @Query("select l from Lead l where l.useradminid = ?1")
     List<Lead> findByUseradminid(UUID useradminid);
 
+    @Query("select e from Lead e where year(e.creationDate) = year(current_date) and  month(e.creationDate) = month(current_date) and e.useradminid = ?1")
+    List<Lead> getAllOfCurrentMonth(UUID useradminid);
 
 
-//    @Query(value = "SELECT MONTH(e.creationDate) AS month, COUNT(*) AS count "
-//            + "FROM lead e "
-//            + "WHERE YEAR(e.creationDate) =  ?1 "
-//            + "AND MONTH(e.creationDate) = ?2 "
-//            + "AND e.useradminid = ?3 "
-//            + "GROUP BY MONTH(e.creationDate)")
-//    List<Object[]> countForYearAndMonth(String year,String month,UUID useradminid);
+    // @Query(value = "SELECT MONTH(e.creationDate) AS month, COUNT(*) AS count "
+    //     + "FROM lead e "
+    //    + "WHERE YEAR(e.creationDate) =  ?1 "
+    //    + "AND MONTH(e.creationDate) = ?2 "
+    //    + "AND e.useradminid = ?3 "
+    //       + "GROUP BY MONTH(e.creationDate)")
+    //List<?> countForYearAndMonth(String year,String month,UUID useradminid);
 
 
 //    @Query("select m from lead m where m.useradminid=137c2b51-5645-4218-9259-e7ef2705fe85 and SubString(cast(m.date as text),1,4) = :year")

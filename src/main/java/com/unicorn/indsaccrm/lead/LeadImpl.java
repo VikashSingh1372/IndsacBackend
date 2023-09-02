@@ -33,6 +33,12 @@ public class LeadImpl implements LeadService{
         return ResponseEntity.ok(leadRepository.findById(id));
     }
 
+    @Override
+    public ResponseEntity<List<Lead>> getAllLeadsByAdminId(UUID useradminid) {
+        logger.info("get lead by usreadminid successfully");
+        return ResponseEntity.ok(leadRepository.findByUseradminid(useradminid));
+    }
+
 
     @Override
     public ResponseEntity<LeadResource.LeadDashboard> getLeadDahBoard(UUID useradminid) {
@@ -45,6 +51,8 @@ public class LeadImpl implements LeadService{
      leadDashboard.setInActiveLead(leadRepository.countByUseradminidAndStatusIn(useradminid,Arrays.asList(Lead.LeadStatus.DISQUALIFIED,
              Lead.LeadStatus.CONVERTTOCUSTOMER)));
      leadDashboard.setLeadList(leadRepository.findByUseradminid(useradminid));
+     System.out.println(leadRepository.getAllOfCurrentMonth(useradminid).stream().count());
+     //System.out.println(leadRepository.countForYearAndMonth("2023","09",useradminid));
         logger.info("Get all leaddashboard");
         return ResponseEntity.ok(leadDashboard);
     }
