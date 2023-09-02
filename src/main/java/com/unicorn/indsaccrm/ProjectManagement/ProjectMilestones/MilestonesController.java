@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @CrossOrigin
-@RequestMapping("/milestones")
+@RequestMapping("/milestone")
 @RestController
 public class MilestonesController {
     @Autowired

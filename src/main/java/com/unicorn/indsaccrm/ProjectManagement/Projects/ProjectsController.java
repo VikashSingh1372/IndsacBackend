@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/Projects")
+@RequestMapping("/project")
 public class ProjectsController {
 
     @Autowired

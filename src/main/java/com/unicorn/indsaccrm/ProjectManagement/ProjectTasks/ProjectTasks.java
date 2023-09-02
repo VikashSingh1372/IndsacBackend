@@ -6,7 +6,6 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
 import java.util.UUID;
 
 @Getter
@@ -16,7 +15,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Entity
 @Table(name = "projecttasks")
-public class Tasks extends Auditable<String> {
+public class ProjectTasks extends Auditable<String> {
 
 
     @Id

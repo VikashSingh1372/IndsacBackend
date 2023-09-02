@@ -11,37 +11,37 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class TasksServiceImpl implements TasksService{
+public class ProjectTasksServiceImpl implements ProjectTasksService {
 
     @Autowired
-    TasksRepository tasksRepository;
+    ProjectTasksRepository tasksRepository;
 
-    Logger logger = LoggerFactory.getLogger(TasksServiceImpl.class);
+    Logger logger = LoggerFactory.getLogger(ProjectTasksServiceImpl.class);
 
     @Override
-    public ResponseEntity<?> saveTasks(Tasks tasks) {
+    public ResponseEntity<?> saveTasks(ProjectTasks tasks) {
         logger.info("Save tasks from saveTasks Successully");
         return ResponseEntity.ok(tasksRepository.save(tasks));
     }
 
     @Override
-    public ResponseEntity<List<Tasks>> getTasks() {
+    public ResponseEntity<List<ProjectTasks>> getTasks() {
         logger.info("Get all tasks from getTasks Successully");
         return ResponseEntity.ok(tasksRepository.findAll());
     }
 
     @Override
-    public ResponseEntity<Optional<Tasks>> getTasksById(UUID id) {
+    public ResponseEntity<Optional<ProjectTasks>> getTasksById(UUID id) {
         logger.info("Get tasks By id getTasksById Successully");
         return ResponseEntity.ok(tasksRepository.findById(id));
     }
     @Override
-    public ResponseEntity<List<Tasks>> getTasksByProjectId(UUID id) {
+    public ResponseEntity<List<ProjectTasks>> getTasksByProjectId(UUID id) {
         logger.info("Get tasks By projectid getTasksByProjectId Successully");
         return ResponseEntity.ok(tasksRepository.findByProjectId(id));
     }
     @Override
-    public ResponseEntity<List<Tasks>> getTasksByUserId(UUID id) {
+    public ResponseEntity<List<ProjectTasks>> getTasksByUserId(UUID id) {
         logger.info("Get tasks By userid getTasksByUserId Successully");
         return ResponseEntity.ok(tasksRepository.findByUserId(id));
     }

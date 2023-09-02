@@ -8,14 +8,14 @@ import java.util.UUID;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/tasks")
-public class TasksController {
+@RequestMapping("/projecttask")
+public class ProjectTasksController {
 
     @Autowired
-    TasksService tasksService;
+    ProjectTasksService tasksService;
 
     @PostMapping
-    ResponseEntity<?> createTasks(@RequestBody Tasks tasks)throws Exception{
+    ResponseEntity<?> createTasks(@RequestBody ProjectTasks tasks)throws Exception{
         return ResponseEntity.ok(tasksService.saveTasks(tasks));
     }
 
