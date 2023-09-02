@@ -52,7 +52,7 @@ public class LeadImpl implements LeadService{
              Lead.LeadStatus.CONVERTTOCUSTOMER)));
      leadDashboard.setLeadList(leadRepository.findByUseradminid(useradminid));
      System.out.println(leadRepository.getAllOfCurrentMonth(useradminid).stream().count());
-     //System.out.println(leadRepository.countForYearAndMonth("2023","09",useradminid));
+     System.out.println(leadRepository.countForYearAndMonth("2023","9"));
         logger.info("Get all leaddashboard");
         return ResponseEntity.ok(leadDashboard);
     }
