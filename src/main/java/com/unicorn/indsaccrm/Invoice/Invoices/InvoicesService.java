@@ -8,13 +8,13 @@ import java.util.UUID;
 
 public interface InvoicesService {
 
-    ResponseEntity<?> saveInvoices(Invoices invoices);
+    ResponseEntity<?> saveInvoices(Invoice invoice);
 
-    ResponseEntity<List<Invoices>> getAllInvoices();
+    ResponseEntity<List<Invoice>> getAllInvoices();
 
-    ResponseEntity<Optional<Invoices>> getInvoicesByInvoiceId(UUID invoiceid);
+    ResponseEntity<Optional<Invoice>> getInvoicesByInvoiceId(UUID invoiceid);
 
-    ResponseEntity<List<Invoices>> getInvoicesByCustomerId(UUID id);
+    ResponseEntity<List<Invoice>> getInvoicesByCustomerId(UUID id);
 
-    ResponseEntity<List<Invoices>> getInvoicesByUserId(UUID id);
+    ResponseEntity<List<Invoice>> getInvoicesByUserId(UUID id);
 }

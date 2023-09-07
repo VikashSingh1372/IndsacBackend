@@ -19,31 +19,31 @@ public class InvoicesServiceImpl implements InvoicesService {
     Logger logger = LoggerFactory.getLogger(InvoicesServiceImpl.class);
 
     @Override
-    public ResponseEntity<?> saveInvoices(Invoices invoices) {
+    public ResponseEntity<?> saveInvoices(Invoice invoice) {
         logger.info("save Invoices inside saveInvoices successfully");
-        return ResponseEntity.ok(invoicesRepository.save(invoices));
+        return ResponseEntity.ok(invoicesRepository.save(invoice));
     }
 
     @Override
-    public ResponseEntity<List<Invoices>> getAllInvoices() {
+    public ResponseEntity<List<Invoice>> getAllInvoices() {
         logger.info("Get all Invoices inside getAllInvoices successfully");
         return ResponseEntity.ok(invoicesRepository.findAll());
     }
 
     @Override
-    public ResponseEntity<Optional<Invoices>> getInvoicesByInvoiceId(UUID invoiceid) {
+    public ResponseEntity<Optional<Invoice>> getInvoicesByInvoiceId(UUID invoiceid) {
         logger.info("Get Invoices By InvoiceId inside getInvoicesByInvoiceId successfully");
         return ResponseEntity.ok(invoicesRepository.findByInvoiceid(invoiceid));
     }
 
     @Override
-    public ResponseEntity<List<Invoices>> getInvoicesByCustomerId(UUID id) {
+    public ResponseEntity<List<Invoice>> getInvoicesByCustomerId(UUID id) {
         logger.info("Get Invoices By Customer_id inside getInvoicesByCustomerId successfully");
         return ResponseEntity.ok(invoicesRepository.findByCustomerid(id));
     }
 
     @Override
-    public ResponseEntity<List<Invoices>> getInvoicesByUserId(UUID id) {
+    public ResponseEntity<List<Invoice>> getInvoicesByUserId(UUID id) {
         logger.info("Get Invoices By User_id inside getInvoicesByUserId successfully");
         return ResponseEntity.ok(invoicesRepository.findByUserid(id));
     }

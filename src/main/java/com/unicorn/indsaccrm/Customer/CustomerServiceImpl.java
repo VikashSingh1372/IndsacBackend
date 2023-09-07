@@ -33,6 +33,6 @@ public class CustomerServiceImpl implements CustomerService{
     @Override
     public ResponseEntity<Optional<Customer>> getCustomerByCustomerId(UUID customerid) {
         logger.info("GET Customer By Id inside getByIdCustomer successfully");
-        return ResponseEntity.ok(customerRepository.findByCustomerid(customerid));
+        return ResponseEntity.ok(customerRepository.findById(customerid));
     }
 }

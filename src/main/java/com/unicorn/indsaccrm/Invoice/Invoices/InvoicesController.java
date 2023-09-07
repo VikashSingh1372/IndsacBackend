@@ -8,15 +8,15 @@ import java.util.UUID;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/invoices")
+@RequestMapping("/invoice")
 public class InvoicesController {
 
     @Autowired
     InvoicesService invoicesService;
 
     @PostMapping
-    ResponseEntity<?> saveInvoices(@RequestBody Invoices invoices)throws Exception {
-        return ResponseEntity.ok(invoicesService.saveInvoices(invoices));
+    ResponseEntity<?> saveInvoices(@RequestBody Invoice invoice)throws Exception {
+        return ResponseEntity.ok(invoicesService.saveInvoices(invoice));
     }
 
     @GetMapping("/all")

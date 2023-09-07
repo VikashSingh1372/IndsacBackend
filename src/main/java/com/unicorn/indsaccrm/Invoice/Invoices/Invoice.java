@@ -15,7 +15,7 @@ import java.util.UUID;
 @Builder
 @Entity
 @Table(name = "inovices")
-public class Invoices extends Auditable<String> {
+public class Invoice extends Auditable<String> {
     @Id
     @GeneratedValue
     @Type(type = "org.hibernate.type.UUIDCharType")
