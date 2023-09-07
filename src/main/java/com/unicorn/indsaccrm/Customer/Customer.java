@@ -84,4 +84,9 @@ public class Customer extends Auditable<String> {
 
     @Column
     private String owner;
+
+
+    enum CustomerStatus{
+        OPEN,ATTEMPTEDCONTACT,NOTENGAGED,NEEDSFOLLOWUP,WORKING,NEWOPPORTUNITY,QUALIFIED,DISQUALIFIED,CONVERTTOCUSTOMER
+    }
 }

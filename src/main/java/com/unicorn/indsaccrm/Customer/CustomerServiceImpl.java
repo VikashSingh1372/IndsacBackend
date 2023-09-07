@@ -6,12 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class CustomerServiceImpl implements CustomerService{
+public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
     CustomerRepository customerRepository;
@@ -31,8 +31,25 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
-    public ResponseEntity<Optional<Customer>> getCustomerByCustomerId(UUID customerid) {
+    public ResponseEntity<List<Customer>> getCustomerByCustomerId(UUID customerid) {
         logger.info("GET Customer By Id inside getByIdCustomer successfully");
         return ResponseEntity.ok(customerRepository.findByCustomerid(customerid));
+
     }
-}
+        public ResponseEntity<CustomerResources.CustomerDashboard> getCustomerDashboard(UUID customerid){
+            CustomerResources.CustomerDashboard customerDashboard = new CustomerResources.CustomerDashboard();
+            customerDashboard.setTotalCustomer(customerRepository.countByCustomerid(customerid));
+            customerDashboard.setConvertedCustomer(customerRepository.countByStatusAndCustomerid(Customer.CustomerStatus.CONVERTTOCUS, customerid));
+            customerDashboard.setActiveCustomer(customerRepository.countByCustomeridAndStatusIn(customerid, Arrays.asList(Customer.CustomerStatus.NEEDSFOLLOWUP,
+                    Customer.CustomerStatus.ATTEMPTEDCONTACT, Customer.CustomerStatus.NEWOPPORTUNITY, Customer.CustomerStatus.QUALIFIED, Customer.CustomerStatus.OPEN,
+                    Customer.CustomerStatus.WORKING, Customer.CustomerStatus.NOTENGAGED)));
+            customerDashboard.setInActiveCustomer(customerDashboard.setCustomerCountByStatus(customerid, Arrays.asList(Customer.CustomerStatus.DISQUALIFIED,
+                    Customer.CustomerStatus.CONVERTTOCUSTOMER)));
+            customerDashboard.setCustomerList(customerRepository.findByCustomerid(customerid));
+            System.out.println(customerRepository.getAllOfCurrentMonth(customerid).stream().count());
+            System.out.println(customerRepository.countForYearAndMonth("2023", "9"));
+            logger.info("Get all CustomerDashboard");
+            return ResponseEntity.ok(customerDashboard);
+        }
+    }
+
