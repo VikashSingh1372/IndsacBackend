@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Column;;
-import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 public class CustomerResources {
 
@@ -55,16 +55,19 @@ public class CustomerResources {
         private long inActiveCustomer;
 
         @Column
-        private EnumMap<Customer.CustomerStatus, IntegerEnum> customerCountByStatus;
+        private Map<Customer.CustomerStatus, Long> customerCountByStatus;
 
         @Column
         private List<Customer> customerList;
 
         @Column
-        private EnumMap<IntegerEnum, IntegerEnum> totalCustomerInCurrentMonth;
+        private Map<Integer,Long> totalCustomerInCurrentMonth;
 
         @Column
-        private EnumMap<IntegerEnum, IntegerEnum> totalCustomerAddedByMonthInCurrentYear;
+        private Map<Integer,Long> totalCustomerAddedByMonthInCurrentYear;
+
+
+
     }
 
 }

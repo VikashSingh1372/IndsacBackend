@@ -1,6 +1,5 @@
 package com.unicorn.indsaccrm.lead;
 
-import jdk.nashorn.internal.runtime.regexp.joni.encoding.ObjPtr;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
