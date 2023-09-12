@@ -9,7 +9,7 @@ import java.util.UUID;
 
 @CrossOrigin
 @Controller
-@RequestMapping("/Customer")
+@RequestMapping("/customer")
 public class CustomerController {
     @Autowired
     CustomerService customerService;
@@ -25,7 +25,7 @@ public class CustomerController {
     ResponseEntity<?> getCustomerByID(@PathVariable UUID customerid)throws Exception{
         return ResponseEntity.ok(customerService.getCustomerByCustomerId(customerid));
     }
-    @GetMapping("/CustomerDetailsResponse/{customerid}")
+    @GetMapping("/details/{customerid}")
     ResponseEntity<?> getCustomerDetailsResponse(@PathVariable UUID customerid)throws Exception{
         return ResponseEntity.ok(customerService.getCustomerDetailsResponse(customerid));
     }
