@@ -19,7 +19,7 @@ public class TaskImpl implements TaskService{
     @Override
     public ResponseEntity<?> saveAllTask(Task task) {
         taskRepository.save(task);
-        return new ResponseEntity<>("save all task successfully", HttpStatus.OK);
+        return ResponseEntity.ok(taskRepository.save(task));
     }
 
     @Override
@@ -32,5 +32,17 @@ public class TaskImpl implements TaskService{
     public ResponseEntity<Optional<Task>> getByIdtask(UUID id) {
         logger.info("all task getting by id");
         return ResponseEntity.ok(taskRepository.findById(id));
+    }
+
+    @Override
+    public ResponseEntity<List<Task>> getTaskByCustomerId(UUID id) {
+        logger.info("Get tasks by UserCustomerId");
+        return ResponseEntity.ok(taskRepository.findByCustomerid(id));
+    }
+
+    @Override
+    public ResponseEntity<List<Task>> getTaskByUserAdminId(UUID id) {
+        logger.info("Get tasks by UserAdminId");
+        return ResponseEntity.ok(taskRepository.findByUseradminid(id));
     }
 }

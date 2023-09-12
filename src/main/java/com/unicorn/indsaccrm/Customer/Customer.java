@@ -84,4 +84,8 @@ public class Customer extends Auditable<String> {
 
     @Column
     private String owner;
+
+    @Column
+    @Type(type="org.hibernate.type.UUIDCharType")
+    private UUID useradminid;
 }

@@ -25,4 +25,13 @@ public class TaskController {
     ResponseEntity<?>getByIdtaks(@PathVariable UUID id)throws  Exception{
         return ResponseEntity.ok(taskService.getByIdtask(id));
     }
+
+    @GetMapping("/customerid/{id}")
+    ResponseEntity<?> getTaskByCustomerId(@PathVariable UUID id)throws  Exception{
+        return ResponseEntity.ok(taskService.getTaskByCustomerId(id));
+    }
+    @GetMapping("/useradminid/{id}")
+    ResponseEntity<?> getTaskByUserAdminId(@PathVariable UUID id)throws  Exception{
+        return ResponseEntity.ok(taskService.getTaskByUserAdminId(id));
+    }
 }
