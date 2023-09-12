@@ -1,4 +1,4 @@
-package com.unicorn.indsaccrm.expence;
+package com.unicorn.indsaccrm.expense;
 
 import com.unicorn.indsaccrm.common.config.Auditable;
 import lombok.*;

@@ -6,7 +6,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface InvoiceItemsRepository extends JpaRepository<InvoiceItems,UUID> {
-    Optional<InvoiceItems> findByItemid(UUID itemid);
 
     List<InvoiceItems> findByInvoiceid(UUID invoiceid);
 

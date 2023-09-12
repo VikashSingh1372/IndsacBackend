@@ -33,6 +33,6 @@ public class ProductsServiceImpl implements ProductsService{
     @Override
     public ResponseEntity<Optional<Products>> getProductsByProductId(UUID id) {
         logger.info("Get Products By Id inside getProductsByProductId successfully");
-        return ResponseEntity.ok(productsRepository.findByProductid(id));
+        return ResponseEntity.ok(productsRepository.findById(id));
     }
 }

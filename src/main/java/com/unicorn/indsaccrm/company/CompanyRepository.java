@@ -11,7 +11,7 @@ public interface CompanyRepository extends JpaRepository<Company,UUID> {
 
     List<Company> findByUsercid(UUID usercid);
 
-    List<Company> findByOwneruserid(UUID owneruserid);
+    List<Company> findByOwner(UUID owneruserid);
 
 
 

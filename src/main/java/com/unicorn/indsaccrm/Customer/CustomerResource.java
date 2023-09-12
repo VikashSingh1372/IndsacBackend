@@ -45,9 +45,10 @@ public class CustomerResource {
     @NoArgsConstructor
     public static class CountInformation{
 
-        private String totalInvoice;
-        private String duePayment;
-        private String totalOrders;
+        private int totalInvoice;
+        private int totalServiceRequets;
+        private Double duePayment;
+        private int totalOrders;
     }
 
     @Setter

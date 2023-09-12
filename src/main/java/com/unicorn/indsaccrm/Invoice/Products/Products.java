@@ -23,7 +23,7 @@ public class Products extends Auditable<String> {
             name = "UUID",
             strategy = "org.hibernate.id.UUIDGenerator"
     )
-    private UUID productid;
+    private UUID id;
 
     @Column
     private String productname;
@@ -33,5 +33,17 @@ public class Products extends Auditable<String> {
 
     @Column
     private int stockQuantity;
+
+    @Column
+    @Type(type = "org.hibernate.type.UUIDCharType")
+    private UUID owner;
+
+    @Column
+    @Type(type = "org.hibernate.type.UUIDCharType")
+    private UUID usercid;
+
+    @Column
+    @Type(type = "org.hibernate.type.UUIDCharType")
+    private UUID useradminid;
 
 }

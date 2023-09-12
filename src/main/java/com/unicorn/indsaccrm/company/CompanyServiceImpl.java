@@ -51,7 +51,7 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public ResponseEntity<List<Company>> getCompanyByOwneruserid(UUID id) {
         logger.info("GET Company By owner_userid inside getCompanyByOwner_userid successfully ");
-        return ResponseEntity.ok(companyRepository.findByOwneruserid(id));
+        return ResponseEntity.ok(companyRepository.findByOwner(id));
     }
 
 }

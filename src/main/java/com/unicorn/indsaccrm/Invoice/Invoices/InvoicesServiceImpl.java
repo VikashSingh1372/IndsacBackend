@@ -33,7 +33,7 @@ public class InvoicesServiceImpl implements InvoicesService {
     @Override
     public ResponseEntity<Optional<Invoice>> getInvoicesByInvoiceId(UUID invoiceid) {
         logger.info("Get Invoices By InvoiceId inside getInvoicesByInvoiceId successfully");
-        return ResponseEntity.ok(invoicesRepository.findByInvoiceid(invoiceid));
+        return ResponseEntity.ok(invoicesRepository.findById(invoiceid));
     }
 
     @Override

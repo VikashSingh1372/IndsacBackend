@@ -7,8 +7,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface InvoicesRepository extends JpaRepository<Invoice, UUID> {
-    Optional<Invoice> findByInvoiceid(UUID invoiceid);
-    List<Invoice> findByCustomerid(UUID customerid);
+        List<Invoice> findByCustomerid(UUID customerid);
     List<Invoice> findByUserid(UUID userid);
 
 }

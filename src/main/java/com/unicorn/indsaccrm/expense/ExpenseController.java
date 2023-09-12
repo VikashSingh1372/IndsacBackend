@@ -1,4 +1,4 @@
-package com.unicorn.indsaccrm.expence;
+package com.unicorn.indsaccrm.expense;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

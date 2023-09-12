@@ -1,7 +1,10 @@
 package com.unicorn.indsaccrm.Customer;
 
+import com.unicorn.indsaccrm.Customer.CustomerResource.CountInformation;
+import com.unicorn.indsaccrm.Customer.CustomerResource.CustomerDetailsResponse;
 import com.unicorn.indsaccrm.Invoice.Invoices.Invoice;
 import com.unicorn.indsaccrm.Invoice.Invoices.InvoicesService;
+import com.unicorn.indsaccrm.common.exception.ResourceNotFoundException;
 import com.unicorn.indsaccrm.interactionrecord.InteractionRecord;
 import com.unicorn.indsaccrm.interactionrecord.InteractionRecordService;
 import com.unicorn.indsaccrm.order.ProductOrder;
@@ -67,15 +70,6 @@ public class CustomerServiceImpl implements CustomerService{
         return customerRepository.findById(customerId).get();
     }
 
-    //Set Values For CountInformation
-    public CustomerResource.CountInformation CountInformation(){
-        CustomerResource.CountInformation countInformation=new CustomerResource.CountInformation();
-        countInformation.setTotalInvoice("");
-        countInformation.setDuePayment("");
-        countInformation.setTotalOrders("");
-        return countInformation;
-    }
-
     //Set Values for DueToday
     public CustomerResource.DueToday DueToday(){
         CustomerResource.DueToday dueToday=new CustomerResource.DueToday();
@@ -100,24 +94,46 @@ public class CustomerServiceImpl implements CustomerService{
         return openItems;
     }
 
-    public CustomerResource.CustomerEventList CustomerEventList(UUID customerid){
+    public void setCustomerEventList(UUID customerid,CustomerDetailsResponse customerDetailsResponse){
         CustomerResource.CustomerEventList customerEventList=new CustomerResource.CustomerEventList();
-        customerEventList.setOrderList((List<ProductOrder>) productOrderService.getProductOrderByCustomerId(customerid));
-        customerEventList.setInvoiceList((List<Invoice>) invoicesService.getInvoicesByCustomerId(customerid));
-        customerEventList.setPurchaseOrderList("00");
-        customerEventList.setQuotationList("0");
-        customerEventList.setServiceRequestList((List<ServiceRequest>) serviceRequestService.getServiceRequestByCustomerid(customerid));
-        customerEventList.setTaskList((List<Task>) taskService.getTaskByCustomerId(customerid));
-        customerEventList.setInteractionRecordList((List<InteractionRecord>) interactionRecordService.getInteractionRecordByCustomerId(customerid));
-        return customerEventList;
+
+        List<Invoice> invoiceList= (List<Invoice>) invoicesService.getInvoicesByCustomerId(customerid).getBody();
+        List<ProductOrder> orderList=(List<ProductOrder>) productOrderService.getProductOrderByCustomerId(customerid).getBody();
+
+        List<ServiceRequest> serviceRequestList=(List<ServiceRequest>) serviceRequestService
+            .getServiceRequestByCustomerid(customerid).getBody();
+        List<Task> taskList=(List<Task>) taskService.getTaskByCustomerId(customerid).getBody();
+        List<InteractionRecord> interactionRecordList=(List<InteractionRecord>)
+            interactionRecordService.getInteractionRecordByCustomerId(customerid).getBody();
+
+        customerEventList.setOrderList(orderList);
+        customerEventList.setInvoiceList(invoiceList);
+        customerEventList.setPurchaseOrderList("");
+        customerEventList.setQuotationList("");
+        customerEventList.setServiceRequestList(serviceRequestList);
+        customerEventList.setTaskList(taskList);
+        customerEventList.setInteractionRecordList(interactionRecordList);
+
+
+        CountInformation countInformation=new CountInformation();
+      assert invoiceList != null;
+      countInformation.setTotalInvoice(invoiceList.size());
+      assert serviceRequestList != null;
+      countInformation.setTotalServiceRequets(serviceRequestList.size());
+      assert orderList != null;
+      countInformation.setTotalOrders(orderList.size());
+
+
+        customerDetailsResponse.setCount(countInformation);
+        customerDetailsResponse.setEventList(customerEventList);
     }
 
-    public ResponseEntity<CustomerResource.CustomerDetailsResponse> getCustomerDetailsResponse(UUID customerid){
-        CustomerResource.CustomerDetailsResponse customerDetailsResponse=new CustomerResource.CustomerDetailsResponse();
-        customerDetailsResponse.setCustomer(getCustomerForCustomerDetailsResponse(customerid));
-        customerDetailsResponse.setCount(CountInformation());
+    public ResponseEntity<CustomerDetailsResponse> getCustomerDetailsResponse(UUID customerid){
+        CustomerDetailsResponse customerDetailsResponse=new CustomerDetailsResponse();
+        customerDetailsResponse.setCustomer(customerRepository.findById(customerid)
+            .orElseThrow(() -> new ResourceNotFoundException("Customer Not found")));
         customerDetailsResponse.setDueToday(DueToday());
-        customerDetailsResponse.setEventList(CustomerEventList(customerid));
+        setCustomerEventList(customerid,customerDetailsResponse);
         return ResponseEntity.ok(customerDetailsResponse);
     }
 

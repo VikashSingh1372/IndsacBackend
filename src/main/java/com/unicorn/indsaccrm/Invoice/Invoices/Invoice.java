@@ -14,7 +14,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "inovices")
+@Table(name = "invoice")
 public class Invoice extends Auditable<String> {
     @Id
     @GeneratedValue
@@ -30,7 +30,18 @@ public class Invoice extends Auditable<String> {
     private UUID customerid;
 
     @Column
+    private Double totalamount;
+
+    @Column
     @Type(type = "org.hibernate.type.UUIDCharType")
-    private UUID userid;
+    private UUID owner;
+
+    @Column
+    @Type(type = "org.hibernate.type.UUIDCharType")
+    private UUID usercid;
+
+    @Column
+    @Type(type = "org.hibernate.type.UUIDCharType")
+    private UUID useradminid;
 }
 

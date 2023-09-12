@@ -30,7 +30,7 @@ public class Company extends Auditable<String> {
 
     @Column
     @Type(type = "org.hibernate.type.UUIDCharType")
-    private UUID owneruserid;
+    private UUID owner;
 
     @Column
     @Type(type = "org.hibernate.type.UUIDCharType")

@@ -1,4 +1,4 @@
-package com.unicorn.indsaccrm.expence;
+package com.unicorn.indsaccrm.expense;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
