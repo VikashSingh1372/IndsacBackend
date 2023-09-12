@@ -10,23 +10,23 @@ import java.util.UUID;
 
 public interface CustomerRepository extends JpaRepository<Customer,UUID> {
 
-    long countByCustomerid(UUID customerid);
+    long countById(UUID id);
 
-    long countByCustomeridAndStatusIn(UUID customerid,List<Customer.CustomerStatus> statusList);
+    long countByIdAndStatusIn(UUID id, List<Customer.CustomerStatus> statusList);
 
-    long countByStatusAndCustomerid(Customer.CustomerStatus status, UUID customerid);
+    long countByStatusAndId(Customer.CustomerStatus status, UUID id);
 
     @Query("select l from customer l where l.customerid = ?1 and l.status = ?2")
-    List<Lead> findByCustomeridAndStatus(UUID customerid, Customer.CustomerStatus status);
+    List<Lead> findByIdAndStatus(UUID id, Customer.CustomerStatus status);
 
     @Query("select count(l) from customer l where l.customerid = ?1 and l.creationDate = ?2")
-    long countByDate(UUID customerid, Date creationDate);
+    long countByDate(UUID id, Date creationDate);
 
     @Query("select l from customer l where l.customerid = ?1")
-    List<Customer> findByCustomerid(UUID customerid);
+    List<Customer> findByCustomerid(UUID id);
 
     @Query("select e from Customer e where year(e.creationDate) = year(current_date) and  month(e.creationDate) = month(current_date) and e.customerid = ?1")
-    List<Lead> getAllOfCurrentMonth(UUID customerid);
+    List<Lead> getAllOfCurrentMonth(UUID id);
 
     @Query(value = "SELECT c.creationDate AS yearComment, COUNT(c.*) AS totalComment "
             + "FROM Customer AS c GROUP BY c.creationDate ORDER BY c.creationDate DESC", nativeQuery = true)

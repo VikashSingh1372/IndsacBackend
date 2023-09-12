@@ -1,6 +1,5 @@
 package com.unicorn.indsaccrm.Customer;
 
-import com.unicorn.indsaccrm.lead.Lead;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,12 +44,12 @@ public class CustomerServiceImpl implements CustomerService {
     }
         public ResponseEntity<CustomerResources.CustomerDashboard> getCustomerDashboard(UUID customerid){
             CustomerResources.CustomerDashboard customerDashboard = new CustomerResources.CustomerDashboard();
-            customerDashboard.setTotalCustomer(customerRepository.countByCustomerid(customerid));
-            customerDashboard.setConvertedCustomer(customerRepository.countByStatusAndCustomerid(Customer.CustomerStatus.CONVERTTOCUSTOMER, customerid));
-            customerDashboard.setActiveCustomer(customerRepository.countByCustomeridAndStatusIn(customerid, Arrays.asList(Customer.CustomerStatus.NEEDSFOLLOWUP,
+            customerDashboard.setTotalCustomer(customerRepository.countById(customerid));
+            customerDashboard.setConvertedCustomer(customerRepository.countByStatusAndId(Customer.CustomerStatus.CONVERTTOCUSTOMER, customerid));
+            customerDashboard.setActiveCustomer(customerRepository.countByIdAndStatusIn(customerid, Arrays.asList(Customer.CustomerStatus.NEEDSFOLLOWUP,
                     Customer.CustomerStatus.ATTEMPTEDCONTACT, Customer.CustomerStatus.NEWOPPORTUNITY, Customer.CustomerStatus.QUALIFIED, Customer.CustomerStatus.OPEN,
                     Customer.CustomerStatus.WORKING, Customer.CustomerStatus.NOTENGAGED)));
-            customerDashboard.setInActiveCustomer(customerRepository.countByCustomeridAndStatusIn(customerid, Arrays.asList(Customer.CustomerStatus.DISQUALIFIED,
+            customerDashboard.setInActiveCustomer(customerRepository.countByIdAndStatusIn(customerid, Arrays.asList(Customer.CustomerStatus.DISQUALIFIED,
                     Customer.CustomerStatus.CONVERTTOCUSTOMER)));
              customerDashboard.setCustomerList(customerRepository.findByCustomerid(customerid));
              customerDashboard.setTotalCustomerAddedByMonthInCurrentYear(findCustomerCurrentYearCount(customerid));

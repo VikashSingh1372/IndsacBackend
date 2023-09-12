@@ -23,7 +23,7 @@ public class Customer extends Auditable<String> {
             name = "UUID",
             strategy = "org.hibernate.id.UUIDGenerator"
     )
-    private UUID customerid;
+    private UUID id;
 
     @Column
     private String readstatus;
@@ -41,7 +41,8 @@ public class Customer extends Auditable<String> {
     private String leadsource;
 
     @Column
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private CustomerStatus status;
 
     @Column
     private String website;
@@ -83,7 +84,16 @@ public class Customer extends Auditable<String> {
     private String product;
 
     @Column
-    private String owner;
+    @Type(type="org.hibernate.type.UUIDCharType")
+    private UUID usercid;
+
+    @Column
+    @Type(type="org.hibernate.type.UUIDCharType")
+    private UUID useradminid;
+
+    @Column
+    @Type(type="org.hibernate.type.UUIDCharType")
+    private UUID owner;
 
 
     enum CustomerStatus{

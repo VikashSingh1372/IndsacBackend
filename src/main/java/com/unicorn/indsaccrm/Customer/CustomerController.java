@@ -9,7 +9,7 @@ import java.util.UUID;
 
 @CrossOrigin
 @Controller
-@RequestMapping("/Customer")
+@RequestMapping("/customer")
 public class CustomerController {
     @Autowired
     CustomerService customerService;
