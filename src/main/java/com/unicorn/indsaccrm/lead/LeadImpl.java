@@ -27,7 +27,10 @@ public class LeadImpl implements LeadService{
     Logger logger= LoggerFactory.logger(LeadImpl.class);
     @Override
     public ResponseEntity<?> SaveAllLead(Lead lead) {
-        return new ResponseEntity<>(leadRepository.save(lead), HttpStatus.OK);
+        for(int i=0;i<=100;i++){
+            leadRepository.save(lead);
+        }
+        return new ResponseEntity<>("All Leads Saved Successfully", HttpStatus.OK);
     }
 
     @Override
