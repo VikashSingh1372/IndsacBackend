@@ -37,24 +37,24 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public ResponseEntity<List<Customer>> getCustomerByCustomerId(UUID customerid) {
+    public ResponseEntity<Optional<Customer>> getCustomerById(UUID id) {
         logger.info("GET Customer By Id inside getByIdCustomer successfully");
-        return ResponseEntity.ok(customerRepository.findByCustomerid(customerid));
+        return ResponseEntity.ok(customerRepository.findById(id));
 
     }
-        public ResponseEntity<CustomerResources.CustomerDashboard> getCustomerDashboard(UUID customerid){
+        public ResponseEntity<CustomerResources.CustomerDashboard> getCustomerDashboard(UUID useradminid){
             CustomerResources.CustomerDashboard customerDashboard = new CustomerResources.CustomerDashboard();
-            customerDashboard.setTotalCustomer(customerRepository.countById(customerid));
-            customerDashboard.setConvertedCustomer(customerRepository.countByStatusAndId(Customer.CustomerStatus.CONVERTTOCUSTOMER, customerid));
-            customerDashboard.setActiveCustomer(customerRepository.countByIdAndStatusIn(customerid, Arrays.asList(Customer.CustomerStatus.NEEDSFOLLOWUP,
+            customerDashboard.setTotalCustomer(customerRepository.countById(useradminid));
+            customerDashboard.setConvertedCustomer(customerRepository.countByStatusAndId(Customer.CustomerStatus.CONVERTTOCUSTOMER, useradminid));
+            customerDashboard.setActiveCustomer(customerRepository.countByIdAndStatusIn(useradminid, Arrays.asList(Customer.CustomerStatus.NEEDSFOLLOWUP,
                     Customer.CustomerStatus.ATTEMPTEDCONTACT, Customer.CustomerStatus.NEWOPPORTUNITY, Customer.CustomerStatus.QUALIFIED, Customer.CustomerStatus.OPEN,
                     Customer.CustomerStatus.WORKING, Customer.CustomerStatus.NOTENGAGED)));
-            customerDashboard.setInActiveCustomer(customerRepository.countByIdAndStatusIn(customerid, Arrays.asList(Customer.CustomerStatus.DISQUALIFIED,
+            customerDashboard.setInActiveCustomer(customerRepository.countByIdAndStatusIn(useradminid, Arrays.asList(Customer.CustomerStatus.DISQUALIFIED,
                     Customer.CustomerStatus.CONVERTTOCUSTOMER)));
-             customerDashboard.setCustomerList(customerRepository.findByCustomerid(customerid));
-             customerDashboard.setTotalCustomerAddedByMonthInCurrentYear(findCustomerCurrentYearCount(customerid));
-             customerDashboard.setTotalCustomerInCurrentMonth(findTotalCustomerInCurrentMonth(customerid));
-             customerDashboard.setCustomerCountByStatus(findTotalCustomerInStatus(customerid));
+             customerDashboard.setCustomerList(customerRepository.findByuseradminid(useradminid));
+             customerDashboard.setTotalCustomerAddedByMonthInCurrentYear(findCustomerCurrentYearCount(useradminid));
+             customerDashboard.setTotalCustomerInCurrentMonth(findTotalCustomerInCurrentMonth(useradminid));
+             customerDashboard.setCustomerCountByStatus(findTotalCustomerInStatus(useradminid));
              logger.info("Get All CustomerDashboard");
              System.out.println("*********Debug*******");
              findCustomerInfo();
@@ -63,33 +63,33 @@ public class CustomerServiceImpl implements CustomerService {
 
         }
         private void findCustomerInfo(){
-        System.out.println("--Customer Userid and count using createQuery(Tuple.class--");
+        System.out.println("--useradminid Userid and count using createQuery(Tuple.class--");
             CriteriaBuilder cb=entityManager.getCriteriaBuilder();
             CriteriaQuery<Tuple> query =cb.createQuery(Tuple.class);
             Root<Customer> employee =query.from(Customer.class);
-            query.select((cb.tuple(employee.get("Customerid"),
-                         cb.count(employee.get("Customerid")))));
+            query.select((cb.tuple(employee.get("useradminid"),
+                         cb.count(employee.get("useradminid")))));
 
             TypedQuery<Tuple> typedQuery =entityManager.createQuery(query);
             List<Tuple> resultList =typedQuery.getResultList();
             resultList.forEach(tuple -> {
-                 System.out.printf("Customerid: %s count: %S%n",
+                 System.out.printf("useradminid: %s count: %S%n",
                          tuple.get(0, UUID.class), tuple.get(1, Long.class));
             });
             entityManager.close();
         }
 
-        private Map<Integer, Long> findCustomerCurrentYearCount(UUID custoemrid) {
+        private Map<Integer, Long> findCustomerCurrentYearCount(UUID useradminid) {
             Map<Integer, Long> currentYearInMonthsCountResult = new HashMap<>();
-            logger.info("---Customer Current Count using createQuery(Tuple.class)--");
+            logger.info("---useradminid Current Count using createQuery(Tuple.class)--");
             CriteriaBuilder cb = entityManager.getCriteriaBuilder();
             CriteriaQuery<Tuple> query = cb.createQuery(Tuple.class);
             Root<Customer> employee = query.from(Customer.class);
             query.select(cb.tuple(cb.function("MONTH", Integer.class, employee.get("creationDate")),
                     cb.count(employee.get("id"))));
             Predicate currentYearPredicate = cb.equal(cb.function("YEAR", Integer.class, employee.get("creationDate")), cb.function("YEAR", Integer.class, cb.currentTimestamp()));
-            Predicate customeridPredicate = cb.equal(employee.get("customerid"),custoemrid);
-            query.where(currentYearPredicate, customeridPredicate);
+            Predicate useradminidPredicate = cb.equal(employee.get(" useradminid"), useradminid);
+            query.where(currentYearPredicate, useradminidPredicate);
             query.groupBy(cb.function("MONTH", Integer.class, employee.get("creationDate")));
             TypedQuery<Tuple> typedQuery = entityManager.createQuery(query);
             List<Tuple> resultList = typedQuery.getResultList();
@@ -101,17 +101,17 @@ public class CustomerServiceImpl implements CustomerService {
             entityManager.close();
             return currentYearInMonthsCountResult;
         }
-            private Map<Integer, Long> findTotalCustomerInCurrentMonth(UUID customerid) {
+            private Map<Integer, Long> findTotalCustomerInCurrentMonth(UUID  useradminid) {
               Map<Integer,Long> currentMonthsDayCountResult = new HashMap<>();
-              logger.info("--- Customer Current Months using CreateQurey (Tuple.class)--");
+              logger.info("--- useradminid Current Months using CreateQurey (Tuple.class)--");
               CriteriaBuilder cb = entityManager.getCriteriaBuilder();
               CriteriaQuery<Tuple> query = cb.createQuery(Tuple.class);
               Root<Customer> employee = query.from(Customer.class);
               query.select(cb.tuple(cb.function("DAY", Integer.class, employee.get("creationDate") ),
                       cb.count(employee.get("id"))));
               Predicate currentMonthPredicate =cb.equal(cb.function("MONTH", Integer.class, employee.get("creationDate") ),cb.function("MONTH", Integer.class, cb.currentTimestamp()));
-              Predicate customeridPredicate = cb.equal(employee.get("Customerid"),customerid);
-              query.where(currentMonthPredicate,customeridPredicate);
+              Predicate useradminidPredicate = cb.equal(employee.get("useradminid"),useradminid);
+              query.where(currentMonthPredicate,useradminidPredicate );
               query.groupBy(cb.function("DAY", Integer.class, employee.get("creationDate") ));
               TypedQuery<Tuple> typedQuery =entityManager.createQuery(query);
               List<Tuple> resultList= typedQuery.getResultList();
@@ -124,15 +124,15 @@ public class CustomerServiceImpl implements CustomerService {
               return currentMonthsDayCountResult;
             }
 
-            private Map<Customer.CustomerStatus, Long> findTotalCustomerInStatus(UUID customerid){
+            private Map<Customer.CustomerStatus, Long> findTotalCustomerInStatus(UUID useradminid){
                   Map<Customer.CustomerStatus,Long> currentMonthDayCountResult=new HashMap<>();
-                  logger.info("--Customer status count using createQuery (Tuple.class)--");
+                  logger.info("-- useradminid status count using createQuery (Tuple.class)--");
                   CriteriaBuilder cb =entityManager.getCriteriaBuilder();
                   CriteriaQuery<Tuple> query =cb.createQuery(Tuple.class);
                   Root<Customer> employee =query.from(Customer.class);
                   query.select(cb.tuple(employee.get("status"),cb.count(employee.get("id"))));
-                  Predicate customeridPredicate = cb.equal(employee.get("customerid"),customerid);
-                  query.where(customeridPredicate);
+                  Predicate useradminidPredicate  = cb.equal(employee.get("useradminid"),useradminid);
+                  query.where(useradminidPredicate);
                   query.groupBy(employee.get("Status"));
                   TypedQuery<Tuple> typedQuery= entityManager.createQuery(query);
                   List<Tuple> resultList =typedQuery.getResultList();

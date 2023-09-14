@@ -22,8 +22,12 @@ public interface CustomerRepository extends JpaRepository<Customer,UUID> {
     @Query("select count(l) from customer l where l.customerid = ?1 and l.creationDate = ?2")
     long countByDate(UUID id, Date creationDate);
 
+
+    @Query("select l from customer l where l.useradminid = ?1")
+    List<Customer> findByuseradminid(UUID id);
+
     @Query("select l from customer l where l.customerid = ?1")
-    List<Customer> findByCustomerid(UUID id);
+    List<Customer> findByid(UUID id);
 
     @Query("select e from Customer e where year(e.creationDate) = year(current_date) and  month(e.creationDate) = month(current_date) and e.customerid = ?1")
     List<Lead> getAllOfCurrentMonth(UUID id);

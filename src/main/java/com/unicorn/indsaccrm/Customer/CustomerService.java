@@ -3,6 +3,7 @@ package com.unicorn.indsaccrm.Customer;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface CustomerService {
@@ -11,7 +12,7 @@ public interface CustomerService {
 
     ResponseEntity<List<Customer>> getAllCustomers();
 
-    ResponseEntity<List<Customer>> getCustomerByCustomerId(UUID customerid);
+    ResponseEntity<Optional<Customer>> getCustomerById(UUID customerid);
 
-    ResponseEntity<CustomerResources.CustomerDashboard> getCustomerDashboard(UUID customerid);
+    ResponseEntity<CustomerResources.CustomerDashboard> getCustomerDashboard(UUID useradminid);
 }
