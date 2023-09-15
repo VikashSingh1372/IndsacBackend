@@ -1,5 +1,7 @@
 package com.unicorn.indsaccrm.order;
 
+import com.unicorn.indsaccrm.order.ProductOrder.OrderStatus;
+import java.time.LocalDate;
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,4 +48,22 @@ public class ProductOrderServiceImpl implements ProductOrderService{
         logger.info("Get ProductOrder By UserAdminId inside getProductOrderById successfully");
         return ResponseEntity.ok(productOrderRepository.findByUseradminid(id));
     }
+
+    @Override
+    public ResponseEntity<List<ProductOrder>> getProductOrderByDueDateAndStatusNotIn(
+        UUID customerid,
+        UUID useradminid, LocalDate dueDate, List<OrderStatus> statusList) {
+        return ResponseEntity.ok(productOrderRepository.findByCustomerIdAndUseradminidAndDuedateLessThanEqualAndStatusNotIn(
+            customerid,useradminid,dueDate,statusList
+        ));
+    }
+
+    @Override
+    public ResponseEntity<List<ProductOrder>> getProductOrderByStatusNotIn(
+        UUID customerid, UUID useradminid,  List<OrderStatus> statusList) {
+        return ResponseEntity.ok(productOrderRepository.findByCustomerIdAndUseradminidAndStatusNotIn(
+            customerid,useradminid,statusList
+        ));
+    }
+
 }

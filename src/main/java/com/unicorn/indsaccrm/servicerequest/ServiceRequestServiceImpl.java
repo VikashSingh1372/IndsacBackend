@@ -1,5 +1,7 @@
 package com.unicorn.indsaccrm.servicerequest;
 
+import com.unicorn.indsaccrm.servicerequest.ServiceRequest.ServiceRequestStatus;
+import java.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,4 +61,23 @@ public class ServiceRequestServiceImpl implements ServiceRequestService{
         logger.info("Get ServiceRequest from getServiceRequestByResolutionUserId Successully");
         return ResponseEntity.ok(serviceRequestRepository.findByResolutionUserId(id));
     }
+
+    @Override
+    public ResponseEntity<List<ServiceRequest>> getServiceRequestByDueDateAndStatusNotIn(
+        UUID useradminid, UUID customerid, LocalDate duedate, List<ServiceRequestStatus> statuses) {
+        return ResponseEntity.ok(serviceRequestRepository.findByUseradminidAndCustomeridAndDuedateLessThanEqualAndStatusNotIn(
+            useradminid,customerid,duedate,statuses
+            )
+        );
+    }
+
+    @Override
+    public ResponseEntity<List<ServiceRequest>> getServiceRequestByStatusNotIn(
+        UUID useradminid, UUID customerid, List<ServiceRequestStatus> statuses) {
+        return ResponseEntity.ok(serviceRequestRepository.findByUseradminidAndCustomeridAndStatusNotIn(
+                useradminid,customerid,statuses
+            )
+        );
+    }
+
 }

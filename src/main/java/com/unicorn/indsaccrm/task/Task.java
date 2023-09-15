@@ -1,6 +1,8 @@
 package com.unicorn.indsaccrm.task;
 
 import com.unicorn.indsaccrm.common.config.Auditable;
+import com.unicorn.indsaccrm.common.util.enums.Priority;
+import java.time.LocalDate;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -43,39 +45,29 @@ public class Task extends Auditable<String> {
     private String subject;
 
     @Column
-    private String duedate;
+    private LocalDate duedate; // "Year-Month-Date" "yyyy-mm-dd"
 
     @Column
-    private String priority;
+    @Enumerated(EnumType.STRING)
+    private Priority priority;
 
     @Column
     private String notes;
 
     @Column
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private TaskStatus status;
 
     @Column
-    private String asignedto;
+    @Type(type = "org.hibernate.type.UUIDCharType")
+    private UUID asignedto;
 
     @Column
     private String assign;
 
-    @Column
-    private String add1;
-
-    @Column
-    private String add2;
-
-    @Column
-    private String city;
-
-    @Column
-    private String pincode;
-
-    @Column
-    private String state;
-
-    @Column
-    private String country;
+    public enum TaskStatus{
+        Open,InProgress,Pending,Completed,Canceled,Deferred,WaitingforCustomer,WaitingforInternalReview,
+        Reassigned,OnHold,Overdue,Scheduled,NeedsMoreInformation,Escalated,Closed,NotApplicable
+    }
 
 }

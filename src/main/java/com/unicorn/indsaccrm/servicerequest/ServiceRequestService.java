@@ -1,4 +1,7 @@
 package com.unicorn.indsaccrm.servicerequest;
+import com.unicorn.indsaccrm.servicerequest.ServiceRequest.ServiceRequestStatus;
+import java.time.LocalDate;
+import java.util.Collection;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -20,4 +23,10 @@ public interface ServiceRequestService {
     ResponseEntity<List<ServiceRequest>> getServiceRequestByCustomerid(UUID id);
 
     ResponseEntity<List<ServiceRequest>> getServiceRequestByResolutionUserId(UUID id);
+
+    ResponseEntity<List<ServiceRequest>> getServiceRequestByDueDateAndStatusNotIn(UUID useradminid,
+        UUID customerid, LocalDate duedate, List<ServiceRequestStatus> statuses);
+
+    ResponseEntity<List<ServiceRequest>> getServiceRequestByStatusNotIn(UUID useradminid,
+        UUID customerid, List<ServiceRequestStatus> statuses);
 }

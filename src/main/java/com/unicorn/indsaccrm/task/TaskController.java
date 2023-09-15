@@ -14,7 +14,7 @@ public class TaskController {
     @Autowired
     TaskService taskService;
     @PostMapping
-    ResponseEntity<?>createAuthenticationToken(@RequestBody Task task)throws Exception{
+    ResponseEntity<?>createTask(@RequestBody Task task)throws Exception{
         return ResponseEntity.ok(taskService.saveAllTask(task));
     }
     @GetMapping("/all")

@@ -1,6 +1,7 @@
 package com.unicorn.indsaccrm.interactionrecord;
 
 import com.unicorn.indsaccrm.common.config.Auditable;
+import com.unicorn.indsaccrm.common.util.enums.Priority;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -26,6 +27,10 @@ public class InteractionRecord extends Auditable<String> {
 
     @Column
     @Type(type = "org.hibernate.type.UUIDCharType")
+    private UUID customerid;
+
+    @Column
+    @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID useradminid;
 
     @Column
@@ -39,10 +44,12 @@ public class InteractionRecord extends Auditable<String> {
     private String direction;
 
     @Column
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private InteractionRecordStatus status;
 
     @Column
-    private String priority;
+    @Enumerated(EnumType.STRING)
+    private Priority priority;;
 
     @Column
     private String enquiry;
@@ -56,8 +63,8 @@ public class InteractionRecord extends Auditable<String> {
     @Column
     private String owner;
 
-    @Column
-    @Type(type = "org.hibernate.type.UUIDCharType")
-    private UUID customerid;
+enum InteractionRecordStatus {
+    Open,Close
+}
 
 }

@@ -1,12 +1,15 @@
 package com.unicorn.indsaccrm.common.oauth.jwt;
 
 
+import com.unicorn.indsaccrm.admindefaultvalues.AdminDefaultValues;
+import com.unicorn.indsaccrm.admindefaultvalues.AdminDefaultValuesRepository;
 import com.unicorn.indsaccrm.common.oauth.group.Groups;
 import com.unicorn.indsaccrm.common.referral.Referral;
 import com.unicorn.indsaccrm.common.referral.ReferralRepository;
 import com.unicorn.indsaccrm.common.oauth.role.Role;
 import com.unicorn.indsaccrm.common.oauth.role.RoleRepository;
 import com.unicorn.indsaccrm.common.user.RegisterUser;
+import com.unicorn.indsaccrm.common.user.User;
 import com.unicorn.indsaccrm.common.user.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +42,9 @@ public class JwtUserDetailsService implements UserDetailsService {
 
 	@Autowired
 	private PasswordEncoder bcryptEncoder;
+
+	@Autowired
+	private AdminDefaultValuesRepository adminDefaultValuesRepository;
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		com.unicorn.indsaccrm.common.user.User user = userRepository.findByEmail(email)
@@ -79,9 +85,23 @@ public class JwtUserDetailsService implements UserDetailsService {
 		newuser.setReferredby(getReferredBy(requestUser));
 		List<Role> roles1 = roleRepository.findByNameIn(Arrays.asList("ROLE_USER"));
 		newuser.setRoles(roles1);
-		userRepository.save(newuser);
+		User user=userRepository.save(newuser);
+		createAdminDefaultValues(user.getId());
 		logger.info("User registered successfully");
 		return new ResponseEntity<>("User registered successfully", HttpStatus.OK);
+	}
+
+	private void createAdminDefaultValues(UUID userid){
+		AdminDefaultValues values=AdminDefaultValues.builder()
+				.useradminid(userid)
+				.usercid(userid)
+				.invoiceduedayperiod(5)
+				.taskduedayperiod(5)
+				.quotationduedayperiod(5)
+				.interactionrecordduedayperiod(5)
+				.purchaseorderduedayperiod(5)
+				.servicerequestduedayperiod(5).build();
+		adminDefaultValuesRepository.save(values);
 	}
 
 	private UUID getReferredBy(RegisterUser registerUser){

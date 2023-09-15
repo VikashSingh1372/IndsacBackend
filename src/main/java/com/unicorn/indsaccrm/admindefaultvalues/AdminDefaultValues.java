@@ -1,6 +1,7 @@
 package com.unicorn.indsaccrm.admindefaultvalues;
 
 import com.unicorn.indsaccrm.common.config.Auditable;
+import java.time.LocalDate;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -39,6 +40,24 @@ public class AdminDefaultValues extends Auditable<String> {
 
     @Column
     private String invoicelogofile;
+
+    @Column
+    private long invoiceduedayperiod; // "number of days"
+
+    @Column
+    private long taskduedayperiod; // "number of days"
+
+    @Column
+    private long servicerequestduedayperiod; // "number of days"
+
+    @Column
+    private long interactionrecordduedayperiod; // "number of days"
+
+    @Column
+    private long purchaseorderduedayperiod; // "number of days"
+
+    @Column
+    private long quotationduedayperiod; // "number of days"
 
     @Column
     private String businesslogofile;

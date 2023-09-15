@@ -1,10 +1,13 @@
 package com.unicorn.indsaccrm.Customer;
 
 import com.unicorn.indsaccrm.Invoice.Invoices.Invoice;
+import com.unicorn.indsaccrm.common.util.enums.Priority;
 import com.unicorn.indsaccrm.interactionrecord.InteractionRecord;
 import com.unicorn.indsaccrm.order.ProductOrder;
 import com.unicorn.indsaccrm.servicerequest.ServiceRequest;
 import com.unicorn.indsaccrm.task.Task;
+import java.time.LocalDate;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,7 +23,8 @@ public class CustomerResource {
     public static class CustomerDetailsResponse{
         private Customer customer;
         private CountInformation count;
-        private DueToday dueToday;
+        private List<DueToday> dueToday;
+        private List<OpenItems> openItemsList;
         private CustomerEventList eventList;
     }
 
@@ -59,9 +63,10 @@ public class CustomerResource {
         private String type;
         private String subject;
         private String status;
-        private String duedate;
-        private String priority;
-        private String assigned;
+        private LocalDate duedate;
+        private Priority priority;
+        private UUID assigned;
+
     }
 
     @Setter
@@ -72,8 +77,8 @@ public class CustomerResource {
         private String type;
         private String subject;
         private String status;
-        private String duedate;
-        private String priority;
-        private String assigned;
+        private LocalDate duedate;
+        private Priority priority;
+        private UUID assigned;
     }
 }

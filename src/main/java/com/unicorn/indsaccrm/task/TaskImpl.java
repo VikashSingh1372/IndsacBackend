@@ -1,9 +1,13 @@
 package com.unicorn.indsaccrm.task;
 
+import com.unicorn.indsaccrm.ProjectManagement.ProjectTasks.ProjectTasks.ProjectTasksStatus;
+import com.unicorn.indsaccrm.admindefaultvalues.AdminDefaultValuesService;
+import com.unicorn.indsaccrm.task.Task.TaskStatus;
+import java.time.LocalDate;
+import java.util.Objects;
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +19,18 @@ public class TaskImpl implements TaskService{
     @Autowired
     TaskRepository taskRepository;
 
+    @Autowired
+    private AdminDefaultValuesService adminDefaultValuesService;
+
     Logger logger = LoggerFactory.logger(TaskImpl.class);
     @Override
     public ResponseEntity<?> saveAllTask(Task task) {
+        if(task.getDuedate()==null){
+            LocalDate date=LocalDate.now().plusDays(Objects.requireNonNull(adminDefaultValuesService
+                    .getByAdminDefaultValuesId(task.getUseradminid()).getBody())
+                .getInvoiceduedayperiod());
+            task.setDuedate(date);
+        }
         taskRepository.save(task);
         return ResponseEntity.ok(taskRepository.save(task));
     }
@@ -44,5 +57,20 @@ public class TaskImpl implements TaskService{
     public ResponseEntity<List<Task>> getTaskByUserAdminId(UUID id) {
         logger.info("Get tasks by UserAdminId");
         return ResponseEntity.ok(taskRepository.findByUseradminid(id));
+    }
+
+    @Override
+    public ResponseEntity<List<Task>> getAllTaskByDueDateAndStatusNotIn(UUID customerid,
+        UUID useradminid,LocalDate dueDate,List<TaskStatus> statusList) {
+        return ResponseEntity.ok(taskRepository
+            .findByCustomeridAndUseradminidAndDuedateLessThanEqualAndStatusNotIn(
+                customerid,useradminid,dueDate,statusList));
+    }
+    @Override
+    public ResponseEntity<List<Task>> getAllTaskByStatusNotIn(UUID customerid,
+        UUID useradminid,List<TaskStatus> statusList) {
+        return ResponseEntity.ok(taskRepository
+            .findByCustomeridAndUseradminidAndStatusNotIn(
+                customerid,useradminid,statusList));
     }
 }
