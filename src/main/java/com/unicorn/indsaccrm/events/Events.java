@@ -1,6 +1,7 @@
 package com.unicorn.indsaccrm.events;
 
 import com.unicorn.indsaccrm.common.config.Auditable;
+import com.unicorn.indsaccrm.common.util.enums.Priority;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -42,7 +43,8 @@ public class Events extends Auditable<String> {
     private String deudate;
 
     @Column
-    private String priority;
+    @Enumerated(EnumType.STRING)
+    private Priority priority;
 
     @Column
     private String asignedto;

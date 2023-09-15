@@ -1,5 +1,7 @@
 package com.unicorn.indsaccrm.task;
 
+import com.unicorn.indsaccrm.task.Task.TaskStatus;
+import java.time.LocalDate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
@@ -18,5 +20,15 @@ public interface TaskService {
     ResponseEntity<List<Task>>getAllTask();
 
     ResponseEntity<Optional<Task>>getByIdtask(UUID id);
+
+    ResponseEntity<List<Task>> getTaskByCustomerId(UUID id);
+
+    ResponseEntity<List<Task>> getTaskByUserAdminId(UUID id);
+
+    ResponseEntity<List<Task>> getAllTaskByDueDateAndStatusNotIn(UUID customerid,
+        UUID useradminid, LocalDate dueDate,List<TaskStatus> statusList);
+
+    ResponseEntity<List<Task>> getAllTaskByStatusNotIn(UUID customerid,
+        UUID useradminid,List<TaskStatus> statusList);
 
 }

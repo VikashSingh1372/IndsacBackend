@@ -1,5 +1,6 @@
 package com.unicorn.indsaccrm.Customer;
 
+import com.unicorn.indsaccrm.Customer.Customer.CustomerStatus;
 import com.unicorn.indsaccrm.lead.Lead;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,20 +17,12 @@ public interface CustomerRepository extends JpaRepository<Customer,UUID> {
 
     long countByStatusAndId(Customer.CustomerStatus status, UUID id);
 
-    @Query("select l from customer l where l.customerid = ?1 and l.status = ?2")
-    List<Lead> findByIdAndStatus(UUID id, Customer.CustomerStatus status);
+    @Query("select c from Customer c where c.useradminid = ?1 and c.status = ?2")
+    List<Customer> findByUseradminidAndStatus(UUID useradminid, CustomerStatus status);
 
-    @Query("select count(l) from customer l where l.customerid = ?1 and l.creationDate = ?2")
-    long countByDate(UUID id, Date creationDate);
+    List<Customer> findByUseradminid(UUID useradminid);
 
-
-    @Query("select l from customer l where l.useradminid = ?1")
-    List<Customer> findByuseradminid(UUID id);
-
-    @Query("select l from customer l where l.customerid = ?1")
-    List<Customer> findByid(UUID id);
-
-    @Query("select e from Customer e where year(e.creationDate) = year(current_date) and  month(e.creationDate) = month(current_date) and e.customerid = ?1")
+    @Query("select e from Customer e where year(e.creationDate) = year(current_date) and  month(e.creationDate) = month(current_date) and e.useradminid = ?1")
     List<Lead> getAllOfCurrentMonth(UUID id);
 
     @Query(value = "SELECT c.creationDate AS yearComment, COUNT(c.*) AS totalComment "

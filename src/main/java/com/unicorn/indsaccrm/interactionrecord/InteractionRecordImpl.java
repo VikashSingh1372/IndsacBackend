@@ -19,7 +19,7 @@ public class InteractionRecordImpl implements InteractionRecordService{
     @Override
     public ResponseEntity<?> saveAllInteraction(InteractionRecord request) {
         interactionRecordRepository.save(request);
-        return new ResponseEntity<>("save all interaction record successfully", HttpStatus.OK);
+        return ResponseEntity.ok(interactionRecordRepository.save(request));
     }
 
     @Override
@@ -32,5 +32,17 @@ public class InteractionRecordImpl implements InteractionRecordService{
     public ResponseEntity<Optional<InteractionRecord>> getByIdInteraction(UUID id) {
         logger.info("interaction record getting by id");
         return ResponseEntity.ok(interactionRecordRepository.findById(id));
+    }
+
+    @Override
+    public ResponseEntity<List<InteractionRecord>> getInteractionRecordByCustomerId(UUID id) {
+        logger.info("interaction record getting by customerId");
+        return ResponseEntity.ok(interactionRecordRepository.findByCustomerid(id));
+    }
+
+    @Override
+    public ResponseEntity<List<InteractionRecord>> getInteractionRecordByUserAdminId(UUID id) {
+        logger.info("interaction record getting by userAdminId");
+        return ResponseEntity.ok(interactionRecordRepository.findByUseradminid(id));
     }
 }

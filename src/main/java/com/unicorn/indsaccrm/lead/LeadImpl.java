@@ -76,9 +76,9 @@ public class LeadImpl implements LeadService{
         System.out.println("-- Lead Userid and count using createQuery(Tuple.class) --");
         CriteriaBuilder cb=entityManager.getCriteriaBuilder();
         CriteriaQuery<Tuple> query = cb.createQuery(Tuple.class);
-        Root<Lead> employee = query.from(Lead.class);
-        query.select(cb.tuple(employee.get("useradminid"),
-                cb.count(employee.get("useradminid"))));
+        Root<Lead> root = query.from(Lead.class);
+        query.select(cb.tuple(root.get("useradminid"),
+                cb.count(root.get("useradminid"))));
         TypedQuery<Tuple> typedQuery = entityManager.createQuery(query);
         List<Tuple> resultList = typedQuery.getResultList();
         resultList.forEach(tuple -> {
@@ -92,14 +92,14 @@ public class LeadImpl implements LeadService{
         logger.info("-- Lead Current Year count using createQuery(Tuple.class) --");
         CriteriaBuilder cb=entityManager.getCriteriaBuilder();
         CriteriaQuery<Tuple> query = cb.createQuery(Tuple.class);
-        Root<Lead> employee = query.from(Lead.class);
-        query.select(cb.tuple(cb.function("MONTH", Integer.class, employee.get("creationDate") ),
-                cb.count(employee.get("id"))));
-        //Predicate currentMonthPredicate=cb.equal(cb.function("MONTH", Integer.class, employee.get("creationDate") ),cb.function("MONTH", Integer.class, cb.currentTimestamp()));
-        Predicate currentYearPredicate=cb.equal(cb.function("YEAR", Integer.class, employee.get("creationDate") ),cb.function("YEAR", Integer.class, cb.currentTimestamp() ));
-        Predicate useradminidPredicate=cb.equal( employee.get("useradminid"),useradminid);
+        Root<Lead> root = query.from(Lead.class);
+        query.select(cb.tuple(cb.function("MONTH", Integer.class, root.get("creationDate") ),
+                cb.count(root.get("id"))));
+        //Predicate currentMonthPredicate=cb.equal(cb.function("MONTH", Integer.class, root.get("creationDate") ),cb.function("MONTH", Integer.class, cb.currentTimestamp()));
+        Predicate currentYearPredicate=cb.equal(cb.function("YEAR", Integer.class, root.get("creationDate") ),cb.function("YEAR", Integer.class, cb.currentTimestamp() ));
+        Predicate useradminidPredicate=cb.equal( root.get("useradminid"),useradminid);
         query.where(currentYearPredicate,useradminidPredicate);
-        query.groupBy(cb.function("MONTH", Integer.class, employee.get("creationDate") ));
+        query.groupBy(cb.function("MONTH", Integer.class, root.get("creationDate") ));
         TypedQuery<Tuple> typedQuery = entityManager.createQuery(query);
         List<Tuple> resultList = typedQuery.getResultList();
         resultList.forEach(tuple -> {

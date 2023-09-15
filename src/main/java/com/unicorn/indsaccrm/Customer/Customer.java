@@ -95,7 +95,6 @@ public class Customer extends Auditable<String> {
     @Type(type="org.hibernate.type.UUIDCharType")
     private UUID owner;
 
-
     enum CustomerStatus{
         OPEN,ATTEMPTEDCONTACT,NOTENGAGED,NEEDSFOLLOWUP,WORKING,NEWOPPORTUNITY,QUALIFIED,DISQUALIFIED,CONVERTTOCUSTOMER
     }

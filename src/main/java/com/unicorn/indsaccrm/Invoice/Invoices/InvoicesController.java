@@ -8,15 +8,15 @@ import java.util.UUID;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/invoices")
+@RequestMapping("/invoice")
 public class InvoicesController {
 
     @Autowired
     InvoicesService invoicesService;
 
     @PostMapping
-    ResponseEntity<?> saveInvoices(@RequestBody Invoices invoices)throws Exception {
-        return ResponseEntity.ok(invoicesService.saveInvoices(invoices));
+    ResponseEntity<?> saveInvoices(@RequestBody Invoice invoice)throws Exception {
+        return ResponseEntity.ok(invoicesService.saveInvoices(invoice));
     }
 
     @GetMapping("/all")
@@ -30,14 +30,14 @@ public class InvoicesController {
         return ResponseEntity.ok(invoicesService.getInvoicesByInvoiceId(invoiceid));
     }
 
-    @GetMapping("/Customerid/{id}")
-    ResponseEntity<?> getInvoicesByCustomerId(@PathVariable UUID id)throws Exception {
-        return ResponseEntity.ok(invoicesService.getInvoicesByCustomerId(id));
+    @GetMapping("/customer/{customerid}")
+    ResponseEntity<?> getInvoicesByCustomerId(@PathVariable UUID customerid)throws Exception {
+        return ResponseEntity.ok(invoicesService.getInvoicesByCustomerId(customerid));
     }
 
-    @GetMapping("/Userid/{id}")
-    ResponseEntity<?> getInvoicesByUser_id(@PathVariable UUID id)throws Exception {
-        return ResponseEntity.ok(invoicesService.getInvoicesByUserId(id));
+    @GetMapping("/useradmin/{useradminid}")
+    ResponseEntity<?> getInvoicesByUser_id(@PathVariable UUID useradminid)throws Exception {
+        return ResponseEntity.ok(invoicesService.getAllInvoicesByUserAdminId(useradminid));
     }
 
 }

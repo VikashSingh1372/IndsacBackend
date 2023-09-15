@@ -15,4 +15,6 @@ public interface CustomerService {
     ResponseEntity<Optional<Customer>> getCustomerById(UUID customerid);
 
     ResponseEntity<CustomerResources.CustomerDashboard> getCustomerDashboard(UUID useradminid);
+  ResponseEntity<CustomerResource.CustomerDetailsResponse> getCustomerDetailsResponse(UUID customerid);
+
 }

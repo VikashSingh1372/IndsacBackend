@@ -53,7 +53,7 @@ public class VendorServiceImpl implements VendorService{
                 Vendor.VendorStatus.ATTEMPTEDCONTACT, Vendor.VendorStatus.NEWOPPORTUNITY, Vendor.VendorStatus.QUALIFIED, Vendor.VendorStatus.OPEN,
                 Vendor.VendorStatus.WORKING, Vendor.VendorStatus.NOTENGAGED)));
         vendorDashboard.setInActiveVendor(vendorRepository.countByIdAndStatusIn(useradminid, Arrays.asList(Vendor.VendorStatus.DISQUALIFIED,Vendor.VendorStatus.CONVERTTOCUSTOMER)));
-        vendorDashboard.setVendorList(vendorRepository.findByuseradminid(useradminid));
+        vendorDashboard.setVendorList(vendorRepository.findByUseradminid(useradminid));
         vendorDashboard.setTotalVendorAddedByMonthinCurrentYear(findVendorCurrentYearCount(useradminid));
         vendorDashboard.setTotalVendorInCurrentMonth(findTotalVendorInCurrentMonth(useradminid));
         vendorDashboard.setVendorCountByStatus(findTotalVendorInStatus(useradminid));

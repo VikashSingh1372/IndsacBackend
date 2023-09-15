@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
-import java.util.concurrent.RecursiveTask;
 
 @CrossOrigin
 @Controller
@@ -26,5 +25,14 @@ public class InteractionRecordController {
     @GetMapping("/{id}")
     ResponseEntity<?>getByid(@PathVariable UUID id)throws Exception{
         return ResponseEntity.ok(interactionRecordService.getByIdInteraction(id));
+    }
+    @GetMapping("/customerid/{id}")
+    ResponseEntity<?>getByCustomerId(@PathVariable UUID id)throws Exception{
+        return ResponseEntity.ok(interactionRecordService.getInteractionRecordByCustomerId(id));
+    }
+
+    @GetMapping("/userAdminId/{id}")
+    ResponseEntity<?>getByUserAdminId(@PathVariable UUID id)throws Exception{
+        return ResponseEntity.ok(interactionRecordService.getInteractionRecordByUserAdminId(id));
     }
 }

@@ -14,7 +14,7 @@ public class TaskController {
     @Autowired
     TaskService taskService;
     @PostMapping
-    ResponseEntity<?>createAuthenticationToken(@RequestBody Task task)throws Exception{
+    ResponseEntity<?>createTask(@RequestBody Task task)throws Exception{
         return ResponseEntity.ok(taskService.saveAllTask(task));
     }
     @GetMapping("/all")
@@ -24,5 +24,14 @@ public class TaskController {
     @GetMapping("/{id}")
     ResponseEntity<?>getByIdtaks(@PathVariable UUID id)throws  Exception{
         return ResponseEntity.ok(taskService.getByIdtask(id));
+    }
+
+    @GetMapping("/customerid/{id}")
+    ResponseEntity<?> getTaskByCustomerId(@PathVariable UUID id)throws  Exception{
+        return ResponseEntity.ok(taskService.getTaskByCustomerId(id));
+    }
+    @GetMapping("/useradminid/{id}")
+    ResponseEntity<?> getTaskByUserAdminId(@PathVariable UUID id)throws  Exception{
+        return ResponseEntity.ok(taskService.getTaskByUserAdminId(id));
     }
 }
