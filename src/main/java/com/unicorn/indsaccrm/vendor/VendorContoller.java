@@ -31,6 +31,6 @@ public class VendorContoller {
     //Vendor DashBoard
     @GetMapping("/vendordashboard/{useradminid}")
     ResponseEntity<?> getVendorDashBoard(@PathVariable UUID useradminid)throws Exception{
-        return ResponseEntity.ok(vendorService.getLeadDahBoard(useradminid));
+        return ResponseEntity.ok(vendorService.getVendorDashBoard(useradminid));
     }
 }
