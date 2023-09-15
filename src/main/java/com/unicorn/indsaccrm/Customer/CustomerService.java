@@ -12,10 +12,9 @@ public interface CustomerService {
 
     ResponseEntity<List<Customer>> getAllCustomers();
 
-    ResponseEntity<Optional<Customer>> getCustomerByCustomerId(UUID customerid);
+    ResponseEntity<Optional<Customer>> getCustomerById(UUID customerid);
 
-    ResponseEntity<CustomerResource.CustomerDetailsResponse> getCustomerDetailsResponse(UUID customerid);
+    ResponseEntity<CustomerResources.CustomerDashboard> getCustomerDashboard(UUID useradminid);
+  ResponseEntity<CustomerResource.CustomerDetailsResponse> getCustomerDetailsResponse(UUID customerid);
 
-    //This Method used for CustomerDetailsResponse
-    Customer getCustomerForCustomerDetailsResponse(UUID customerId);
 }

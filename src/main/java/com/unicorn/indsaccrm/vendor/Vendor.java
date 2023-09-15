@@ -91,4 +91,9 @@ public class Vendor extends Auditable<String> {
     @Column
     @Type(type="org.hibernate.type.UUIDCharType")
     private UUID useradminid;
+
+    enum VendorStatus{
+        OPEN,ATTEMPTEDCONTACT,NOTENGAGED,NEEDSFOLLOWUP,WORKING,NEWOPPORTUNITY,QUALIFIED,DISQUALIFIED,CONVERTTOCUSTOMER
+    }
+
 }

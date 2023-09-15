@@ -8,13 +8,10 @@ import lombok.Setter;
 import javax.persistence.Column;
 import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 public class VendorResource {
 
-    enum VendorStatus {
-    Active,InActive
-
-    }
 
     enum IntegerEnum {
         ONE(1),
@@ -55,15 +52,15 @@ public class VendorResource {
         private long inActiveVendor;
 
         @Column
-        private  EnumMap<VendorStatus,IntegerEnum> VendorCountByStatus;
+        private Map<Vendor.VendorStatus,Long> VendorCountByStatus;
 
         @Column
         private List<Vendor> VendorList;
 
         @Column
-        private EnumMap<IntegerEnum,IntegerEnum> totalVendorInCurrentMonth;
+        private Map<Integer,Long> totalVendorInCurrentMonth;
 
         @Column
-        private EnumMap<IntegerEnum,IntegerEnum> totalVendorAddedByMonthinCurrentYear;
+        private Map<Integer,Long> totalVendorAddedByMonthinCurrentYear;
     }
 }
