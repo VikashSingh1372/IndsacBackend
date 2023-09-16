@@ -1,4 +1,4 @@
-package com.unicorn.indsaccrm.employee.Employee;
+package com.unicorn.indsaccrm.employee.EmployeeSkills;
 
 import com.unicorn.indsaccrm.common.config.Auditable;
 import lombok.*;
@@ -6,17 +6,15 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.UUID;
-
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "employee")
-public class Employee extends Auditable<String> {
+@Table(name = "employeeskills")
+public class EmployeeSkills extends Auditable<String> {
     @Id
     @GeneratedValue
     @Type(type = "org.hibernate.type.UUIDCharType")
@@ -26,24 +24,16 @@ public class Employee extends Auditable<String> {
     )
     private UUID id;
     @Column
-    private String firstname;
-    @Column
-    private String lastname;
-    @Column
-    private String email;
-    @Column
-    private String phonenumber;
-    @Column
-    private LocalDate hiredate; //"Y-M-D"
-    @Column
     @Type(type = "org.hibernate.type.UUIDCharType")
-    private UUID jobid;
+    private UUID employeeid;
     @Column
-    @Type(type = "org.hibernate.type.UUIDCharType")
-    private UUID managerid;
+    private String skillname;
     @Column
-    @Type(type = "org.hibernate.type.UUIDCharType")
-    private UUID departmentid;
+    @Enumerated(EnumType.STRING)
+    private Proficiencylevel proficiencylevel;
+    private enum Proficiencylevel{
+        Beginner,Intermediate,Advanced,Expert
+    }
     @Column
     @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID usercid;
