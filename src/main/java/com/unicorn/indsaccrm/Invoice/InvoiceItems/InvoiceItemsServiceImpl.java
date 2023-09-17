@@ -34,7 +34,7 @@ public class InvoiceItemsServiceImpl implements InvoiceItemsService {
     @Override
     public ResponseEntity<Optional<InvoiceItems>> getInvoiceItemByItemId(UUID itemid) {
         logger.info("Get InvoiceItem By Id inside getInvoiceItemByItemId successfully");
-        return ResponseEntity.ok(invoiceItemsRepository.findByItemid(itemid));
+        return ResponseEntity.ok(invoiceItemsRepository.findById(itemid));
     }
 
     @Override

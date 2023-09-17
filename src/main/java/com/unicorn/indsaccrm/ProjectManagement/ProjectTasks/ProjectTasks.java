@@ -46,9 +46,9 @@ public class ProjectTasks extends Auditable<String> {
 
     @Enumerated(EnumType.STRING)
     @Column
-    private TasksStatus status;
+    private ProjectTasksStatus status;
 
-    public enum TasksStatus {
+    public enum ProjectTasksStatus {
         NOTSTARTED,
         INPROGRESS,
         COMPLETED,

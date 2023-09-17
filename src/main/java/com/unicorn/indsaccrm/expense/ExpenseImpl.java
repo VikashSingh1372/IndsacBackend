@@ -1,4 +1,4 @@
-package com.unicorn.indsaccrm.expence;
+package com.unicorn.indsaccrm.expense;
 
 
 import org.hibernate.annotations.common.util.impl.LoggerFactory;

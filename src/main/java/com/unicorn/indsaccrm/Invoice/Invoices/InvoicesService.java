@@ -1,5 +1,7 @@
 package com.unicorn.indsaccrm.Invoice.Invoices;
 
+import com.unicorn.indsaccrm.Invoice.Invoices.Invoice.InvoiceStatus;
+import java.time.LocalDate;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -8,13 +10,19 @@ import java.util.UUID;
 
 public interface InvoicesService {
 
-    ResponseEntity<?> saveInvoices(Invoices invoices);
+    ResponseEntity<?> saveInvoices(Invoice invoice);
 
-    ResponseEntity<List<Invoices>> getAllInvoices();
+    ResponseEntity<List<Invoice>> getAllInvoices();
 
-    ResponseEntity<Optional<Invoices>> getInvoicesByInvoiceId(UUID invoiceid);
+    ResponseEntity<Optional<Invoice>> getInvoicesByInvoiceId(UUID invoiceid);
 
-    ResponseEntity<List<Invoices>> getInvoicesByCustomerId(UUID id);
+    ResponseEntity<List<Invoice>> getInvoicesByCustomerId(UUID id);
 
-    ResponseEntity<List<Invoices>> getInvoicesByUserId(UUID id);
+    ResponseEntity<List<Invoice>> getAllInvoicesByUserAdminId(UUID useradminid);
+
+    ResponseEntity<List<Invoice>> getAllInvoicesByDueDateAndStatusNotIn( UUID customerid,
+        UUID useradminid, LocalDate duedate, List<InvoiceStatus> statuses);
+
+    ResponseEntity<List<Invoice>> getAllInvoicesByStatusNotIn( UUID customerid,
+        UUID useradminid,List<InvoiceStatus> statuses);
 }

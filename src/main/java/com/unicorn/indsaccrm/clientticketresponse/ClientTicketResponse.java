@@ -1,6 +1,8 @@
 package com.unicorn.indsaccrm.clientticketresponse;
 
 import com.unicorn.indsaccrm.common.config.Auditable;
+import com.unicorn.indsaccrm.common.util.enums.Priority;
+import java.time.LocalDate;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -38,10 +40,11 @@ public class ClientTicketResponse extends Auditable<String> {
     private String subject;
 
     @Column
-    private String duedate;
+    private LocalDate duedate; // "Year-Month-Date"
 
     @Column
-    private String priority;
+    @Enumerated(EnumType.STRING)
+    private Priority priority;
 
     @Column
     private String status;

@@ -27,7 +27,7 @@ public class PaymentsServiceImpl implements PaymentsService{
     @Override
     public ResponseEntity<Optional<Payments>> getPaymentsByPaymentId(UUID paymentid) {
         logger.info("Get Payments By Id inside getPaymentsByPaymentId successfully");
-        return ResponseEntity.ok(paymentsRepository.findByPaymentid(paymentid));
+        return ResponseEntity.ok(paymentsRepository.findById(paymentid));
     }
 
     @Override

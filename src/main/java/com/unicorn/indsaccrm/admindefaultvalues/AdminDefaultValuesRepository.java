@@ -8,6 +8,6 @@ import java.util.UUID;
 public interface AdminDefaultValuesRepository extends JpaRepository<AdminDefaultValues,UUID> {
     List<AdminDefaultValues> findByUsercid(UUID usercid);
 
-    List<AdminDefaultValues> findByUseradminid(UUID useradminid);
+    AdminDefaultValues findByUseradminid(UUID useradminid);
 
 }

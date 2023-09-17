@@ -1,6 +1,7 @@
 package com.unicorn.indsaccrm.ProjectManagement.ProjectMilestones;
 
 import com.unicorn.indsaccrm.common.config.Auditable;
+import java.time.LocalDate;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -35,7 +36,7 @@ public class Milestones extends Auditable<String> {
     private UUID projectId;
 
     @Column
-    private String dueDate;
+    private LocalDate duedate; // "Year-Month-Date"
 
     @Enumerated(EnumType.STRING)
     @Column

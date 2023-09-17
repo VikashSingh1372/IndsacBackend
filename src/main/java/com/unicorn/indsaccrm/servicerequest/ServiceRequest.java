@@ -1,6 +1,8 @@
 package com.unicorn.indsaccrm.servicerequest;
 
 import com.unicorn.indsaccrm.common.config.Auditable;
+import com.unicorn.indsaccrm.common.util.enums.Priority;
+import java.time.LocalDate;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -45,19 +47,22 @@ public class ServiceRequest extends Auditable<String> {
     private String subject;
 
     @Column
-    private String duedate;
+    private LocalDate duedate; // "Year-Month-Date"
 
     @Column
-    private String priority;
+    @Enumerated(EnumType.STRING)
+    private Priority priority;
 
     @Column
     private String notes;
 
     @Column
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private ServiceRequestStatus status;
 
     @Column
-    private String asignedto;
+    @Type(type = "org.hibernate.type.UUIDCharType")
+    private UUID asignedto;
 
     @Column
     private String resolutionRemark;
@@ -73,24 +78,16 @@ public class ServiceRequest extends Auditable<String> {
     @Enumerated(EnumType.STRING)
     private ServiceRequestType serviceRequestType;
 
-    enum ServiceRequestType {
-        TechnicalSupportRequest,
-        ProductInformationRequest,
-        OrderStatusInquiry,
-        BillingPaymentInquiry,
-        ChangPersonalInformation,
-        Complaints,
-        CancellationReturnRequests,
-        InstallationSetupAssistance,
-        TroubleshootingAssistance,
-        MaintenanceRepairRequest,
-        FeedbackSuggestions,
-        TrainingRequests,
-        EmergencyUrgentRequests,
-        InformationRequest,
-        UpgradesRenewals,
-        AccountAccess,
-        LoginIssues,
-        EscalationRequests
+    enum ServiceRequestType {TechnicalSupportRequest, ProductInformationRequest, OrderStatusInquiry,
+        BillingPaymentInquiry, ChangPersonalInformation, Complaints, CancellationReturnRequests,
+        InstallationSetupAssistance, TroubleshootingAssistance, MaintenanceRepairRequest, FeedbackSuggestions,
+        TrainingRequests, EmergencyUrgentRequests, InformationRequest, UpgradesRenewals, AccountAccess,
+        LoginIssues, EscalationRequests
     }
-}
+
+    public enum ServiceRequestStatus {
+        Open,InProgress,Pending,Canceled,Deferred,WaitingforCustomer,WaitingforInternalReview,
+        Reassigned,OnHold,Overdue,Scheduled,NeedsMoreInformation,Escalated,Closed,NotApplicable
+    }
+
+  }
