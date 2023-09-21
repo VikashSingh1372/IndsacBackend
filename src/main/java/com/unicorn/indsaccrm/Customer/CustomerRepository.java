@@ -23,14 +23,14 @@ public interface CustomerRepository extends JpaRepository<Customer,UUID> {
     long countByDate(UUID id, Date creationDate);
 
 
-    @Query("select l from customer l where l.useradminid = ?1")
+    @Query("select l from useradminid  l where l.useradminid = ?1")
     List<Customer> findByuseradminid(UUID id);
 
-    @Query("select l from customer l where l.customerid = ?1")
+    @Query("select l from useradminid  l where l.useradminid = ?1")
     List<Customer> findByid(UUID id);
 
     @Query("select e from Customer e where year(e.creationDate) = year(current_date) and  month(e.creationDate) = month(current_date) and e.customerid = ?1")
-    List<Lead> getAllOfCurrentMonth(UUID id);
+    List<Customer> getAllOfCurrentMonth(UUID id);
 
     @Query(value = "SELECT c.creationDate AS yearComment, COUNT(c.*) AS totalComment "
             + "FROM Customer AS c GROUP BY c.creationDate ORDER BY c.creationDate DESC", nativeQuery = true)
@@ -40,10 +40,8 @@ public interface CustomerRepository extends JpaRepository<Customer,UUID> {
             + "FROM Customer  "
             + "WHERE YEAR(creation_date) =  ?1 "
             + "AND MONTH(creation_date) = ?2 "
-            // + "AND customerid = ?3 "
+            // + "AND customer = ?3 "
             + "GROUP BY MONTH(creation_date)", nativeQuery = true)
     List<?> countForYearAndMonth(String year,String month);
-
-
 
 }

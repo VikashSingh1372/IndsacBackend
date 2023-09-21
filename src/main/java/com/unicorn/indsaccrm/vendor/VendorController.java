@@ -10,7 +10,7 @@ import java.util.UUID;
 @CrossOrigin
 @Controller
 @RequestMapping("/vendor")
-public class VendorContoller {
+public class VendorController {
 
     @Autowired
     VendorService vendorService;
