@@ -30,17 +30,36 @@ public class StructureAutomation {
 
         // Print the result
         System.out.println("Combined Path: " + entityPath);
-        String controllerFileName = entityVariableCapital + "ControllerByStructureAutomation.java";
 
-        createFile(entityPath, controllerFileName, getControllerContent(entityVariableCapital));
+
+        //Controller
+        String controllerFileName = entityVariableCapital + "Controller.java";
+        createControllerFile(entityPath, controllerFileName, getControllerContent(entityVariableCapital));
+
+
+        //Service
+        String serviceFileName = entityVariableCapital + "Service.java";
+        createServiceFile(entityPath, serviceFileName, getServiceContent(entityVariableCapital));
     }
 
-     private static void createFile(String path, String fileName, String content) {
+     private static void createControllerFile(String path, String fileName, String content) {
         Path filePath = Paths.get(path, fileName);
         try {
             Files.createDirectories(filePath.getParent());
             Files.write(filePath, content.getBytes());
-            System.out.println("File created successfully: " + filePath.toAbsolutePath());
+            System.out.println("Controller File created successfully: " + filePath.toAbsolutePath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void createServiceFile(String path, String fileName, String content) {
+
+        Path filePath = Paths.get(path, fileName);
+        try {
+            Files.createDirectories(filePath.getParent());
+            Files.write(filePath, content.getBytes());
+            System.out.println("Service File created successfully: " + filePath.toAbsolutePath());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -62,20 +81,31 @@ public class StructureAutomation {
                 "    private " + entityVariableCapital + "Service " + entityVariableCapital.toLowerCase() + "Service;\n" +
                 "\n" +
                 "    @PostMapping\n" +
-                "    ResponseEntity<?> createAuthenticationToken(@RequestBody " + entityVariableCapital + " " + entityVariableCapital.toLowerCase() + ") throws Exception {\n" +
-                "        return ResponseEntity.ok(" + entityVariableCapital.toLowerCase() + "Service.saveAllProduct(" + entityVariableCapital.toLowerCase() + "));\n" +
+                "    ResponseEntity<?> createProduct(@RequestBody " + entityVariableCapital + " " + entityVariableCapital.toLowerCase() + ") throws Exception {\n" +
+                "        return ResponseEntity.ok(" + entityVariableCapital.toLowerCase() + "Service.saveProduct(" + entityVariableCapital.toLowerCase() + "));\n" +
                 "    }\n" +
                 "\n" +
                 "    @GetMapping(\"/all\")\n" +
                 "    ResponseEntity<?> getAllProduct() throws Exception {\n" +
-                "        return ResponseEntity.ok(" + entityVariableCapital.toLowerCase() + "Service.getAllProduct());\n" +
+                "        return ResponseEntity.ok(" + entityVariableCapital.toLowerCase() + "Service.getAllProducts());\n" +
                 "    }\n" +
                 "\n" +
                 "    @GetMapping(\"{id}\")\n" +
                 "    ResponseEntity<?> getProductByID(@PathVariable UUID id) throws Exception {\n" +
-                "        return ResponseEntity.ok(" + entityVariableCapital.toLowerCase() + "Service.getByIdProduct(id));\n" +
+                "        return ResponseEntity.ok(" + entityVariableCapital.toLowerCase() + "Service.getProductById(id));\n" +
                 "    }\n" +
                 "}\n";
+    }
+
+    private static String getServiceContent(String entityVariableCapital){
+
+        return "public class " + entityVariableCapital + "Service {\n" +
+                "\n" +
+                "    ResponseEntity<?> saveProduct("+ entityVariableCapital+" "+entityVariableCapital.toLowerCase()+");\n"+
+                "\n" +
+                "    ResponseEntity<List<"+entityVariableCapital+">>"+" "+"getAllProducts();\n"+
+                "\n" +
+                "    ResponseEntity<Optional<"+entityVariableCapital+">>"+" "+"getProductById(UUID id);\n";
     }
 
 }
