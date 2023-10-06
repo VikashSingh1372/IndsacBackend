@@ -17,7 +17,7 @@ public class StructureAutomation {
         String rootPath = System.getProperty("user.dir");
 
         // Additional folder path
-        String additionalFolderPath = "src/main/java/com/unicorn/indsaccrm/Lokesh";
+        String additionalFolderPath = "src/main/java/com/unicorn/indsaccrm/product";
 
         // Create a File object for the rootPath
         File rootFile = new File(rootPath);
@@ -44,6 +44,10 @@ public class StructureAutomation {
         //ServiceImpl
         String serviceImplFileName = entityVariableCapital + "ServiceImpl.java";
         createServiceImplFile(entityPath, serviceImplFileName, getServiceImplContent(entityVariableCapital));
+
+        //Repository
+        String repositoryFileName = entityVariableCapital + "Repository.java";
+        createRepositoryFile(entityPath, repositoryFileName, getRepositoryContent(entityVariableCapital));
     }
 
      private static void createControllerFile(String path, String fileName, String content) {
@@ -69,7 +73,6 @@ public class StructureAutomation {
         }
     }
 
-
     private static void createServiceImplFile(String path, String fileName, String content) {
 
         Path filePath = Paths.get(path, fileName);
@@ -77,6 +80,17 @@ public class StructureAutomation {
             Files.createDirectories(filePath.getParent());
             Files.write(filePath, content.getBytes());
             System.out.println("ServiceImpl File created successfully: " + filePath.toAbsolutePath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void createRepositoryFile(String path, String fileName, String content) {
+        Path filePath = Paths.get(path, fileName);
+        try {
+            Files.createDirectories(filePath.getParent());
+            Files.write(filePath, content.getBytes());
+            System.out.println("Repository File created successfully: " + filePath.toAbsolutePath());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -156,6 +170,12 @@ public class StructureAutomation {
                 "      logger.info(\"GET " + entityVariableCapital + " By Id from get" + entityVariableCapital + "ById Successfully\");\n" +
                 "      return ResponseEntity.ok(" + entityVariableCapital.toLowerCase() + "Repository.findById(id));\n" +
                 "   }\n";
+    }
+
+    private static String getRepositoryContent(String entityVariableCapital) {
+        return "package com.unicorn.indsaccrm."+entityVariableCapital.toLowerCase()+";\n\n" +
+                "public interface "+entityVariableCapital+"Repository extends JpaRepository<"+entityVariableCapital+",UUID> {\n"+
+                "}\n";
     }
 
 }
