@@ -12,6 +12,7 @@ public class PublicAppointmentInfoController {
     private PublicAppointmentInfoService publicAppointmentInfoService;
     @PostMapping
     ResponseEntity<?> createPublicAppointmentInfo(@RequestBody PublicAppointmentInfo publicappointmentinfo) throws Exception {
+        publicappointmentinfo.setPublicLink("/appointment");
         return ResponseEntity.ok(publicAppointmentInfoService.savePublicAppointmentInfo(publicappointmentinfo));
     }
     @GetMapping("/all")
