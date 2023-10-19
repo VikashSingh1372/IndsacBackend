@@ -6,18 +6,23 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
+/*
+    * ************** KEY POINTS ************
+    * Set entityVariable and entityVariableCapital
+    * Set Additional folder path
+    * Set Package-Path In getControllerContent,getServiceContent,getServiceImplContent and getRepositoryContent.
+ */
 public class StructureAutomation {
     public static void main(String[] args) throws FileNotFoundException {
 
-        String entityVariable="product";
-        String entityVariableCapital="Product";
+        String entityVariable="appointment"; // Enter Entity-name (First-Letter Should be SMALL)
+        String entityVariableCapital="Appointment"; // Enter Entity-name (First-Letter Should be CAPITAL)
 
         //This rootpath returns the "DriveName:\INDSAC\indsaccrmbe"
         String rootPath = System.getProperty("user.dir");
 
         // Additional folder path
-        String additionalFolderPath = "src/main/java/com/unicorn/indsaccrm/product";
+        String additionalFolderPath = "src/main/java/com/unicorn/indsaccrm/appointment";
 
         // Create a File object for the rootPath
         File rootFile = new File(rootPath);
@@ -31,23 +36,21 @@ public class StructureAutomation {
         // Print the result
         System.out.println("Combined Path: " + entityPath);
 
-
         //Controller
         String controllerFileName = entityVariableCapital + "Controller.java";
-        createControllerFile(entityPath, controllerFileName, getControllerContent(entityVariableCapital));
-
+        createControllerFile(entityPath, controllerFileName, getControllerContent(entityVariableCapital,entityVariable));
 
         //Service
         String serviceFileName = entityVariableCapital + "Service.java";
-        createServiceFile(entityPath, serviceFileName, getServiceContent(entityVariableCapital));
+        createServiceFile(entityPath, serviceFileName, getServiceContent(entityVariableCapital,entityVariable));
 
         //ServiceImpl
         String serviceImplFileName = entityVariableCapital + "ServiceImpl.java";
-        createServiceImplFile(entityPath, serviceImplFileName, getServiceImplContent(entityVariableCapital));
+        createServiceImplFile(entityPath, serviceImplFileName, getServiceImplContent(entityVariableCapital,entityVariable));
 
         //Repository
         String repositoryFileName = entityVariableCapital + "Repository.java";
-        createRepositoryFile(entityPath, repositoryFileName, getRepositoryContent(entityVariableCapital));
+        createRepositoryFile(entityPath, repositoryFileName, getRepositoryContent(entityVariableCapital,entityVariable));
     }
 
      private static void createControllerFile(String path, String fileName, String content) {
@@ -62,7 +65,6 @@ public class StructureAutomation {
     }
 
     private static void createServiceFile(String path, String fileName, String content) {
-
         Path filePath = Paths.get(path, fileName);
         try {
             Files.createDirectories(filePath.getParent());
@@ -74,7 +76,6 @@ public class StructureAutomation {
     }
 
     private static void createServiceImplFile(String path, String fileName, String content) {
-
         Path filePath = Paths.get(path, fileName);
         try {
             Files.createDirectories(filePath.getParent());
@@ -96,88 +97,91 @@ public class StructureAutomation {
         }
     }
 
-    private static String getControllerContent(String entityVariableCapital) {
-        return "package com.unicorn.indsaccrm."+entityVariableCapital.toLowerCase()+";\n\n" +
+    private static String getControllerContent(String entityVariableCapital,String entityVariable) {
+        //SET Package-Path
+        return "package com.unicorn.indsaccrm."+entityVariableCapital.toLowerCase()+";\n" +
                 "import org.springframework.beans.factory.annotation.Autowired;\n" +
                 "import org.springframework.http.ResponseEntity;\n" +
                 "import org.springframework.stereotype.Controller;\n" +
                 "import org.springframework.web.bind.annotation.*;\n" +
                 "import java.util.UUID;\n" +
-                "\n" +
                 "@CrossOrigin\n" +
                 "@Controller\n" +
-                "@RequestMapping(\"/"+entityVariableCapital.toLowerCase()+"s\")\n" +
+                "@RequestMapping(\"/"+entityVariable+"\")\n" +
                 "public class " + entityVariableCapital + "Controller {\n" +
                 "    @Autowired\n" +
-                "    private " + entityVariableCapital + "Service " + entityVariableCapital.toLowerCase() + "Service;\n" +
-                "\n" +
+                "    private " + entityVariableCapital + "Service " + entityVariable + "Service;\n" +
                 "    @PostMapping\n" +
                 "    ResponseEntity<?> create"+entityVariableCapital+"(@RequestBody " + entityVariableCapital + " " + entityVariableCapital.toLowerCase() + ") throws Exception {\n" +
-                "        return ResponseEntity.ok(" + entityVariableCapital.toLowerCase() + "Service.save"+entityVariableCapital+"(" + entityVariableCapital.toLowerCase() + "));\n" +
+                "        return ResponseEntity.ok(" + entityVariable + "Service.save"+entityVariableCapital+"(" + entityVariableCapital.toLowerCase() + "));\n" +
                 "    }\n" +
-                "\n" +
                 "    @GetMapping(\"/all\")\n" +
                 "    ResponseEntity<?> getAll"+entityVariableCapital+"() throws Exception {\n" +
-                "        return ResponseEntity.ok(" + entityVariableCapital.toLowerCase() + "Service.getAll"+entityVariableCapital+"s());\n" +
+                "        return ResponseEntity.ok(" + entityVariable + "Service.getAll"+entityVariableCapital+"s());\n" +
                 "    }\n" +
-                "\n" +
-                "    @GetMapping(\"{id}\")\n" +
+                "    @GetMapping(\"/{id}\")\n" +
                 "    ResponseEntity<?> get"+entityVariableCapital+"ByID(@PathVariable UUID id) throws Exception {\n" +
-                "        return ResponseEntity.ok(" + entityVariableCapital.toLowerCase() + "Service.get"+entityVariableCapital+"ById(id));\n" +
+                "        return ResponseEntity.ok(" + entityVariable + "Service.get"+entityVariableCapital+"ById(id));\n" +
                 "    }\n" +
-                "}\n";
+                "}";
     }
 
-    private static String getServiceContent(String entityVariableCapital){
-        return "public class " + entityVariableCapital + "Service {\n" +
-                "\n" +
-                "    ResponseEntity<?> save"+entityVariableCapital+"("+ entityVariableCapital+" "+entityVariableCapital.toLowerCase()+");\n"+
-                "\n" +
+    private static String getServiceContent(String entityVariableCapital, String entityVariable){
+        //SET Package-Path
+        return  "package com.unicorn.indsaccrm."+entityVariableCapital.toLowerCase()+";\n" +
+                "import org.springframework.http.ResponseEntity;\n" +
+                "import java.util.List;\n" +
+                "import java.util.Optional;\n" +
+                "import java.util.UUID;\n"+
+                "public interface " + entityVariableCapital + "Service {\n" +
+                "    ResponseEntity<?> save"+entityVariableCapital+"("+ entityVariableCapital+" "+entityVariable+");\n"+
                 "    ResponseEntity<List<"+entityVariableCapital+">>"+" "+"getAll"+entityVariableCapital+"s();\n"+
-                "\n" +
                 "    ResponseEntity<Optional<"+entityVariableCapital+">>"+" "+"get"+entityVariableCapital+"ById(UUID id);\n"+
                 "}";
     }
 
-    private static String getServiceImplContent(String entityVariableCapital) {
-        return "package com.unicorn.indsaccrm."+entityVariableCapital.toLowerCase()+";\n\n" +
+    private static String getServiceImplContent(String entityVariableCapital,String entityVariable) {
+        //SET Package-Path
+        return "package com.unicorn.indsaccrm."+entityVariableCapital.toLowerCase()+";\n" +
                 "import org.slf4j.Logger;\n" +
                 "import org.slf4j.LoggerFactory;\n" +
                 "import org.springframework.beans.factory.annotation.Autowired;\n" +
                 "import org.springframework.http.ResponseEntity;\n" +
-                "import org.springframework.stereotype.Service;\n\n" +
+                "import org.springframework.stereotype.Service;\n" +
                 "import java.util.List;\n" +
                 "import java.util.Optional;\n" +
-                "import java.util.UUID;\n\n" +
-
+                "import java.util.UUID;\n" +
                 "@Service\n" +
-                "public class " + entityVariableCapital + "ServiceImpl implements " + entityVariableCapital + "Service {\n\n" +
+                "public class " + entityVariableCapital + "ServiceImpl implements " + entityVariableCapital + "Service {\n" +
                 "   @Autowired\n" +
-                "   "+entityVariableCapital + "Repository " + entityVariableCapital.toLowerCase() + "Repository;\n" +
-                "   Logger logger = LoggerFactory.getLogger("+ entityVariableCapital +"ServiceImpl.class);\n\n" +
+                "   "+entityVariableCapital + "Repository " + entityVariable + "Repository;\n" +
+                "   Logger logger = LoggerFactory.getLogger("+ entityVariableCapital +"ServiceImpl.class);\n" +
                 "   @Override\n" +
-                "   public ResponseEntity<?> save" + entityVariableCapital + "s(" + entityVariableCapital + " " + entityVariableCapital.toLowerCase() + ") {\n" +
+                "   public ResponseEntity<?> save" + entityVariableCapital + "(" + entityVariableCapital + " " + entityVariable + ") {\n" +
                 "      logger.info(\"Save " + entityVariableCapital + " from save" + entityVariableCapital + " Successully\");\n" +
-                "      return ResponseEntity.ok(" + entityVariableCapital.toLowerCase() + "Repository.save(" + entityVariableCapital.toLowerCase() + "));\n" +
-                "   }\n\n" +
+                "      return ResponseEntity.ok(" + entityVariable + "Repository.save(" + entityVariable + "));\n" +
+                "   }\n" +
                 "   @Override\n" +
                 "   public ResponseEntity<List<" + entityVariableCapital + ">> getAll" + entityVariableCapital + "s() {\n" +
                 "      logger.info(\"GET all " + entityVariableCapital + "s from getAll" + entityVariableCapital + "s Successully\");\n" +
-                "      return ResponseEntity.ok(" + entityVariableCapital.toLowerCase() + "Repository.findAll());\n" +
-                "   }\n\n" +
+                "      return ResponseEntity.ok(" + entityVariable + "Repository.findAll());\n" +
+                "   }\n" +
                 "   @Override\n" +
                 "   public ResponseEntity<Optional<" + entityVariableCapital + ">> get" + entityVariableCapital + "ById(UUID id) {\n" +
                 "      logger.info(\"GET " + entityVariableCapital + " By Id from get" + entityVariableCapital + "ById Successfully\");\n" +
-                "      return ResponseEntity.ok(" + entityVariableCapital.toLowerCase() + "Repository.findById(id));\n" +
-                "   }\n";
+                "      return ResponseEntity.ok(" + entityVariable + "Repository.findById(id));\n" +
+                "   }\n"+
+                "}";
     }
 
-    private static String getRepositoryContent(String entityVariableCapital) {
-        return "package com.unicorn.indsaccrm."+entityVariableCapital.toLowerCase()+";\n\n" +
+    private static String getRepositoryContent(String entityVariableCapital,String entityVariable) {
+        //SET Package-Path
+        return "package com.unicorn.indsaccrm."+entityVariableCapital.toLowerCase()+";\n" +
+                "import org.springframework.data.jpa.repository.JpaRepository;\n"+
+                "import java.util.UUID;\n" +
                 "public interface "+entityVariableCapital+"Repository extends JpaRepository<"+entityVariableCapital+",UUID> {\n"+
                 "}\n";
     }
-
 }
 
 
