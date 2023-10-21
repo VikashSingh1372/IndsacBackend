@@ -13,9 +13,17 @@ public class StructureService {
 
         String entityName = structure.getEntityName();
         List<RequestField> requestFields = structure.getRequestFields();
+        String rootPackage=structure.getRootPackage();
+
+        String additionalFolderPath;
+        if (rootPackage != null && !rootPackage.isEmpty()) {
+            additionalFolderPath = "src/main/java/com/unicorn/indsaccrm"+rootPackage;
+        } else {
+            additionalFolderPath = "src/main/java/com/unicorn/indsaccrm";
+        }
 
         // Get the entity path
-        String entityPath = getEntityPath(entityName);
+        String entityPath = getEntityPath(entityName,additionalFolderPath);
 
         // Create entity file with the given entityName and columns
         String fileName = entityPath + File.separator + entityName + ".java";
@@ -27,9 +35,16 @@ public class StructureService {
                 packageDir.mkdirs();  // Create the package directory and any necessary parent directories
             }
             try (FileWriter fileWriter = new FileWriter(fileName)) {
+
+                // Check rootPackage is null
+                if (rootPackage != null) {
+                    fileWriter.write("package com.unicorn.indsaccrm" + rootPackage.replaceFirst("[\\\\/]+", ".").replaceAll("[\\\\/]+", ".") + "." + entityName.toLowerCase() + ";\n");
+                } else {
+                    fileWriter.write("package com.unicorn.indsaccrm." + entityName.toLowerCase() + ";\n");
+                }
+
                 //import packages
-                fileWriter.write("package com.unicorn.indsaccrm." + entityName.toLowerCase() + ";\n" +
-                        "import com.unicorn.indsaccrm.common.config.Auditable;\n" +
+                fileWriter.write("import com.unicorn.indsaccrm.common.config.Auditable;\n" +
                         "import lombok.*;\n" +
                         "import org.hibernate.annotations.GenericGenerator;\n" +
                         "import org.hibernate.annotations.Type;\n" +
@@ -80,13 +95,10 @@ public class StructureService {
         }
     }
 
-    private String getEntityPath(String entityName) {
+    private String getEntityPath(String entityName,String additionalFolderPath) {
 
         // This rootpath returns the "DriveName:\INDSAC\indsaccrmbe"
         String rootPath = System.getProperty("user.dir");
-
-        // Additional folder path
-        String additionalFolderPath = "src/main/java/com/unicorn/indsaccrm";
 
         // Create a File object for the rootPath
         File rootFile = new File(rootPath);
@@ -97,6 +109,13 @@ public class StructureService {
         // Create a subfolder based on the entity name
         File entityFolder = new File(additionalFolder, entityName.toLowerCase());
 
+        if (!entityFolder.exists()) {
+            if (entityFolder.mkdirs()) {
+                System.out.println("Created folder: " + entityFolder.getAbsolutePath());
+            } else {
+                System.err.println("Failed to create folder: " + entityFolder.getAbsolutePath());
+            }
+        }
         // Get the absolute path of the combined folder path
         return entityFolder.getAbsolutePath();
     }
