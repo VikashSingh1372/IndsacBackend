@@ -1,6 +1,5 @@
-package com.unicorn.indsaccrm.common.util.automation;
+package com.unicorn.indsaccrm.common.util.automation.entityAutomation;
 
-import com.unicorn.indsaccrm.common.util.automation.entityAutomation.Structure;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -20,18 +19,19 @@ public class StructureAutomation {
 
         //This rootpath returns the "DriveName:\INDSAC\indsaccrmbe"
         String rootPath = System.getProperty("user.dir");
+        System.out.println("rootPath: "+rootPath);
 
         // Check additionalFolderPath value is null or not
         String additionalFolderPath;
         if (rootPackage != null && !rootPackage.isEmpty()) {
             additionalFolderPath = "src/main/java/com/unicorn/indsaccrm"+rootPackage+"/"+entityVariableCapital.toLowerCase();
         } else {
-            additionalFolderPath = "src/main/java/com/unicorn/indsaccrm"+entityVariableCapital.toLowerCase();
+            additionalFolderPath = "src/main/java/com/unicorn/indsaccrm/"+entityVariableCapital.toLowerCase();
         }
 
         // Check rootPackage value is null or not
         String packageImportInClass;
-        if (rootPackage != null) {
+        if (rootPackage != null && !rootPackage.isEmpty()) {
             packageImportInClass="package com.unicorn.indsaccrm" + rootPackage.replaceFirst("[\\\\/]+", ".").replaceAll("[\\\\/]+", ".") + ".";
         } else {
             packageImportInClass="package com.unicorn.indsaccrm.";

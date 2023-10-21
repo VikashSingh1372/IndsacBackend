@@ -1,6 +1,5 @@
 package com.unicorn.indsaccrm.common.util.automation.entityAutomation;
 
-import com.unicorn.indsaccrm.common.util.automation.StructureAutomation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
