@@ -1,6 +1,5 @@
-package com.unicorn.indsaccrm.common.util.automation;
+package com.unicorn.indsaccrm.common.util.automation.entityAutomation;
 
-import com.unicorn.indsaccrm.common.util.automation.entityAutomation.Structure;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -16,12 +15,27 @@ public class StructureAutomation {
 
         String entityVariableCapital = structure.getEntityName();
         String entityVariable = Character.toLowerCase(entityVariableCapital.charAt(0)) + entityVariableCapital.substring(1);
+        String rootPackage=structure.getRootPackage();
 
         //This rootpath returns the "DriveName:\INDSAC\indsaccrmbe"
         String rootPath = System.getProperty("user.dir");
+        System.out.println("rootPath: "+rootPath);
 
-        // Additional folder path
-        String additionalFolderPath = "src/main/java/com/unicorn/indsaccrm/"+entityVariableCapital.toLowerCase();
+        // Check additionalFolderPath value is null or not
+        String additionalFolderPath;
+        if (rootPackage != null && !rootPackage.isEmpty()) {
+            additionalFolderPath = "src/main/java/com/unicorn/indsaccrm"+rootPackage+"/"+entityVariableCapital.toLowerCase();
+        } else {
+            additionalFolderPath = "src/main/java/com/unicorn/indsaccrm/"+entityVariableCapital.toLowerCase();
+        }
+
+        // Check rootPackage value is null or not
+        String packageImportInClass;
+        if (rootPackage != null && !rootPackage.isEmpty()) {
+            packageImportInClass="package com.unicorn.indsaccrm" + rootPackage.replaceFirst("[\\\\/]+", ".").replaceAll("[\\\\/]+", ".") + ".";
+        } else {
+            packageImportInClass="package com.unicorn.indsaccrm.";
+        }
 
         // Create a File object for the rootPath
         File rootFile = new File(rootPath);
@@ -37,20 +51,20 @@ public class StructureAutomation {
 
         //Controller
         String controllerFileName = entityVariableCapital + "Controller.java";
-        createControllerFile(entityPath, controllerFileName, getControllerContent(entityVariableCapital,entityVariable));
+        createControllerFile(entityPath, controllerFileName, getControllerContent(entityVariableCapital,entityVariable,packageImportInClass));
 
         //Service
         String serviceFileName = entityVariableCapital + "Service.java";
-        createServiceFile(entityPath, serviceFileName, getServiceContent(entityVariableCapital,entityVariable));
+        createServiceFile(entityPath, serviceFileName, getServiceContent(entityVariableCapital,entityVariable,packageImportInClass));
 
         //ServiceImpl
         String serviceImplFileName = entityVariableCapital + "ServiceImpl.java";
-        createServiceImplFile(entityPath, serviceImplFileName, getServiceImplContent(entityVariableCapital,entityVariable));
+        createServiceImplFile(entityPath, serviceImplFileName, getServiceImplContent(entityVariableCapital,entityVariable,packageImportInClass));
 
         //Repository
         String repositoryFileName = entityVariableCapital + "Repository.java";
-        createRepositoryFile(entityPath, repositoryFileName, getRepositoryContent(entityVariableCapital,entityVariable));
-        return "Remaining Files also successfully created";
+        createRepositoryFile(entityPath, repositoryFileName, getRepositoryContent(entityVariableCapital,entityVariable,packageImportInClass));
+        return "\n Remaining Files also successfully created";
     }
 
      private static void createControllerFile(String path, String fileName, String content) {
@@ -97,8 +111,10 @@ public class StructureAutomation {
         }
     }
 
-    private static String getControllerContent(String entityVariableCapital,String entityVariable) {
-        return "package com.unicorn.indsaccrm."+entityVariableCapital.toLowerCase()+";\n" +
+
+
+    private static String getControllerContent(String entityVariableCapital,String entityVariable,String packageImportInClass) {
+        return  ""+packageImportInClass+""+entityVariableCapital.toLowerCase()+";\n" +
                 "import org.springframework.beans.factory.annotation.Autowired;\n" +
                 "import org.springframework.http.ResponseEntity;\n" +
                 "import org.springframework.stereotype.Controller;\n" +
@@ -125,8 +141,8 @@ public class StructureAutomation {
                 "}";
     }
 
-    private static String getServiceContent(String entityVariableCapital,String entityVariable){
-        return "package com.unicorn.indsaccrm."+entityVariableCapital.toLowerCase()+";\n" +
+    private static String getServiceContent(String entityVariableCapital,String entityVariable,String packageImportInClass){
+        return ""+packageImportInClass+""+entityVariableCapital.toLowerCase()+";\n" +
                 "import org.springframework.http.ResponseEntity;\n" +
                 "import java.util.List;\n" +
                 "import java.util.Optional;\n" +
@@ -138,8 +154,8 @@ public class StructureAutomation {
                 "}";
     }
 
-    private static String getServiceImplContent(String entityVariableCapital,String entityVariable) {
-        return "package com.unicorn.indsaccrm."+entityVariableCapital.toLowerCase()+";\n" +
+    private static String getServiceImplContent(String entityVariableCapital,String entityVariable,String packageImportInClass) {
+        return ""+packageImportInClass+""+entityVariableCapital.toLowerCase()+";\n" +
                 "import org.slf4j.Logger;\n" +
                 "import org.slf4j.LoggerFactory;\n" +
                 "import org.springframework.beans.factory.annotation.Autowired;\n" +
@@ -171,8 +187,8 @@ public class StructureAutomation {
                 "}";
     }
 
-    private static String getRepositoryContent(String entityVariableCapital,String entityVariable) {
-        return "package com.unicorn.indsaccrm."+entityVariableCapital.toLowerCase()+";\n" +
+    private static String getRepositoryContent(String entityVariableCapital,String entityVariable,String packageImportInClass) {
+        return ""+packageImportInClass+""+entityVariableCapital.toLowerCase()+";\n" +
                 "import org.springframework.data.jpa.repository.JpaRepository;\n"+
                 "import java.util.UUID;\n" +
                 "public interface "+entityVariableCapital+"Repository extends JpaRepository<"+entityVariableCapital+",UUID> {\n"+
