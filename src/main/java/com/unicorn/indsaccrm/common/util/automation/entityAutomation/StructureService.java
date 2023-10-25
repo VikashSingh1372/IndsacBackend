@@ -86,7 +86,7 @@ public class StructureService {
         String rootPath = System.getProperty("user.dir");
 
         // Additional folder path
-        String additionalFolderPath = "src/main/java/com/unicorn/indsaccrm";
+        String additionalFolderPath = "indsaccrmbe/src/main/java/com/unicorn/indsaccrm";
 
         // Create a File object for the rootPath
         File rootFile = new File(rootPath);

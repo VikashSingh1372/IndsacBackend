@@ -21,7 +21,7 @@ public class StructureAutomation {
         String rootPath = System.getProperty("user.dir");
 
         // Additional folder path
-        String additionalFolderPath = "src/main/java/com/unicorn/indsaccrm/"+entityVariableCapital.toLowerCase();
+        String additionalFolderPath = "indsaccrmbe/src/main/java/com/unicorn/indsaccrm/"+entityVariableCapital.toLowerCase();
 
         // Create a File object for the rootPath
         File rootFile = new File(rootPath);
