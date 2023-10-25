@@ -8,7 +8,7 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.UUID;
-
+//Ticket for INDSAC BUSINESS internal with INDSAC's CLIENT MANAGEMENT
 @Setter
 @Getter
 @ToString

@@ -15,7 +15,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name="Reward_Transactions")
+@Table(name="irewardtransactions")
 public class RewardTransaction extends Auditable<String> {
     @Id
     @GeneratedValue
