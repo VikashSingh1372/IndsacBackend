@@ -17,7 +17,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name="referral_table")
+@Table(name="ireferralcourse")
 public class ReferralCourse extends Auditable<String> {
     @Id
     @GeneratedValue

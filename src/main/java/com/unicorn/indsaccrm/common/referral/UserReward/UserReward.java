@@ -15,7 +15,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name="User_Rewards")
+@Table(name="iuserreward")
 public class UserReward extends Auditable<String> {
     @Id
     @GeneratedValue

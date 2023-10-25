@@ -17,7 +17,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name="subscribe")
+@Table(name="isubscribe")
 public class Subscribe extends Auditable<String> {
 
     @Id

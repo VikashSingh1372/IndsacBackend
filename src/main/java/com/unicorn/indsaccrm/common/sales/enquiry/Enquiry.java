@@ -17,7 +17,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name="enquiry")
+@Table(name="ienquiry")
 public class Enquiry extends Auditable<String> {
     @Id
     @GeneratedValue
