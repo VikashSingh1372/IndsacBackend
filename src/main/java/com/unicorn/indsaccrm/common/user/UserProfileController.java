@@ -9,8 +9,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+
 @CrossOrigin
 @RestController
 public class UserProfileController {
@@ -18,7 +18,6 @@ public class UserProfileController {
 
     @Autowired
     UserService userService;
-
 
     @Autowired
     UserRepository userRepository;
@@ -40,7 +39,12 @@ public class UserProfileController {
         Optional<com.unicorn.indsaccrm.common.user.User> user=userRepository.findByEmail(((User) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal()).getUsername());
         if(user!=null){
-            return ResponseEntity.ok(user.get().getId());
+            com.unicorn.indsaccrm.common.user.User userData = user.get();
+            Map<String, Object> userInfo = new LinkedHashMap<>();
+            userInfo.put("id", userData.getId());
+            userInfo.put("name", userData.getName());
+            userInfo.put("email", userData.getEmail());
+            return ResponseEntity.ok(userInfo);
         }else{
             return new ResponseEntity<>("Not Found", HttpStatus.NOT_FOUND);
         }
