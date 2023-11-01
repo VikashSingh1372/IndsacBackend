@@ -17,7 +17,7 @@ import java.util.UUID;
 @Setter
 @Entity
 @Table(name="admindefaultvalues")
-public class AdminDefaultValues extends Auditable<String> {
+public class AdminDefaultValues {
     @Id
     @GeneratedValue
     @Type(type="org.hibernate.type.UUIDCharType")

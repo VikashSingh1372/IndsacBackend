@@ -11,9 +11,11 @@ import com.unicorn.indsaccrm.common.oauth.role.RoleRepository;
 import com.unicorn.indsaccrm.common.user.RegisterUser;
 import com.unicorn.indsaccrm.common.user.User;
 import com.unicorn.indsaccrm.common.user.UserRepository;
+import com.unicorn.indsaccrm.common.util.email.EmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
@@ -42,6 +44,12 @@ public class JwtUserDetailsService implements UserDetailsService {
 
 	@Autowired
 	private PasswordEncoder bcryptEncoder;
+
+	@Autowired
+	private EmailService emailService;
+
+	@Value("${spring.emailutility}")
+	private String emailUtility;
 
 	@Autowired
 	private AdminDefaultValuesRepository adminDefaultValuesRepository;
@@ -87,6 +95,18 @@ public class JwtUserDetailsService implements UserDetailsService {
 		newuser.setRoles(roles1);
 		User user=userRepository.save(newuser);
 		createAdminDefaultValues(user.getId());
+		if(emailUtility.contains("true")){
+			try {
+				emailService.generateOneTimePassword(user);
+				logger.info("OTP Sent to Email for verification");
+				return new ResponseEntity<>("OTP Sent to Email for verification", HttpStatus.OK);
+			}
+			catch (Exception e){
+				logger.error("Error in Sending OTP to Email for verification, Please check email correctly");
+				return new ResponseEntity<>("Error in Sending OTP to Email for verification, Please check email correctly",
+						HttpStatus.BAD_REQUEST);
+			}
+		}
 		logger.info("User registered successfully");
 		return new ResponseEntity<>("User registered successfully", HttpStatus.OK);
 	}
