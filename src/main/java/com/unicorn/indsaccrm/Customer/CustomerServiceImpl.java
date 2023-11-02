@@ -57,6 +57,7 @@ public class CustomerServiceImpl implements CustomerService{
     ProductOrderService productOrderService;
 
     Logger logger = LoggerFactory.getLogger(CustomerServiceImpl.class);
+    @Autowired
     private EntityManager entityManager;
 
     @Override
@@ -119,13 +120,13 @@ public class CustomerServiceImpl implements CustomerService{
             logger.info("---useradminid Current Count using createQuery(Tuple.class)--");
             CriteriaBuilder cb = entityManager.getCriteriaBuilder();
             CriteriaQuery<Tuple> query = cb.createQuery(Tuple.class);
-            Root<Customer> employee = query.from(Customer.class);
-            query.select(cb.tuple(cb.function("MONTH", Integer.class, employee.get("creationDate")),
-                    cb.count(employee.get("id"))));
-            Predicate currentYearPredicate = cb.equal(cb.function("YEAR", Integer.class, employee.get("creationDate")), cb.function("YEAR", Integer.class, cb.currentTimestamp()));
-            Predicate useradminidPredicate = cb.equal(employee.get(" useradminid"), useradminid);
+            Root<Customer> customer = query.from(Customer.class);
+            query.select(cb.tuple(cb.function("MONTH", Integer.class, customer.get("creationDate")),
+                    cb.count(customer.get("id"))));
+            Predicate currentYearPredicate = cb.equal(cb.function("YEAR", Integer.class, customer.get("creationDate")), cb.function("YEAR", Integer.class, cb.currentTimestamp()));
+            Predicate useradminidPredicate = cb.equal(customer.get("useradminid"), useradminid);
             query.where(currentYearPredicate, useradminidPredicate);
-            query.groupBy(cb.function("MONTH", Integer.class, employee.get("creationDate")));
+            query.groupBy(cb.function("MONTH", Integer.class, customer.get("creationDate")));
             TypedQuery<Tuple> typedQuery = entityManager.createQuery(query);
             List<Tuple> resultList = typedQuery.getResultList();
             resultList.forEach(tuple -> {
@@ -164,11 +165,11 @@ public class CustomerServiceImpl implements CustomerService{
                   logger.info("-- useradminid status count using createQuery (Tuple.class)--");
                   CriteriaBuilder cb =entityManager.getCriteriaBuilder();
                   CriteriaQuery<Tuple> query =cb.createQuery(Tuple.class);
-                  Root<Customer> employee =query.from(Customer.class);
-                  query.select(cb.tuple(employee.get("status"),cb.count(employee.get("id"))));
-                  Predicate useradminidPredicate  = cb.equal(employee.get("useradminid"),useradminid);
+                  Root<Customer> customer =query.from(Customer.class);
+                  query.select(cb.tuple(customer.get("status"),cb.count(customer.get("id"))));
+                  Predicate useradminidPredicate  = cb.equal(customer.get("useradminid"),useradminid);
                   query.where(useradminidPredicate);
-                  query.groupBy(employee.get("Status"));
+                  query.groupBy(customer.get("status"));
                   TypedQuery<Tuple> typedQuery= entityManager.createQuery(query);
                   List<Tuple> resultList =typedQuery.getResultList();
                   resultList.forEach(tuple -> {
