@@ -19,10 +19,8 @@ public interface ServiceRequestRepository extends JpaRepository<ServiceRequest, 
     List<ServiceRequest> findByUseradminidAndCustomeridAndStatusNotIn(
         UUID useradminid, UUID customerid, List<ServiceRequestStatus> statuses);
 
+    List<ServiceRequest> findByLeadid(UUID leadid);
 
-
-
-
-
+    List<ServiceRequest> findByVendorid(UUID vendorid);
 
 }

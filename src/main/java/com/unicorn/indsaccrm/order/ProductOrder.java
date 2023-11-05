@@ -79,6 +79,14 @@ public class ProductOrder extends Auditable<String> {
     @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID asignedto;
 
+    @Column
+    @Type(type="org.hibernate.type.UUIDCharType")
+    private UUID leadid;
+
+    @Column
+    @Type(type="org.hibernate.type.UUIDCharType")
+    private UUID vendorid;
+
     public enum OrderStatus{
         Pending,Processing,InTransit,OutforDelivery,Delivered,Cancelled,OnHold,Returned,PartiallyShipped,
         Refunded,AwaitingPayment,Backordered

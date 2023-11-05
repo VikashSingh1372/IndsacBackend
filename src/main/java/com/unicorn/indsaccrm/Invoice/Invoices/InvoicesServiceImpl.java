@@ -77,4 +77,16 @@ public class InvoicesServiceImpl implements InvoicesService {
         ));
     }
 
+    @Override
+    public ResponseEntity<List<Invoice>> getInvoicesByLeadid(UUID leadid) {
+        logger.info("Get Invoices By Lead_id inside getInvoicesByLeadid successfully");
+        return ResponseEntity.ok(invoicesRepository.findByLeadid(leadid));
+    }
+
+    @Override
+    public ResponseEntity<List<Invoice>> getInvoicesByVendorid(UUID vendorid) {
+        logger.info("Get Invoices By Vendor_id inside getInvoicesByVendorid successfully");
+        return ResponseEntity.ok(invoicesRepository.findByVendorid(vendorid));
+    }
+
 }

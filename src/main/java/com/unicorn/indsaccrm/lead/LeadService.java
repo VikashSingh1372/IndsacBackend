@@ -18,4 +18,5 @@ public interface LeadService {
     ResponseEntity<List<Lead>> getAllLeadsByAdminId(UUID useradminid);
 
     ResponseEntity<LeadResource.LeadDashboard> getLeadDahBoard(UUID useradminid);
+    ResponseEntity<LeadDetails.LeadDetailsResponse> getLeadDetailsResponse(UUID leadid);
 }

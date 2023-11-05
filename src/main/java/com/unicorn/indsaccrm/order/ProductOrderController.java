@@ -31,7 +31,15 @@ public class ProductOrderController {
         return ResponseEntity.ok(productOrderService.getProductOrderByCustomerId(id));
     }
     @GetMapping("/useradminid/{id}")
-    ResponseEntity<?> getTaskByUserAdminId(@PathVariable UUID id)throws  Exception{
+    ResponseEntity<?> getProductOrderByUserAdminId(@PathVariable UUID id)throws  Exception{
         return ResponseEntity.ok(productOrderService.getProductOrderByUserAdminId(id));
+    }
+    @GetMapping("/lead/{leadid}")
+    ResponseEntity<?> getProductOrderByUserLeadid(@PathVariable UUID leadid)throws  Exception{
+        return ResponseEntity.ok(productOrderService.getProductOrderByUserLeadid(leadid));
+    }
+    @GetMapping("/vendor/{vendorid}")
+    ResponseEntity<?> getProductOrderByUserVendorid(@PathVariable UUID vendorid)throws  Exception{
+        return ResponseEntity.ok(productOrderService.getProductOrderByUserVendorid(vendorid));
     }
 }

@@ -16,4 +16,6 @@ public interface VendorService {
 
     //Vendor Dashboard
     ResponseEntity<VendorResource.VendorDashboard>  getVendorDashBoard(UUID useradminid);
+
+    ResponseEntity<VendorDetails.VendorDetailsResponse> getVendorDetailsResponse(UUID vendorid);
 }

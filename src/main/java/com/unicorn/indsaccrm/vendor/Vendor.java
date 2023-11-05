@@ -41,7 +41,7 @@ public class Vendor extends Auditable<String> {
     private String leadsource;
 
     @Column
-    private String status;
+    private VendorStatus status;
 
     @Column
     private String website;

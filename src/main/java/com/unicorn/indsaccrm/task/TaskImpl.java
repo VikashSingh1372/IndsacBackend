@@ -73,4 +73,16 @@ public class TaskImpl implements TaskService{
             .findByCustomeridAndUseradminidAndStatusNotIn(
                 customerid,useradminid,statusList));
     }
+
+    @Override
+    public ResponseEntity<List<Task>> getTaskByLeadid(UUID leadid) {
+        logger.info("Get tasks by lead_id from getTaskByLeadid Successfully");
+        return ResponseEntity.ok(taskRepository.findByLeadid(leadid));
+    }
+
+    @Override
+    public ResponseEntity<List<Task>> getTaskByVendorid(UUID vendorid) {
+        logger.info("Get tasks by vendor_id from getTaskByVendorid Successfully");
+        return ResponseEntity.ok(taskRepository.findByVendorid(vendorid));
+    }
 }

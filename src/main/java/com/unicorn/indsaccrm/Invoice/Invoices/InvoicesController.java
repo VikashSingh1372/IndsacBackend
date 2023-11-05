@@ -39,5 +39,13 @@ public class InvoicesController {
     ResponseEntity<?> getInvoicesByUser_id(@PathVariable UUID useradminid)throws Exception {
         return ResponseEntity.ok(invoicesService.getAllInvoicesByUserAdminId(useradminid));
     }
+    @GetMapping("/lead/{leadid}")
+    ResponseEntity<?> getInvoicesByLeadid(@PathVariable UUID leadid)throws Exception {
+        return ResponseEntity.ok(invoicesService.getInvoicesByLeadid(leadid));
+    }
 
+    @GetMapping("/vendor/{vendorid}")
+    ResponseEntity<?> getInvoicesByVendorid(@PathVariable UUID vendorid)throws Exception {
+        return ResponseEntity.ok(invoicesService.getInvoicesByVendorid(vendorid));
+    }
 }

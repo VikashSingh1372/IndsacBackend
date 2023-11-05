@@ -45,4 +45,16 @@ public class InteractionRecordImpl implements InteractionRecordService{
         logger.info("interaction record getting by userAdminId");
         return ResponseEntity.ok(interactionRecordRepository.findByUseradminid(id));
     }
+
+    @Override
+    public ResponseEntity<List<InteractionRecord>> getInteractionRecordByLeadid(UUID leadid) {
+        logger.info("Get InteractionRecord By Lead_Id from getInteractionRecordByLeadid Successfully");
+        return ResponseEntity.ok(interactionRecordRepository.findByLeadid(leadid));
+    }
+
+    @Override
+    public ResponseEntity<List<InteractionRecord>> getInteractionRecordByVendorid(UUID vendorid) {
+        logger.info("Get InteractionRecord By Vendor_Id from getInteractionRecordByVendorid Successfully");
+        return ResponseEntity.ok(interactionRecordRepository.findByVendorid(vendorid));
+    }
 }

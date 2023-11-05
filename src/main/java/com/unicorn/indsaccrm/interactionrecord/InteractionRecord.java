@@ -38,6 +38,14 @@ public class InteractionRecord extends Auditable<String> {
     private UUID usercid;
 
     @Column
+    @Type(type = "org.hibernate.type.UUIDCharType")
+    private UUID leadid;
+
+    @Column
+    @Type(type = "org.hibernate.type.UUIDCharType")
+    private UUID vendorid;
+
+    @Column
     private String readstatus;
 
     @Column

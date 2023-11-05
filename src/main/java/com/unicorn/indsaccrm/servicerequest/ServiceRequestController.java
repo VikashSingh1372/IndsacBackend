@@ -48,6 +48,14 @@ public class ServiceRequestController {
     ResponseEntity<?> getServiceRequestByResolutionUserId(@PathVariable UUID id)throws Exception {
         return ResponseEntity.ok(serviceRequestService.getServiceRequestByResolutionUserId(id));
     }
+    @GetMapping("/lead/{leadid}")
+    ResponseEntity<?> getServiceRequestByLeadid(@PathVariable UUID leadid)throws Exception {
+        return ResponseEntity.ok(serviceRequestService.getServiceRequestByLeadid(leadid));
+    }
 
+    @GetMapping("/vendor/{vedorid}")
+    ResponseEntity<?> getServiceRequestByVedorid(@PathVariable UUID vedorid)throws Exception {
+        return ResponseEntity.ok(serviceRequestService.getServiceRequestByVedorid(vedorid));
+    }
 
 }

@@ -65,6 +65,14 @@ public class Invoice extends Auditable<String> {
 
     @Column
     @Type(type = "org.hibernate.type.UUIDCharType")
+    private UUID leadid;
+
+    @Column
+    @Type(type = "org.hibernate.type.UUIDCharType")
+    private UUID vendorid;
+
+    @Column
+    @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID asignedto;
 
     public enum InvoiceStatus{

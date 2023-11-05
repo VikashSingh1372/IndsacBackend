@@ -66,4 +66,16 @@ public class ProductOrderServiceImpl implements ProductOrderService{
         ));
     }
 
+    @Override
+    public ResponseEntity<List<ProductOrder>> getProductOrderByUserLeadid(UUID leadid) {
+        logger.info("Get ProductOrder By Lead_Id inside getProductOrderByUserLeadid successfully");
+        return ResponseEntity.ok(productOrderRepository.findByLeadid(leadid));
+    }
+
+    @Override
+    public ResponseEntity<List<ProductOrder>> getProductOrderByUserVendorid(UUID vendorid) {
+        logger.info("Get ProductOrder By Vendor_Id inside getProductOrderByUserVendorid successfully");
+        return ResponseEntity.ok(productOrderRepository.findByVendorid(vendorid));
+    }
+
 }

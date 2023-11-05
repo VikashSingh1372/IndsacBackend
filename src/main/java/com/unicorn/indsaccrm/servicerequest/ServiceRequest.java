@@ -41,6 +41,14 @@ public class ServiceRequest extends Auditable<String> {
     private UUID customerid;
 
     @Column
+    @Type(type = "org.hibernate.type.UUIDCharType")
+    private UUID leadid;
+
+    @Column
+    @Type(type = "org.hibernate.type.UUIDCharType")
+    private UUID vendorid;
+
+    @Column
     private String readstatus;
 
     @Column

@@ -9,5 +9,6 @@ import java.util.UUID;
 public interface InteractionRecordRepository extends JpaRepository<InteractionRecord, UUID> {
     List<InteractionRecord> findByCustomerid(UUID customerid);
     List<InteractionRecord> findByUseradminid(UUID useradminid);
-
+    List<InteractionRecord> findByLeadid(UUID leadid);
+    List<InteractionRecord> findByVendorid(UUID vendorid);
 }

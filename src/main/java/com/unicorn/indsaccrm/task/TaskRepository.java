@@ -21,4 +21,7 @@ public interface TaskRepository extends JpaRepository<Task, UUID> {
     List<Task> findByCustomeridAndUseradminidAndStatusNotIn(UUID customerid,
         UUID useradminid, List<TaskStatus> statuses);
 
+    List<Task> findByLeadid(UUID leadid);
+
+    List<Task> findByVendorid(UUID vendorid);
 }

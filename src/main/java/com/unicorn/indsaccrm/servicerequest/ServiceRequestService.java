@@ -29,4 +29,8 @@ public interface ServiceRequestService {
 
     ResponseEntity<List<ServiceRequest>> getServiceRequestByStatusNotIn(UUID useradminid,
         UUID customerid, List<ServiceRequestStatus> statuses);
+
+    ResponseEntity<List<ServiceRequest>> getServiceRequestByLeadid(UUID leadid);
+
+    ResponseEntity<List<ServiceRequest>> getServiceRequestByVedorid(UUID vedorid);
 }

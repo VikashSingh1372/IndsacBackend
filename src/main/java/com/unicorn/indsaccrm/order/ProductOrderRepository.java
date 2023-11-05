@@ -20,4 +20,11 @@ public interface ProductOrderRepository extends JpaRepository<ProductOrder, UUID
     List<ProductOrder> findByCustomerIdAndUseradminidAndStatusNotIn(
         UUID customerId, UUID useradminid, List<OrderStatus> statuses);
 
+    List<ProductOrder> findByLeadid(UUID leadid);
+
+    List<ProductOrder> findByVendorid(UUID vendorid);
+
+
+
+
 }

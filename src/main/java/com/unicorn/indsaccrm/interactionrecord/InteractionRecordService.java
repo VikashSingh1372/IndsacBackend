@@ -11,4 +11,6 @@ public interface InteractionRecordService {
     ResponseEntity<Optional<InteractionRecord>>getByIdInteraction(UUID id);
     ResponseEntity<List<InteractionRecord>> getInteractionRecordByCustomerId(UUID id);
     ResponseEntity<List<InteractionRecord>> getInteractionRecordByUserAdminId(UUID id);
+    ResponseEntity<List<InteractionRecord>> getInteractionRecordByLeadid(UUID leadid);
+    ResponseEntity<List<InteractionRecord>> getInteractionRecordByVendorid(UUID vendorid);
 }

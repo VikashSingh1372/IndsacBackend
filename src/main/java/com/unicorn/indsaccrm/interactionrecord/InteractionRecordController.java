@@ -35,4 +35,12 @@ public class InteractionRecordController {
     ResponseEntity<?>getByUserAdminId(@PathVariable UUID id)throws Exception{
         return ResponseEntity.ok(interactionRecordService.getInteractionRecordByUserAdminId(id));
     }
+    @GetMapping("/lead/{leadid}")
+    ResponseEntity<?> getInteractionRecordByLeadid(@PathVariable UUID leadid)throws Exception{
+        return ResponseEntity.ok(interactionRecordService.getInteractionRecordByLeadid(leadid));
+    }
+    @GetMapping("/vendor/{vendorid}")
+    ResponseEntity<?> getInteractionRecordByVendorid(@PathVariable UUID vendorid)throws Exception{
+        return ResponseEntity.ok(interactionRecordService.getInteractionRecordByVendorid(vendorid));
+    }
 }

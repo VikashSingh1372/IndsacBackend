@@ -1,5 +1,16 @@
 package com.unicorn.indsaccrm.lead;
 
+import com.unicorn.indsaccrm.Invoice.Invoices.Invoice;
+import com.unicorn.indsaccrm.Invoice.Invoices.InvoicesService;
+import com.unicorn.indsaccrm.common.exception.ResourceNotFoundException;
+import com.unicorn.indsaccrm.interactionrecord.InteractionRecord;
+import com.unicorn.indsaccrm.interactionrecord.InteractionRecordService;
+import com.unicorn.indsaccrm.order.ProductOrder;
+import com.unicorn.indsaccrm.order.ProductOrderService;
+import com.unicorn.indsaccrm.servicerequest.ServiceRequest;
+import com.unicorn.indsaccrm.servicerequest.ServiceRequestService;
+import com.unicorn.indsaccrm.task.Task;
+import com.unicorn.indsaccrm.task.TaskService;
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +25,28 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.time.LocalDate;
 import java.util.*;
 
 @Service
 public class LeadImpl implements LeadService{
     @Autowired
     LeadRepository leadRepository;
+
+    @Autowired
+    InvoicesService invoicesService;
+
+    @Autowired
+    ProductOrderService productOrderService;
+
+    @Autowired
+    ServiceRequestService serviceRequestService;
+
+    @Autowired
+    TaskService taskService;
+
+    @Autowired
+    InteractionRecordService interactionRecordService;
 
     @Autowired
     private EntityManager entityManager;
@@ -70,7 +97,6 @@ public class LeadImpl implements LeadService{
         findLeadInfo();
         return ResponseEntity.ok(leadDashboard);
     }
-
 
     private  void findLeadInfo() {
         System.out.println("-- Lead Userid and count using createQuery(Tuple.class) --");
@@ -157,8 +183,170 @@ public class LeadImpl implements LeadService{
         return currentMonthsDayCountResult;
     }
 
+    //Set Values for DueToday
+    public List<LeadDetails.DueToday> getDueToday(UUID leadid, UUID useradminid){
+        List<Invoice> invoiceList=invoicesService.getAllInvoicesByDueDateAndStatusNotIn(leadid,useradminid, LocalDate.now(),
+                Arrays.asList(Invoice.InvoiceStatus.Canceled, Invoice.InvoiceStatus.Closed, Invoice.InvoiceStatus.Paid)).getBody();
+
+        List<Task> taskList=taskService.getAllTaskByDueDateAndStatusNotIn(leadid,useradminid,
+                        LocalDate.now(), Arrays.asList(Task.TaskStatus.Canceled, Task.TaskStatus.Completed, Task.TaskStatus.Closed))
+                .getBody();
+        List<ProductOrder> orderList=productOrderService.getProductOrderByDueDateAndStatusNotIn(leadid,useradminid,LocalDate.now(),Arrays.asList(
+                ProductOrder.OrderStatus.Cancelled, ProductOrder.OrderStatus.Delivered)).getBody();
+        List<ServiceRequest> serviceRequestList=serviceRequestService.getServiceRequestByDueDateAndStatusNotIn(useradminid,leadid,LocalDate.now(),
+                Arrays.asList(ServiceRequest.ServiceRequestStatus.Closed, ServiceRequest.ServiceRequestStatus.Canceled)).getBody();
 
 
+        List<LeadDetails.DueToday> dueTodayList=new ArrayList<>();
+        invoiceList.forEach(invoice -> {
+            LeadDetails.DueToday dueToday=new LeadDetails.DueToday();
+            dueToday.setType("Invoice");
+            dueToday.setSubject(invoice.getSubject());
+            dueToday.setStatus(invoice.getStatus().toString());
+            dueToday.setDuedate(invoice.getDuedate());
+            dueToday.setPriority(invoice.getPriority());
+            dueToday.setAssigned(invoice.getAsignedto());
+            dueTodayList.add(dueToday);
+        });
+
+        orderList.forEach(productOrder -> {
+            LeadDetails.DueToday dueToday=new LeadDetails.DueToday();
+            dueToday.setType("Order");
+            dueToday.setSubject(productOrder.getSubject());
+            dueToday.setStatus(productOrder.getStatus().toString());
+            dueToday.setDuedate(productOrder.getDuedate());
+            dueToday.setPriority(productOrder.getPriority());
+            dueToday.setAssigned(productOrder.getAsignedto());
+            dueTodayList.add(dueToday);
+        });
+        taskList.forEach(task -> {
+            LeadDetails.DueToday dueToday=new LeadDetails.DueToday();
+            dueToday.setType("Task");
+            dueToday.setSubject(task.getSubject());
+            dueToday.setStatus(task.getStatus().toString());
+            dueToday.setDuedate(task.getDuedate());
+            dueToday.setPriority(task.getPriority());
+            dueToday.setAssigned(task.getAsignedto());
+            dueTodayList.add(dueToday);
+        });
+
+        serviceRequestList.forEach(serviceRequest -> {
+            LeadDetails.DueToday dueToday=new LeadDetails.DueToday();
+            dueToday.setType("Service Request");
+            dueToday.setSubject(serviceRequest.getSubject());
+            dueToday.setStatus(serviceRequest.getStatus().toString());
+            dueToday.setDuedate(serviceRequest.getDuedate());
+            dueToday.setPriority(serviceRequest.getPriority());
+            dueToday.setAssigned(serviceRequest.getAsignedto());
+            dueTodayList.add(dueToday);
+        });
+
+        return dueTodayList;
+    }
+    //Set Values for
+    public List<LeadDetails.OpenItems> getOpenItems(UUID leadid, UUID useradminid){
+        List<Invoice> invoiceList=invoicesService.getAllInvoicesByStatusNotIn(leadid,useradminid,
+                Arrays.asList(Invoice.InvoiceStatus.Canceled, Invoice.InvoiceStatus.Closed, Invoice.InvoiceStatus.Paid)).getBody();
+
+        List<Task> taskList=taskService.getAllTaskByStatusNotIn(leadid,useradminid,
+                        Arrays.asList(Task.TaskStatus.Canceled, Task.TaskStatus.Completed, Task.TaskStatus.Closed))
+                .getBody();
+        List<ProductOrder> orderList=productOrderService.getProductOrderByStatusNotIn(leadid,useradminid,
+                Arrays.asList(ProductOrder.OrderStatus.Cancelled, ProductOrder.OrderStatus.Delivered)).getBody();
+        List<ServiceRequest> serviceRequestList=serviceRequestService.getServiceRequestByStatusNotIn(
+                useradminid,leadid, Arrays.asList(ServiceRequest.ServiceRequestStatus.Closed,
+                        ServiceRequest.ServiceRequestStatus.Canceled)).getBody();
 
 
+        List<LeadDetails.OpenItems> openItemsList=new ArrayList<>();
+        invoiceList.forEach(invoice -> {
+            LeadDetails.OpenItems openItems=new LeadDetails.OpenItems();
+            openItems.setType("Invoice");
+            openItems.setSubject(invoice.getSubject());
+            openItems.setStatus(invoice.getStatus().toString());
+            openItems.setDuedate(invoice.getDuedate());
+            openItems.setPriority(invoice.getPriority());
+            openItems.setAssigned(invoice.getAsignedto());
+            openItemsList.add(openItems);
+        });
+
+        orderList.forEach(productOrder -> {
+            LeadDetails.OpenItems openItems=new LeadDetails.OpenItems();
+            openItems.setType("Order");
+            openItems.setSubject(productOrder.getSubject());
+            openItems.setStatus(productOrder.getStatus().toString());
+            openItems.setDuedate(productOrder.getDuedate());
+            openItems.setPriority(productOrder.getPriority());
+            openItems.setAssigned(productOrder.getAsignedto());
+            openItemsList.add(openItems);
+        });
+        taskList.forEach(task -> {
+            LeadDetails.OpenItems openItems=new LeadDetails.OpenItems();;
+            openItems.setType("Task");
+            openItems.setSubject(task.getSubject());
+            openItems.setStatus(task.getStatus().toString());
+            openItems.setDuedate(task.getDuedate());
+            openItems.setPriority(task.getPriority());
+            openItems.setAssigned(task.getAsignedto());
+            openItemsList.add(openItems);
+        });
+
+        serviceRequestList.forEach(serviceRequest -> {
+            LeadDetails.OpenItems openItems=new LeadDetails.OpenItems();
+            openItems.setType("Service Request");
+            openItems.setSubject(serviceRequest.getSubject());
+            openItems.setStatus(serviceRequest.getStatus().toString());
+            openItems.setDuedate(serviceRequest.getDuedate());
+            openItems.setPriority(serviceRequest.getPriority());
+            openItems.setAssigned(serviceRequest.getAsignedto());
+            openItemsList.add(openItems);
+        });
+        return openItemsList;
+    }
+
+    public void setLeadEventList(UUID leadid,
+                                     LeadDetails.LeadDetailsResponse leadDetailsResponse){
+        LeadDetails.LeadEventList leadEventList=new LeadDetails.LeadEventList();
+
+        List<Invoice> invoiceList= (List<Invoice>) invoicesService.getInvoicesByLeadid(leadid).getBody();
+        List<ProductOrder> orderList=(List<ProductOrder>) productOrderService.getProductOrderByUserLeadid(leadid).getBody();
+
+        List<ServiceRequest> serviceRequestList=(List<ServiceRequest>) serviceRequestService
+                .getServiceRequestByLeadid(leadid).getBody();
+        List<Task> taskList=(List<Task>) taskService.getTaskByLeadid(leadid).getBody();
+        List<InteractionRecord> interactionRecordList=(List<InteractionRecord>)
+                interactionRecordService.getInteractionRecordByLeadid(leadid).getBody();
+
+        leadEventList.setOrderList(orderList);
+        leadEventList.setInvoiceList(invoiceList);
+        leadEventList.setPurchaseOrderList("");
+        leadEventList.setQuotationList("");
+        leadEventList.setServiceRequestList(serviceRequestList);
+        leadEventList.setTaskList(taskList);
+        leadEventList.setInteractionRecordList(interactionRecordList);
+
+
+        LeadDetails.CountInformation countInformation=new LeadDetails.CountInformation();
+        assert invoiceList != null;
+        countInformation.setTotalInvoice(invoiceList.size());
+        assert serviceRequestList != null;
+        countInformation.setTotalServiceRequets(serviceRequestList.size());
+        assert orderList != null;
+        countInformation.setTotalOrders(orderList.size());
+
+        leadDetailsResponse.setCount(countInformation);
+        leadDetailsResponse.setEventList(leadEventList);
+    }
+
+    @Override
+    public ResponseEntity<LeadDetails.LeadDetailsResponse> getLeadDetailsResponse(UUID leadid) {
+        LeadDetails.LeadDetailsResponse leadDetailsResponse = new LeadDetails.LeadDetailsResponse();
+        Lead lead = leadRepository.findById(leadid)
+                .orElseThrow(() -> new ResourceNotFoundException("Lead Not found"));
+        leadDetailsResponse.setLead(lead);
+        leadDetailsResponse.setDueToday(getDueToday(leadid, lead.getUseradminid()));
+        leadDetailsResponse.setOpenItemsList(getOpenItems(leadid, lead.getUseradminid()));
+        setLeadEventList(leadid,leadDetailsResponse);
+        return ResponseEntity.ok(leadDetailsResponse);
+    }
 }

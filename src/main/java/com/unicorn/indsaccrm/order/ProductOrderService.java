@@ -26,4 +26,8 @@ public interface ProductOrderService {
 
     ResponseEntity<List<ProductOrder>> getProductOrderByStatusNotIn(UUID customerid,UUID useradminid,
         List<OrderStatus> statusList);
+
+    ResponseEntity<List<ProductOrder>> getProductOrderByUserLeadid(UUID leadid);
+
+    ResponseEntity<List<ProductOrder>> getProductOrderByUserVendorid(UUID vendorid);
 }

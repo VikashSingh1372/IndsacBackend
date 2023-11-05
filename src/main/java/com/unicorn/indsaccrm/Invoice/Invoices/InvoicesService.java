@@ -25,4 +25,8 @@ public interface InvoicesService {
 
     ResponseEntity<List<Invoice>> getAllInvoicesByStatusNotIn( UUID customerid,
         UUID useradminid,List<InvoiceStatus> statuses);
+
+    ResponseEntity<List<Invoice>> getInvoicesByLeadid(UUID leadid);
+
+    ResponseEntity<List<Invoice>> getInvoicesByVendorid(UUID vendorid);
 }

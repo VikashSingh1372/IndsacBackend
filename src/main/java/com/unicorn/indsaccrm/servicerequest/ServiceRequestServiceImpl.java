@@ -80,4 +80,16 @@ public class ServiceRequestServiceImpl implements ServiceRequestService{
         );
     }
 
+    @Override
+    public ResponseEntity<List<ServiceRequest>> getServiceRequestByLeadid(UUID leadid) {
+        logger.info("Get ServiceRequest By Lead_Id from getServiceRequestByLeadid Successully");
+        return ResponseEntity.ok(serviceRequestRepository.findByLeadid(leadid));
+    }
+
+    @Override
+    public ResponseEntity<List<ServiceRequest>> getServiceRequestByVedorid(UUID vedorid) {
+        logger.info("Get ServiceRequest By Vendor_Id from getServiceRequestByVedorid Successully");
+        return ResponseEntity.ok(serviceRequestRepository.findByVendorid(vedorid));
+    }
+
 }

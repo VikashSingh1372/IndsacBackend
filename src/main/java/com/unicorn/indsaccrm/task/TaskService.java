@@ -31,4 +31,7 @@ public interface TaskService {
     ResponseEntity<List<Task>> getAllTaskByStatusNotIn(UUID customerid,
         UUID useradminid,List<TaskStatus> statusList);
 
+    ResponseEntity<List<Task>> getTaskByLeadid(UUID leadid);
+
+    ResponseEntity<List<Task>> getTaskByVendorid(UUID vendorid);
 }
