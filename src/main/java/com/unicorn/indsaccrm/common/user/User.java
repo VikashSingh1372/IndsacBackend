@@ -73,6 +73,10 @@ public class User {
 	@Type(type = "org.hibernate.type.UUIDCharType")
 	private UUID referredby;
 
+	@Column
+	@Type(type="org.hibernate.type.UUIDCharType")
+	private UUID useradminid;
+
 	public boolean isOTPRequired() {
 		if (this.getOneTimePassword() == null) {
 			return false;

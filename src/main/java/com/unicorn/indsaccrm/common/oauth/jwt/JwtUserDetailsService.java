@@ -85,7 +85,6 @@ public class JwtUserDetailsService implements UserDetailsService {
 
 		// create user object
 		com.unicorn.indsaccrm.common.user.User newuser = new com.unicorn.indsaccrm.common.user.User();
-		newuser.setId(UUID.randomUUID());
 		newuser.setName(requestUser.getName());
 		newuser.setEmail(requestUser.getEmail());
 		newuser.setUsertype(requestUser.getUsertype());
@@ -94,6 +93,8 @@ public class JwtUserDetailsService implements UserDetailsService {
 		List<Role> roles1 = roleRepository.findByNameIn(Arrays.asList("ROLE_USER"));
 		newuser.setRoles(roles1);
 		User user=userRepository.save(newuser);
+		user.setUseradminid(user.getId());
+		userRepository.save(user);
 		createAdminDefaultValues(user.getId());
 		if(emailUtility.contains("true")){
 			try {

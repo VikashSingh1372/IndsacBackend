@@ -21,6 +21,11 @@ public class CustomerController {
     ResponseEntity<?> getAllCustomer()throws Exception{
         return ResponseEntity.ok(customerService.getAllCustomers());
     }
+
+    @GetMapping("/all/{useradminid}")
+    ResponseEntity<?> getAllCustomerByUserAdminId(@PathVariable UUID useradminid)throws Exception{
+        return ResponseEntity.ok(customerService.getAllCustomerByUserAdminId(useradminid));
+    }
     @GetMapping("/{customerid}")
     ResponseEntity<?> getCustomerByID(@PathVariable UUID customerid)throws Exception{
         return ResponseEntity.ok(customerService.getCustomerById(customerid));

@@ -44,6 +44,7 @@ public class UserProfileController {
             userInfo.put("id", userData.getId());
             userInfo.put("name", userData.getName());
             userInfo.put("email", userData.getEmail());
+            userInfo.put("adminid", userData.getUseradminid());
             return ResponseEntity.ok(userInfo);
         }else{
             return new ResponseEntity<>("Not Found", HttpStatus.NOT_FOUND);
