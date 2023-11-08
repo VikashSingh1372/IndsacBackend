@@ -27,15 +27,12 @@ import java.util.UUID;
         private UUID id;
 
         @Column(nullable = false)
-        @Type(type = "org.hibernate.type.UUIDCharType")
         private String reward_discount_percent;
 
         @Column
-        @Type(type = "org.hibernate.type.UUIDCharType")
         private String reward_amount;
 
         @Column
-        @Type(type = "org.hibernate.type.UUIDCharType")
         private String reward_description;
 
 

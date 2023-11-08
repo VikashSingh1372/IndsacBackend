@@ -42,6 +42,7 @@ public class Invoice extends Auditable<String> {
     @Enumerated(EnumType.STRING)
     private Priority priority;
 
+
     @Column
     private Double invoicetotalamount;
 
@@ -52,7 +53,7 @@ public class Invoice extends Auditable<String> {
     private LocalDate duedate; // "Year-Month-Date"
 
     @Column
-    @Type(type = "org.hibernate.type.UUIDCharType")
+   @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID owner;
 
     @Column

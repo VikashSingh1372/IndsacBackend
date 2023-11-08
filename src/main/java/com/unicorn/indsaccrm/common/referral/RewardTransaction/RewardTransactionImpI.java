@@ -33,6 +33,7 @@ public class RewardTransactionImpI implements RewardTransactionService{
         return ResponseEntity.ok(rewardTransactionRepository.findById(Id));
     }
 
+
 }
 
 

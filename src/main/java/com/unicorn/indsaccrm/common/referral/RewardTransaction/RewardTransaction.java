@@ -28,19 +28,17 @@ public class RewardTransaction extends Auditable<String> {
 
     @Column(nullable = false)
     @Type(type = "org.hibernate.type.UUIDCharType")
-    private UUID transaction_id;
+    private UUID transactionid;
 
     @Column
     @Type(type = "org.hibernate.type.UUIDCharType")
-    private UUID user_reward_id;
+    private UUID userrewardid;
 
     @Column
-    @Type(type = "org.hibernate.type.UUIDCharType")
-    private UUID transaction_type;
+    private String transaction_type;
 
     @Column
-    @Type(type = "org.hibernate.type.UUIDCharType")
-    String description;
+    private String description;
 
 
 }

@@ -46,6 +46,7 @@ public class ClientTicket extends Auditable<String> {
     @Enumerated(EnumType.STRING)
     private Priority priority;
 
+
     @Column
     private String status;
 

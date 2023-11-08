@@ -53,6 +53,8 @@ public class ServiceRequest extends Auditable<String> {
     @Enumerated(EnumType.STRING)
     private Priority priority;
 
+
+
     @Column
     private String notes;
 

@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/payments")
+@RequestMapping("/payment")
 public class PaymentsController {
 
     @Autowired

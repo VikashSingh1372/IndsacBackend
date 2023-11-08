@@ -36,11 +36,9 @@ public class UserReward extends Auditable<String> {
     private UUID reward_id;
 
     @Column
-    @Type(type = "org.hibernate.type.UUIDCharType")
     private String reward_amount;
 
     @Column
-    @Type(type = "org.hibernate.type.UUIDCharType")
     private String reward_currency;
 
 }

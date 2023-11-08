@@ -14,4 +14,6 @@ public interface RewardTransactionService {
 
     ResponseEntity<Optional<RewardTransaction>> getByTransactionById(UUID id);
 
+
+
 }
